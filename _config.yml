@@ -2,14 +2,14 @@ title: 개발일지
 description: >-
   코드를 만들면서 무엇을 시도했고, 무엇이 됐고 안 됐는지 남기는 기록.
   결과물뿐 아니라 과정과 이유를 같이 남깁니다.
-baseurl: ""           # 저장소 이름이 "username.github.io"가 아니라면 "/저장소이름" 으로 바꾸세요 (예: "/dev-log")
-url: ""                # 예: "https://yourname.github.io"
+baseurl: ""           # username.github.io 저장소이므로 빈 값 유지
+url: "https://hscitycity.github.io"
 
 theme: minima
 minima:
   skin: classic
   social_links:
-    - { platform: github, user_url: "https://github.com/yourname" }
+    - { platform: github, user_url: "https://github.com/hscitycity" }
 
 plugins:
   - jekyll-feed
