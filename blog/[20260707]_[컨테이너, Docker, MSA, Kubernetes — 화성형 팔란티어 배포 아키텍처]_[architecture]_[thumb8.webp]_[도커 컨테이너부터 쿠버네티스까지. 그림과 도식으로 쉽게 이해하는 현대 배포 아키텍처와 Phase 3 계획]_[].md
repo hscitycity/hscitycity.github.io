@@ -176,7 +176,7 @@ spec:
 ```
 Phase 1 (현재)          Phase 2 (예정)           Phase 3 (목표)
 ──────────────────      ─────────────────────    ────────────────────────
-Vercel 서버리스          Docker Compose           Kubernetes (NHN Cloud)
+Vercel 서버리스          Docker Compose           Kubernetes (Naver Cloud)
   search.js        →    api 컨테이너         →    search-service Pod
   extract.js       →    api 컨테이너         →    extract-service Pod
   agent.js         →    api 컨테이너         →    agent-service Pod
