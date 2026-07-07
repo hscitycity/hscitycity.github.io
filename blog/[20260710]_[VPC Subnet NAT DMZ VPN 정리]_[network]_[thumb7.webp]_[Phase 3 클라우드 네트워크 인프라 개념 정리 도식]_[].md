@@ -51,9 +51,15 @@ CIDR 예시
 
 ## 3. NAT Gateway: Private Subnet도 인터넷은 써야 한다
 
-Private Subnet의 서버가 외부 접속을 받지는 않지만, `npm install`이나 OS 보안 업데이트처럼 나가는(outbound) 인터넷 접근은 필요하다. 이걸 가능하게 하면서 인바운드는 여전히 막아주는 장치가 NAT Gateway다.
+Private Subnet의 서버가 외부 접속을 받지는 않지만, `npm install`이나 OS 보안 업데이트처럼 나가는(outbound) 인터넷 접근은 필요하다. 이걸 가능하게 하면서 인바운드는 여전히 막아주는 장치가 NAT Gateway다. Internet Gateway와 헷갈리기 쉬운데, 그림으로 비교하면 차이가 분명하다.
 
-![VPC with Public/Private Subnets and NAT Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/images/vpc-example-private-subnets.png)
+**Internet Gateway** — Public Subnet의 인스턴스가 인터넷과 직접, 양방향으로 통신
+
+![Internet Gateway](https://cloudviz.io/assets/aws-internet-gateway-vs-nat-gateway/internet-gateway.png)
+
+**NAT Gateway** — Private Subnet의 인스턴스가 Public Subnet에 있는 NAT Gateway를 거쳐서만 인터넷에 나감 (Auto Scaling Group으로 늘어난 인스턴스도 전부 이 하나의 출구를 공유)
+
+![NAT Gateway](https://cloudviz.io/assets/aws-internet-gateway-vs-nat-gateway/nat-gw-overview.png)
 
 동작 방식:
 1. Private Subnet의 서버가 외부로 요청을 보낸다
