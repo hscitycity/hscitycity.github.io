@@ -58,6 +58,10 @@ Private Subnet에 있는 K8s 워커 노드나 PostGIS는 처음부터 공인 IP 
 
 VPC 하나를 통째로 쓰지 않고 서브넷으로 나누는 이유는 "이 자원은 외부에 노출되어도 되는가"를 네트워크 단위로 나눠서 관리하기 위해서다.
 
+![Public Subnet vs Private Subnet](https://media.geeksforgeeks.org/wp-content/uploads/20241011100435766655/Deep-Dive-into-Subnets.webp)
+
+Public Subnet의 인스턴스는 Public IP를 들고 라우터 → 인터넷 게이트웨이를 거쳐 인터넷과 곧장 통신한다. Private Subnet의 인스턴스는 Private IP만 가지고 있어서 같은 라우터를 거치더라도 인터넷 게이트웨이로 가는 경로 자체가 없다 — 그래서 4번 문단의 NAT Gateway가 필요해진다.
+
 | 구분 | Public Subnet | Private Subnet |
 |------|---------------|-----------------|
 | 인터넷 게이트웨이 라우트 | 있음 (`0.0.0.0/0 → igw`) | 없음 |
