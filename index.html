@@ -67,22 +67,13 @@
   </head>
   <body class="font-sans w-full text-surface">
     <!-- 접속통계 -->
-    <div class="fixed top-2 right-2 z-50 flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
-      <a href="https://visitor-badge.laobi.icu" target="_blank" rel="noopener">
-        <img
-          src="https://visitor-badge.laobi.icu/badge?page_id=hscitycity.hscitycity.github.io&text=%EB%B0%A9%EB%AC%B8%EC%9E%90&left_color=595959&right_color=2e6ff2"
-          alt="블로그 누적 방문자 수"
-          class="h-5"
-        />
-      </a>
-      <a
-        href="https://hscitycity.goatcounter.com"
-        target="_blank"
-        rel="noopener"
-        class="text-[11px] leading-5 h-5 px-2 rounded bg-graylv4 text-white hover:bg-primary"
-      >
-        일간·월간·연간 통계
-      </a>
+    <div
+      id="visitor-stats"
+      class="fixed top-2 right-2 z-50 flex items-center gap-3 text-[11px] leading-5 bg-graylv4/90 text-white px-3 py-1.5 rounded-full opacity-90 hover:opacity-100 transition-opacity whitespace-nowrap"
+    >
+      <span>일간 방문자수 <strong id="stat-daily">-</strong>명</span>
+      <span>월간 방문자수 <strong id="stat-monthly">-</strong>명</span>
+      <span>연간 방문자수 <strong id="stat-yearly">-</strong>명</span>
     </div>
     <!-- // 접속통계 -->
 
@@ -198,5 +189,8 @@
 
     <!-- registry -->
     <script src="js/registry.js"></script>
+
+    <!-- 접속통계 (일간/월간/연간) -->
+    <script src="js/visitorStats.js"></script>
   </body>
 </html>
