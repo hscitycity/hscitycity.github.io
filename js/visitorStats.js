@@ -29,22 +29,22 @@ async function renderVisitorStats() {
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   );
   const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-  const yearStart = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
+  const allTimeStart = new Date(Date.UTC(2000, 0, 1)); // 사이트 개설일보다 충분히 이른 날짜
 
   const dailyEl = document.getElementById("stat-daily");
   const monthlyEl = document.getElementById("stat-monthly");
-  const yearlyEl = document.getElementById("stat-yearly");
+  const totalEl = document.getElementById("stat-total");
 
   try {
-    const [daily, monthly, yearly] = await Promise.all([
+    const [daily, monthly, total] = await Promise.all([
       fetchGoatCounterTotal(dayStart, now),
       fetchGoatCounterTotal(monthStart, now),
-      fetchGoatCounterTotal(yearStart, now),
+      fetchGoatCounterTotal(allTimeStart, now),
     ]);
 
     if (dailyEl) dailyEl.textContent = daily;
     if (monthlyEl) monthlyEl.textContent = monthly;
-    if (yearlyEl) yearlyEl.textContent = yearly;
+    if (totalEl) totalEl.textContent = total;
   } catch (err) {
     console.error("방문자 통계 로드 실패:", err);
   }
