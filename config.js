@@ -12,7 +12,7 @@ const users = [
     username: "이동재",
     company: "화성시청 AI스마트전략실",
     position: "주무관",
-    img: "img/user/profile.png",
+    img: "img/user/profile.jpg",
   },
 ];
 
