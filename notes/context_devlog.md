@@ -253,6 +253,13 @@ console.log(m ? "OK thumbnail=img/" + m[4] : "파싱 실패");
 
 - 팔란티어 Architecture Center 공식 문서 7편을 WebFetch로 직접 읽고 분석 → 화성형 대응 방안 정리
 - **인용문 교정**: 요청받은 인용 "The Ontology models decisions, not simply data"는 원문과 다름. 실제 원문은 "designed to represent the complex, interconnected _decisions_ of an enterprise, not simply the data" → 원문대로 수정함. 공식 문서 인용 시 반드시 원문 대조할 것
+- **팔란티어 공식 다이어그램 14장 삽입** (전량 `curl` 200 확인). URL 패턴:
+  `https://www.palantir.com/docs/resources/foundry/architecture-center/<이름>.png`
+  - 문서별 이미지 목록은 WebFetch로 "List every image with exact src URL and alt text" 프롬프트를 주면 뽑을 수 있음
+  - 상대경로(`/docs/resources/...`)로 나오므로 `https://www.palantir.com` 붙일 것
+  - **각 이미지마다 `*출처: [문서명](URL)*` 캡션 필수** — 저작권은 Palantir Technologies에 있고, 인용·분석 목적임을 2장 서두에 명시함
+  - 핫링크 방식이라 팔란티어가 경로를 바꾸면 깨질 수 있음 (docs.docker.com 깨진 전례와 동일 리스크). 깨지면 self-host 전환 검토
+  - 주요 이미지: `ontology-read-write-loops.png`(읽기-쓰기 고리 — 우리에게 없는 절반), `ontology-table.png`(3×4 격자 = 온톨로지 12과제), `rubix-k8s.png`, `aip-architecture.png`
 
 **팔란티어 공식 문서에서 확인한 사실 (재사용 가능한 근거)**
 
