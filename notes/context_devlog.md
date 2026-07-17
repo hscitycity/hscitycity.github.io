@@ -110,7 +110,7 @@ Gemini 생성 캐릭터 일러스트, Python/Pillow로 크롭해 교체 (`img/Ge
 
 ---
 
-## 5. 현재 블로그 포스트 목록 (2026-07-17 세션 종료 기준, 총 12편)
+## 5. 현재 블로그 포스트 목록 (2026-07-17 세션 종료 기준, 총 13편)
 
 | 날짜 | 제목 | 카테고리 | 썸네일 |
 |------|------|---------|--------|
@@ -126,10 +126,11 @@ Gemini 생성 캐릭터 일러스트, Python/Pillow로 크롭해 교체 (`img/Ge
 | 20260714 | 쿠버네티스 설정하기 (NKS 클러스터 설정) | architecture | thumb13.png |
 | 20260717 | 쿠버네티스 클러스터 프로비저닝 | architecture | thumb12.png |
 | 20260717 | 2026.7.17.(금) 기준 작업현황 및 작업계획 | architecture | thumb6.jpg |
+| 20260717 | 팔란티어 파운드리 아키텍처 분석과 화성형 반영계획 | architecture | thumb6.jpg |
 
 카테고리 현황: `project`, `architecture`, `backend`, `llm`, `css`, `network`  
 미사용 썸네일: thumb10, thumb11, thumb14  
-※ thumb6.jpg는 20260610과 20260717이 중복 사용 중 (의도적, 문제 없음)
+※ thumb6.jpg 중복: 20260610 + 20260717 2편 = **총 3편**. 동작엔 문제 없으나 목록에서 같은 그림이 연달아 보임. 미사용 thumb10/11/14 활용 검토 (thumb11=도서관 고양이는 "문서 분석" 주제에 적합)
 
 **포스트 작성 스타일 패턴 (0710, 0714에서 확립)**:
 - 실제 존재하는 다이어그램 이미지를 웹 검색으로 찾아 검증(curl 200 확인) 후 삽입. 이미지 없는 사기업 URL은 절대 지어내지 않음
@@ -247,6 +248,33 @@ console.log(m ? "OK thumbnail=img/" + m[4] : "파싱 실패");
 - 삽질 기록 포함: 서브넷 용도("일반" → "NAT Gateway 전용" 재생성, 용도는 사후 변경 불가), Object Storage 선행 생성 필요, WSL2/BIOS 가상화, `docker cp`로 PC 미push 작업물 복구
 - **파일명 규칙 위반 사전 차단**: 요청받은 파일명이 대괄호 없는 형식(`20260717_제목_..._0.md`)이었는데, [`js/utils.js`](../js/utils.js)의 정규식은 `[YYYYMMDD]_[제목]_[카테고리]_[썸네일]_[설명]_[작성자].md` 형식만 파싱하고 불일치 시 `null`을 반환한다. **에러가 나는 게 아니라 목록에서 조용히 사라진다.** 대괄호 형식으로 교정하고 썸네일에 확장자(`thumb6` → `thumb6.jpg`)를 붙여서 해결
   - 작성 후 실제 정규식을 node로 직접 돌려 파싱 검증하는 절차를 권장 (아래 6번 항목)
+
+**6. 세 번째 포스트 작성·배포**: 20260717 「팔란티어 파운드리 아키텍처 분석과 화성형 반영계획」 (thumb6.jpg)
+
+- 팔란티어 Architecture Center 공식 문서 7편을 WebFetch로 직접 읽고 분석 → 화성형 대응 방안 정리
+- **인용문 교정**: 요청받은 인용 "The Ontology models decisions, not simply data"는 원문과 다름. 실제 원문은 "designed to represent the complex, interconnected _decisions_ of an enterprise, not simply the data" → 원문대로 수정함. 공식 문서 인용 시 반드시 원문 대조할 것
+
+**팔란티어 공식 문서에서 확인한 사실 (재사용 가능한 근거)**
+
+| 항목 | 내용 | 출처 문서 |
+|------|------|----------|
+| Rubix | **"hardened Kubernetes implementation"** — 팔란티어 보안 기반은 특수 기술이 아니라 강화된 K8s | rubix |
+| 노드 수명 | 48시간 강제 사이클링. "compromising a single node is insufficient for an attacker to gain persistent access" | rubix |
+| 멀티클라우드 | AWS/Azure/GCP/Oracle/on-prem "with identical operational characteristics", FedRAMP High·DOD IL-5/IL-6 | rubix |
+| **Palantir MCP** | AIP 역량 9번에 실재. "a secure interface for agentic development" → **류승인 주무관 MCP 통합 계획의 근거** | aip-architecture |
+| LLM 데이터 보관 | "no transmitted data is retained by third-party providers" (AIP 역량 1번) | aip-architecture |
+| AIP Evals | 에이전트 평가 프레임워크 — **화성형에 현재 완전히 없는 것** | aip-architecture |
+| 규모 | 300+ 마이크로서비스, Apollo 주당 수만 건 릴리즈 | overview |
+| 플랫폼 층위 | Apollo(인프라) → Foundry(데이터) → AIP(AI) | platforms |
+| 온톨로지 4중 통합 | Data + Logic + Action + Security / 구조는 Language·Engine·Toolchain | ontology-system |
+| MMDP 철학 | "Any data, any compute, any model, anywhere", Iceberg, "unwalled garden" | multimodal-data-plane |
+| 상호운용성 6축 | Data / Metadata / Semantic / Code·Logic / Analytical / Security | interoperability |
+
+**글에서 도출된 숙제 (다음 작업 후보에 반영)**
+- 우리 DB 5개 테이블은 **객체(명사)만 있고 링크·액션이 없음** → 온톨로지가 되려면 관계를 코드가 아닌 데이터로, 그리고 write-back이 필요
+- **에이전트 평가 체계 부재** — 에이전트를 늘리기 전에 평가 방법부터
+- **파이프라인 모니터링 부재** — 수집 실패해도 아무도 모름
+- **접근제어 부재** — RBAC 최소 role 기반부터
 
 **다음 작업 후보**
 - kubectl 설치 → kubeconfig 연결 → `kubectl get nodes`로 노드 2대 Ready 확인 (0717 글의 "다음 단계")
