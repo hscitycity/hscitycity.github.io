@@ -102,6 +102,16 @@ const localDataUsing = false;
 
 기타 이미지: `404.png`, `default.png`, `test_1~3.jpg`, `icon/`
 
+### `img/dev_img/` — 자체 제작 본문 삽화 (2026-07-17 신설)
+
+썸네일이 아니라 **포스트 본문에 넣는 자체 제작 다이어그램** 보관소.
+
+- 본문 참조 경로는 **루트 기준 절대경로**를 쓸 것: `![설명](/img/dev_img/파일명.png)`
+  - 상대경로(`img/...`)는 상세 글 URL 깊이에 따라 깨질 수 있음. 유저 사이트(`hscitycity.github.io/`)라 `/img/...`가 항상 안전
+  - `index.html`에 `<base>` 태그 없음
+- 현재 파일: `db_network_path_comparison.png` (20260717 DB 접속 경로 버그 글)
+- 외부 이미지(팔란티어 공식 문서 등)는 깨질 위험이 있지만, 여기 것은 저장소에 있으므로 안전
+
 Gemini 생성 캐릭터 일러스트, Python/Pillow로 크롭해 교체 (`img/Gemini_Generated_Image.png` 원본, untracked).
 
 글쓴이 프로필: `img/user/profile.jpg` (화성특례시 공식 로고, untracked)
@@ -110,7 +120,7 @@ Gemini 생성 캐릭터 일러스트, Python/Pillow로 크롭해 교체 (`img/Ge
 
 ---
 
-## 5. 현재 블로그 포스트 목록 (2026-07-17 세션 종료 기준, 총 13편)
+## 5. 현재 블로그 포스트 목록 (2026-07-17 세션 종료 기준, 총 14편)
 
 | 날짜 | 제목 | 카테고리 | 썸네일 |
 |------|------|---------|--------|
@@ -127,6 +137,7 @@ Gemini 생성 캐릭터 일러스트, Python/Pillow로 크롭해 교체 (`img/Ge
 | 20260717 | 쿠버네티스 클러스터 프로비저닝 | architecture | thumb12.png |
 | 20260717 | 2026.7.17.(금) 기준 작업현황 및 작업계획 | architecture | thumb6.jpg |
 | 20260717 | 팔란티어 파운드리 아키텍처 분석과 화성형 반영계획 | architecture | thumb11.png |
+| 20260717 | VPC 내부인데 인터넷을 돌아간 DB 접속 버그 | backend | thumb4.webp |
 
 카테고리 현황: `project`, `architecture`, `backend`, `llm`, `css`, `network`  
 미사용 썸네일: thumb10, thumb14  
@@ -283,9 +294,18 @@ console.log(m ? "OK thumbnail=img/" + m[4] : "파싱 실패");
 - **파이프라인 모니터링 부재** — 수집 실패해도 아무도 모름
 - **접근제어 부재** — RBAC 최소 role 기반부터
 
+**7. 네 번째 포스트 작성·배포**: 20260717 「VPC 내부인데 인터넷을 돌아간 DB 접속 버그」 (backend, thumb4.webp)
+
+- **진행 상황 갱신**: kubectl 연결 + 파드 배포 완료됨 (이전 글에서 "대기"였던 단계 통과)
+- 버그 내용: 파드와 DB가 같은 VPC인데 `DB_HOST`가 **Public 도메인**이라 NAT → 인터넷 → 공인IP(101.79.10.213) → DB로 우회하고 있었음. `vpc-pub-cdb` → `vpc-cdb`로 `pub` 세 글자를 빼서 사설 IP(192.168.1.6) 직통으로 수정
+- **NCP Cloud DB는 Public / Private 두 도메인을 제공** — 같은 VPC 안에서는 반드시 `vpc-cdb`(Private) 사용
+- 자체 제작 이미지 첫 사용: `/img/dev_img/db_network_path_comparison.png`
+- **글에 추가한 내용**: 요청 원문에는 없었으나 "경로를 고쳤어도 SSL은 켜두는 게 낫다"는 절을 넣음. VPC는 물리적 격리가 아니라 논리적 격리이고, 같은 날 쓴 팔란티어 Rubix 글의 zero-trust 원칙("Encryption is rigorously enforced across every element")과 충돌하지 않게 하기 위함. 경로 수정(노출 범위 축소)과 암호화(범위 내 방어)는 택일이 아니라 defense in depth
+  - ⚠️ **삽화(`db_network_path_comparison.png`)에 "암호화 불필요 — 물리적으로 격리된 망"이라는 문구가 있어 본문과 어긋남.** 이미지 수정 시 이 문구 재검토 필요
+
 **다음 작업 후보**
-- kubectl 설치 → kubeconfig 연결 → `kubectl get nodes`로 노드 2대 Ready 확인 (0717 글의 "다음 단계")
-- 그 결과가 나오면 K8s 매니페스트 작성·배포 → 다음 포스트 소재
+- ~~kubectl 설치 → kubeconfig 연결 → 노드 Ready 확인~~ ✅ 완료 (파드 배포까지 진행됨)
+- Ingress Controller 설치 → LB 연결 → HTTPS(cert-manager) → DNS 전환 → Vercel 종료
 - 류승인 주무관 MCP 서버를 Claude API `mcp_servers` 파라미터로 연결
 - 전명구 주무관 플랫폼 파일 수령 후 통합 계획 상세화
 
