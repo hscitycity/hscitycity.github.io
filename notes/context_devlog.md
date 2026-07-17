@@ -125,7 +125,7 @@ Gemini 생성 캐릭터 일러스트, Python/Pillow로 크롭해 교체 (`img/Ge
 | 20260710 | VPC Subnet NAT DMZ VPN 정리 | network | thumb7.jpg |
 | 20260714 | 쿠버네티스 설정하기 (NKS 클러스터 설정) | architecture | thumb13.png |
 | 20260717 | 쿠버네티스 클러스터 프로비저닝 | architecture | thumb12.png |
-| 20260717 | 화성형 팔란티어 인프라 구축과 협업 계획 | architecture | thumb6.jpg |
+| 20260717 | 2026.7.17.(금) 기준 작업현황 및 작업계획 | architecture | thumb6.jpg |
 
 카테고리 현황: `project`, `architecture`, `backend`, `llm`, `css`, `network`  
 미사용 썸네일: thumb10, thumb11, thumb14  
@@ -237,7 +237,10 @@ console.log(m ? "OK thumbnail=img/" + m[4] : "파싱 실패");
   - 172.17 회피(10.x 예시) → **192.168.0.0/16**: 원칙 위반이 아니라 172.16/12 블록을 통째로 회피한 것
 - 삽질: 커밋 메시지에 PowerShell here-string 문법(`@'...'@`)을 Bash에 써서 `@` 문자가 메시지에 섞임 → push 전이라 `--amend`로 수정. **Bash 툴에서는 heredoc(`<<'EOF'`)을 쓸 것**
 
-**5. 두 번째 포스트 작성·배포**: 20260717 「화성형 팔란티어 인프라 구축과 협업 계획」 (thumb6.jpg)
+**5. 두 번째 포스트 작성·배포**: 20260717 「2026.7.17.(금) 기준 작업현황 및 작업계획」 (thumb6.jpg)
+
+- 최초 제목은 「화성형 팔란티어 인프라 구축과 협업 계획」이었으나 "날짜 기준 작업현황" 형식으로 변경함
+- **요일 주의**: 요청은 `(토)`였으나 2026-07-17은 **금요일**이라 `(금)`으로 교정. 제목에 날짜·요일을 넣을 땐 `date -d YYYY-MM-DD '+%A'`로 확인할 것
 
 - 지금까지의 인프라 구축(VPC·DB·NAT·NCR·NKS) + Docker 컨테이너화 + 향후 계획(7월~12월) + **전국 우수 공무원 결과물 MCP 통합 계획**을 한 편으로 통합
 - 같은 날짜(20260717) 포스트 2편이 됨 — 규칙상 문제 없음
