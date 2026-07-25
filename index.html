@@ -6,6 +6,20 @@
     <link rel="shortcut icon" href="img/icon/favicon.svg" type="image/x-icon" />
     <title>화성형 팔란티어 개발일지</title>
 
+    <!-- 웹폰트: 본문/UI = Pretendard, 워드마크/글제목 = Paperlogy -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css"
+    />
+
     <!-- marked -->
     <script src="./library/marked.min.js"></script>
 
@@ -63,21 +77,303 @@
       .markdown-cell > ul > li > p {
         display: inline-block;
       }
-      /* 핵심 이미지 헤더 위 메뉴/버튼 가독성 (배경 이미지 위 흰색) */
-      #hero-header #menu a {
-        color: #ffffff !important;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+      /* ================= 폰트 ================= */
+      :root {
+        --font-fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
-      #hero-header #menu a:hover {
-        color: #7bb8ff !important;
+      body {
+        font-family: "Pretendard Variable", Pretendard, var(--font-fallback);
       }
-      #hero-header #menu-button,
-      #hero-header #search-button {
-        filter: brightness(0) invert(1);
+      .wordmark,
+      .paperlogy-title {
+        font-family: "Paperlogy", var(--font-fallback);
+      }
+
+      /* ============ 상단 헤더 (재설계) ============ */
+      /* 색은 CSS 변수로 (라이트 전용). 기존 토큰 값 재사용 */
+      :root {
+        --hdr-bg: #ffffff; /* background */
+        --hdr-ink: #121314; /* surface */
+        --hdr-muted: #8d9299; /* graylv3 */
+        --hdr-line: rgba(18, 19, 20, 0.12);
+        --hdr-hover: #f3f5fa; /* graylv1 */
+        --hdr-primary: #2e6ff2; /* primary */
+        --hdr-h: 64px;
+        --hdr-h-shrink: 52px;
+        --hdr-maxw: 1190px;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: var(--hdr-bg);
+        border-bottom: 0.5px solid var(--hdr-line);
+        transition: box-shadow 0.2s ease;
+      }
+      .site-nav {
+        height: var(--hdr-h);
+        max-width: var(--hdr-maxw);
+        margin: 0 auto;
+        padding: 0 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        transition: height 0.2s ease;
+      }
+
+      /* 왼쪽: 마크 + 워드마크 (+ 축소 시 글 제목) */
+      .hdr-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .hdr-mark {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: var(--hdr-ink);
+        color: var(--hdr-bg);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .hdr-mark svg {
+        width: 15px;
+        height: 15px;
+      }
+      .wordmark {
+        font-size: 19px;
+        font-weight: 500;
+        color: var(--hdr-ink);
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .hdr-post-title {
+        display: none;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--hdr-ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 52vw;
+      }
+
+      /* 오른쪽 */
+      .hdr-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .hdr-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        height: var(--hdr-h);
+        font-size: 14px;
+        color: var(--hdr-muted);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.2s ease;
+      }
+      .hdr-link:hover {
+        color: var(--hdr-ink);
+      }
+      .hdr-link.is-current {
+        color: var(--hdr-ink);
+        font-weight: 500;
+      }
+      /* 현재 페이지 밑줄: 헤더 하단선(bottom:0)에 붙여 경계선과 이어지게 */
+      .hdr-link.is-current::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: var(--hdr-ink);
+      }
+
+      .hdr-iconbtn {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--hdr-ink);
+        transition: background 0.2s ease;
+      }
+      .hdr-iconbtn:hover {
+        background: var(--hdr-hover);
+      }
+      .hdr-iconbtn svg {
+        width: 18px;
+        height: 18px;
+      }
+      .hdr-divider {
+        width: 0.5px;
+        height: 20px;
+        background: var(--hdr-line);
+        flex-shrink: 0;
+      }
+      .hdr-dashboard-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--hdr-ink);
+        text-decoration: none;
+        border: 0.5px solid var(--hdr-line);
+        border-radius: 8px;
+        padding: 6px 12px;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+      .hdr-dashboard-btn:hover {
+        background: var(--hdr-hover);
+        border-color: var(--hdr-muted);
+      }
+      .hdr-dashboard-btn svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      /* 읽기 진행선 (헤더 하단) */
+      .hdr-progress {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 0%;
+        background: var(--hdr-primary);
+        transition: width 0.1s linear;
+      }
+
+      /* 맨 위로 버튼: 축소 상태에서만 노출 */
+      #hdr-top-btn {
+        display: none;
+      }
+
+      /* ---- 스크롤 80px 초과: 축소 상태 ---- */
+      .site-header.is-shrunk .site-nav {
+        height: var(--hdr-h-shrink);
+      }
+      .site-header.is-shrunk .hdr-link {
+        height: var(--hdr-h-shrink);
+        display: none;
+      } /* 메뉴 링크 숨김 */
+      .site-header.is-shrunk .hdr-divider,
+      .site-header.is-shrunk .hdr-dashboard-btn {
+        display: none;
+      }
+      .site-header.is-shrunk #hdr-top-btn {
+        display: inline-flex;
+      }
+      .site-header.is-shrunk .wordmark {
+        display: none;
+      }
+      .site-header.is-shrunk .hdr-post-title[data-has-title="true"] {
+        display: inline;
+      }
+
+      /* 헤더 아래 별도 이미지 배너 */
+      .hero-banner {
+        width: 100%;
+        background: #0a1628;
+        line-height: 0;
+      }
+      .hero-banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 360px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      /* 검색 패널 (기존 search() 재사용) */
+      .hdr-search-panel {
+        position: sticky;
+        top: var(--hdr-h);
+        z-index: 39;
+        background: var(--hdr-bg);
+        border-bottom: 0.5px solid var(--hdr-line);
+      }
+      .hdr-search-panel .hdr-search-inner {
+        max-width: var(--hdr-maxw);
+        margin: 0 auto;
+        padding: 12px 28px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .hdr-search-panel input {
+        flex: 1;
+        height: 40px;
+        border: 0.5px solid var(--hdr-line);
+        border-radius: 8px;
+        padding: 0 14px;
+        font-size: 15px;
+        color: var(--hdr-ink);
+        background: var(--hdr-bg);
+        outline: none;
+      }
+      .hdr-search-panel input:focus {
+        border-color: var(--hdr-primary);
+      }
+
+      /* 접근성: 포커스 링 유지 */
+      .hdr-link:focus-visible,
+      .hdr-iconbtn:focus-visible,
+      .hdr-dashboard-btn:focus-visible,
+      .wordmark:focus-visible,
+      .hdr-search-panel input:focus-visible {
+        outline: 2px solid var(--hdr-primary);
+        outline-offset: 2px;
+      }
+
+      /* 모바일 (<768px): 햄버거 없이 한 줄 유지 */
+      @media (max-width: 767px) {
+        .site-nav {
+          padding: 0 16px;
+          gap: 8px;
+        }
+        .hdr-right {
+          gap: 8px;
+        }
+        .hdr-link {
+          font-size: 13px;
+        }
+        .wordmark {
+          font-size: 16px;
+        }
+        .hdr-search-panel .hdr-search-inner {
+          padding: 10px 16px;
+        }
+      }
+
+      /* 모션 최소화 설정 */
+      @media (prefers-reduced-motion: reduce) {
+        .site-header,
+        .site-nav,
+        .hdr-link,
+        .hdr-iconbtn,
+        .hdr-dashboard-btn,
+        .hdr-progress {
+          transition: none;
+        }
       }
     </style>
   </head>
-  <body class="font-sans w-full text-surface">
+  <body class="w-full text-surface">
     <!-- 접속통계 -->
     <div
       id="visitor-stats"
@@ -89,69 +385,80 @@
     </div>
     <!-- // 접속통계 -->
 
-    <!-- 핵심 이미지 헤더 (낮) — 배경 위에 메뉴 라인 -->
-    <header
-      id="hero-header"
-      class="relative w-full bg-[#0A1628] bg-cover bg-center border-b border-gray-300"
-      style="background-image: linear-gradient(180deg, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.35) 20%, rgba(10,22,40,0) 42%), url('/img/코리요_온톨로지_낮.png'); min-height: 360px;"
-    >
-      <nav
-        class="container max-w-[1190px] mx-auto md:p-[19px] p-4 flex items-center relative"
-      >
-        <!-- 블로그 제목 영역 -->
-        <h1
-          id="blog-title"
-          class="md:text-2xl text-lg leading-6 mr-auto font-semibold text-white cursor-pointer drop-shadow"
-        >
-          화성형 팔란티어 개발일지
-        </h1>
-        <!-- // 블로그 제목 영역 -->
-
-        <!-- 메뉴 영역 -->
-        <div class="md:hidden w-6 h-6">
-          <button id="menu-button">
-            <span class="sr-only">메뉴 열기</span>
-          </button>
-        </div>
-
-        <div id="menu" class="hidden md:flex items-center">
-          <!-- 메뉴 아이템들 -->
-        </div>
-
-        <button id="search-button" class="ml-10 md:hidden flex">
-          <span class="sr-only">검색창 열기</span>
-        </button>
-
-        <div
-          class="search-cont w-80 hidden md:block md:relative absolute z-10 rounded-2xl p-4 border border-graylv2 bottom-[-12px] right-2 xl:right-0 translate-y-full bg-background w-96 max-w-full box-border md:p-0 md:top-0 md:right-0 md:border-0 md:translate-y-0 md:w-80 md:ml-10"
-        >
-          <label for="search-input">
-            <input
-              type="text"
-              id="search-input"
-              class="search-input bg-graylv1 rounded-[10px] px-5 py-2.5 placeholder:font-normal placehoder:text-graylv3 focus:outline-0 shadow-sm w-full"
-              placeholder="Keyword"
-          /></label>
-          <div
-            class="btn-cont flex gap-2 justify-cetner items-center absolute top-1/2 md:right-4 right-8 -translate-y-1/2"
+    <!-- ================= 상단 헤더 (불투명, sticky) ================= -->
+    <header id="site-header" class="site-header">
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <!-- 왼쪽: 마크 + 워드마크 (+ 축소 시 현재 글 제목) -->
+        <div class="hdr-left">
+          <span class="hdr-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5" />
+              <line x1="12" y1="19" x2="20" y2="19" />
+            </svg>
+          </span>
+          <span id="blog-title" class="wordmark" role="link" tabindex="0"
+            >화성형 팔란티어 개발일지</span
           >
-            <button class="reset-inp-btn hidden">
-              <span class="sr-only">검색어 초기화</span>
-            </button>
-            <button class="search-inp-btn">
-              <span class="sr-only">검색하기</span>
-            </button>
-          </div>
+          <span id="hdr-post-title" class="hdr-post-title" data-has-title="false"></span>
         </div>
-        <!-- // 메뉴 영역 -->
+
+        <!-- 오른쪽: 링크 → 검색 → (축소 시 맨위로) → 구분선 → 대시보드 -->
+        <div class="hdr-right">
+          <a href="#" id="nav-about" class="hdr-link">소개</a>
+          <a href="#" id="nav-blog" class="hdr-link">개발일지</a>
+
+          <button id="hdr-search-btn" class="hdr-iconbtn" type="button" aria-label="검색 열기" aria-expanded="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+
+          <button id="hdr-top-btn" class="hdr-iconbtn" type="button" aria-label="맨 위로 이동">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="6 11 12 5 18 11" />
+            </svg>
+          </button>
+
+          <span class="hdr-divider" aria-hidden="true"></span>
+
+          <a href="dashboard.html" id="nav-dashboard" class="hdr-dashboard-btn">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            <span>대시보드</span>
+          </a>
+        </div>
       </nav>
-      <!-- 모바일에서 메뉴 영역이 보이도록 하는 영역 -->
-      <div
-        id="mobileMenu"
-        class="absolute bg-background w-full max-w-[1190px] border-b border-graylv2 z-10 md:hidden"
-      ></div>
-      <!-- // 모바일에서 메뉴 영역이 보이도록 하는 영역 -->
+      <!-- 읽기 진행선 -->
+      <div id="hdr-progress" class="hdr-progress" aria-hidden="true"></div>
     </header>
+
+    <!-- 검색 패널 (헤더 아래, 기존 search() 재사용) -->
+    <div id="hdr-search-panel" class="hdr-search-panel" hidden>
+      <div class="hdr-search-inner">
+        <label for="search-input" class="sr-only">검색어</label>
+        <input type="text" id="search-input" placeholder="제목·카테고리 검색" />
+        <button id="hdr-search-go" class="hdr-iconbtn" type="button" aria-label="검색 실행">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 핵심 이미지 배너 (낮) — 헤더 아래 별도 블록 -->
+    <div class="hero-banner">
+      <img
+        src="/img/코리요_온톨로지_낮.png"
+        alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
+      />
+    </div>
 
     <main class="container p-8 pb-4 w-full mx-auto max-w-[1190px] md:pt-[60px]">
       <!-- 블로그 포스트 리스트 영역 -->
@@ -195,14 +502,14 @@
     <script src="style/globalStyle.js"></script>
     <script src="style/blogContentsStyle.js"></script>
 
-    <!-- mobile menu toggle -->
-    <script src="js/mobileMenuToggle.js"></script>
-
     <!-- lender -->
     <script src="config.js"></script>
     <script src="js/URLparsing.js"></script>
     <script src="js/initData.js"></script>
     <script src="js/render.js"></script>
+
+    <!-- 헤더 동작 (sticky 축소 · 읽기 진행선 · 검색 토글 · 현재 페이지 표시) -->
+    <script src="js/header.js"></script>
 
     <!-- registry -->
     <script src="js/registry.js"></script>

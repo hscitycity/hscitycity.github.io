@@ -106,7 +106,21 @@ const localDataUsing = false;
 ### `js/URLparsing.js` (수정됨)
 - 홈 클릭 URL: `https://hscitycity.github.io/` (프로젝트 사이트가 아닌 유저 사이트이므로 repositoryName 경로 없음)
 
-### 상단 메뉴 구조 (2026-07-25 변경)
+### 상단 헤더 전면 재설계 (2026-07-25, 명세 기반)
+
+기존 이미지-배경 헤더를 **불투명 sticky 헤더 + 아래 별도 이미지 배너**로 교체.
+
+- **마크업**: `index.html`의 `#site-header`(sticky, top:0, 하단 0.5px hairline만). 왼쪽=마크(터미널 아이콘)+워드마크(`#blog-title`, Paperlogy). 오른쪽=소개/개발일지 링크 → 검색 아이콘 → 구분선 → 대시보드 아웃라인 버튼. 헤더 아래 `.hero-banner`(낮 이미지), 그 아래 검색 패널(`#hdr-search-panel`)
+- **폰트**: head에 Pretendard(동적 서브셋)+Paperlogy(fonts-archive) CDN. body=Pretendard, `.wordmark`/`.paperlogy-title`=Paperlogy. `body`에서 Tailwind `font-sans` 제거함. 글 제목은 `globalStyle.js`의 `posttitleStyle`·`bloglistCardTitleStyle`에 `paperlogy-title` 클래스 추가로 적용
+- **색상**: CSS 변수(`--hdr-*`, 라이트 전용). 기존 Tailwind 토큰 값 재사용
+- **동작**: `js/header.js`(신규) — 스크롤 80px 초과 시 축소(52px, 메뉴 숨김, 현재 글 제목 표시, 맨위로 버튼), 읽기 진행선(문서 높이 기준, rAF throttle), 검색 토글(기존 `search()` 재사용), 현재 페이지 `aria-current`+밑줄
+- **라우팅 재사용**: 메뉴 클릭은 `renderBlogList`/`renderOtherContents("about.md")` 그대로 호출. `render.js`의 `renderMenu()`는 **no-op으로 비움**(시그니처만 유지, initialize가 호출)
+- **제거**: `mobileMenuToggle.js` 스크립트 include 삭제(햄버거 미사용, 한 줄 유지). 파일 자체는 남아있으나 미로드. 옛 `#hero-header`/`#menu`/`#mobileMenu`/인라인 검색박스 제거
+- **결정 사항**(사용자 확인): 다크모드 없음(전부 라이트) → **명세의 다크모드 토글 버튼은 뺌**. 로그인 게이팅 없이 대시보드 버튼 항상 표시. CSS 변수 구조라 다크모드 추가는 나중에 쉬움
+
+**이전 메뉴 구조 메모(참고용, 일부는 위 재설계로 대체됨):**
+
+#### (구) 메뉴 3개: 소개 / 개발일지 / 개발관리 대시보드
 
 **메뉴 3개: 소개 / 개발일지 / 개발관리 대시보드**
 
