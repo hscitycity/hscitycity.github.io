@@ -118,7 +118,10 @@ const localDataUsing = false;
   - 파일명을 한글로 바꾸면 URL이 퍼센트 인코딩(`개발일지.md`→`%EA…`)되어 `=== "blog.md"` 비교가 깨지므로, 라벨만 바꾸는 방식이 안전
 - **모바일 메뉴 주의**: 예전엔 `innerText + ".md"`로 파일명을 역추적했는데, 라벨≠파일명이 되면서 깨짐 → 각 링크에 `data-menu-file`(실제 파일명)을 심고 모바일이 그걸 읽도록 고침
 - **개발관리 대시보드**: `menu/`의 .md가 아니라 저장소 루트의 **정적 `dashboard.html`**. `render.js`에서 메뉴 루프 뒤에 하드코딩으로 `<a href="dashboard.html" data-external="true">`를 append. `data-external="true"`면 SPA 렌더링을 거치지 않고 **같은 탭 이동**(데스크톱은 기본 링크 동작, 모바일은 `mobileMenuToggle.js`에서 `window.location.href`로 이동)
-  - `dashboard.html`은 현재 **자리표시자**("준비 중"). 사용자가 실제 대시보드로 루트의 이 파일을 덮어쓰면 됨
+  - `dashboard.html`: **실제 대시보드로 교체됨**(2026-07-25). 칸반 보드(예정/진행중/완료 카드 드래그) + 우수사례 협업 네트워크 9개 + 현안과제 21건. 자체 완결형 HTML(Pretendard 폰트만 외부 CDN), 드래그앤드롭·담당/우선순위 필터 JS 내장
+  - **내용 수정이 잦을 예정** — 카드는 `.col-body[data-col=todo|doing|done]` 안의 `.card`(data-assignee/data-prio) 블록. 통계 숫자(`.stat-val`)와 컬럼 count(`data-count`)는 카드 수와 수동으로 맞춰야 함(자동 아님)
+  - ⚠️ 원본을 붙여넣기로 받았을 때 **인코딩이 깨진(UTF-8→Latin1 mojibake) 상태로 도착**함. 한글을 프로젝트 데이터 기준으로 재작성해 복원함. 앞으로도 HTML을 붙여받으면 `file`로 UTF-8 확인 + 한글 샘플 grep 필수
+  - "최종 업데이트 2026년 7월 17일" 및 due 날짜는 원본 값 유지 — 갱신은 사용자 몫
   - 새 외부 HTML 메뉴를 추가하려면 같은 패턴(`data-external="true"` + 루트 상대경로) 사용
 
 ---

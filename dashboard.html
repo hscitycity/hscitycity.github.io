@@ -1,46 +1,658 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>개발관리 대시보드 — 화성형 팔란티어</title>
-  <style>
-    :root { --brand: #2e6ff2; --ink: #121314; --muted: #6b7280; --line: #e5e7eb; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto,
-        "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      color: var(--ink); background: #fff; line-height: 1.6;
-    }
-    header {
-      border-bottom: 1px solid var(--line);
-      padding: 19px 16px; max-width: 1190px; margin: 0 auto;
-      display: flex; align-items: center; gap: 16px;
-    }
-    header h1 { font-size: 1.25rem; margin: 0 auto 0 0; font-weight: 600; }
-    header a { color: var(--brand); text-decoration: none; font-size: .95rem; }
-    header a:hover { text-decoration: underline; }
-    main { max-width: 1190px; margin: 0 auto; padding: 48px 16px; }
-    .placeholder {
-      border: 1px dashed var(--line); border-radius: 12px;
-      padding: 48px 24px; text-align: center; background: #fafafa;
-    }
-    .placeholder h2 { margin: 0 0 8px; font-size: 1.4rem; }
-    .placeholder p { margin: 4px 0; color: var(--muted); }
-    code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: .9em; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성형 팔란티어 — 프로젝트 보드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  background: #F4F8FC;
+  color: #1A2433;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 0 28px 80px; }
+
+/* ── 히어로 배너 ───────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #4A90E2 0%, #5BA3F5 45%, #7BB8FF 100%);
+  padding: 52px 28px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 15% 30%, rgba(255,255,255,.14) 0, rgba(255,255,255,.14) 60px, transparent 61px),
+                    radial-gradient(circle at 85% 20%, rgba(255,255,255,.1) 0, rgba(255,255,255,.1) 45px, transparent 46px),
+                    radial-gradient(circle at 70% 80%, rgba(255,255,255,.08) 0, rgba(255,255,255,.08) 70px, transparent 71px),
+                    radial-gradient(circle at 30% 85%, rgba(255,255,255,.1) 0, rgba(255,255,255,.1) 35px, transparent 36px);
+}
+.hero-inner { max-width: 1280px; margin: 0 auto; position: relative; }
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 14px; font-weight: 800; color: #fff;
+  background: rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 999px; padding: 6px 16px;
+  margin-bottom: 18px; letter-spacing: .5px;
+}
+.hero h1 {
+  font-size: 48px; font-weight: 900; color: #fff;
+  letter-spacing: -1px; line-height: 1.15;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 12px rgba(0,40,100,.15);
+}
+.hero .sub { font-size: 19px; color: #fff; font-weight: 600; }
+.hero .updated { font-size: 15px; color: rgba(255,255,255,.95); font-weight: 500; margin-top: 6px; }
+
+/* ── 요약 스트립 (히어로에 걸침) ─────────── */
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  margin: -34px auto 32px; position: relative; z-index: 2;
+}
+.stat {
+  background: #fff; border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 20px rgba(40,90,160,.1);
+  border: 1px solid #E3EDF7;
+}
+.stat-val { font-size: 36px; font-weight: 900; letter-spacing: -0.5px; color: #1A2433; }
+.stat-val.accent { color: #2B7DE0; }
+.stat-label { font-size: 15px; color: #3A4A5E; margin-top: 3px; font-weight: 700; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; }
+.dot-gray { background: #7A8CA0; }
+.dot-orange { background: #F5A623; }
+.dot-blue { background: #2B7DE0; }
+
+/* ── 필터 바 ───────────────────────────── */
+.filterbar {
+  display: flex; gap: 8px; align-items: center; margin-bottom: 24px;
+  flex-wrap: wrap;
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 14px;
+  padding: 14px 20px;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+}
+.filterbar .label { font-size: 15px; color: #3A4A5E; font-weight: 600; margin-right: 4px; }
+.chip {
+  font-size: 14px; font-weight: 700; color: #2E3D50;
+  background: #F4F8FC; border: 1px solid #E3EDF7; border-radius: 999px;
+  padding: 6px 16px; cursor: pointer; user-select: none;
+  transition: all .15s;
+}
+.chip:hover { border-color: #9FC4EE; color: #2B7DE0; }
+.chip.active { background: #2B7DE0; border-color: #2B7DE0; color: #fff; }
+.divider-v { width: 1px; height: 20px; background: #E3EDF7; margin: 0 8px; }
+
+/* ── 칸반 ──────────────────────────────── */
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.col-head {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 6px 14px;
+}
+.col-head .name { font-size: 19px; font-weight: 900; letter-spacing: -0.3px; }
+.col-head .count {
+  font-size: 13px; font-weight: 800; color: #fff;
+  border-radius: 999px; padding: 2px 10px;
+}
+.count-todo { background: #7A8CA0; }
+.count-doing { background: #F5A623; }
+.count-done { background: #2B7DE0; }
+.col-dot { width: 10px; height: 10px; border-radius: 50%; }
+.cd-todo { background: #7A8CA0; }
+.cd-doing { background: #F5A623; }
+.cd-done { background: #2B7DE0; }
+
+.col-body {
+  display: flex; flex-direction: column; gap: 12px;
+  min-height: 120px; border-radius: 14px;
+  transition: background .15s;
+  padding: 4px;
+}
+.col-body.dragover { background: #E9F2FB; }
+
+/* ── 카드 ──────────────────────────────── */
+.card {
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  padding: 20px; cursor: grab;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+  transition: box-shadow .15s, transform .15s, border-color .15s;
+}
+.card:hover {
+  border-color: #9FC4EE;
+  box-shadow: 0 6px 24px rgba(40,90,160,.12);
+  transform: translateY(-2px);
+}
+.card.dragging { opacity: .45; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+.card-title { font-size: 17px; font-weight: 800; letter-spacing: -0.2px; line-height: 1.4; color: #1A2433; }
+.prio {
+  flex-shrink: 0; font-size: 12.5px; font-weight: 800;
+  border-radius: 999px; padding: 3px 10px;
+}
+.prio-high { color: #D63B1F; background: #FDEEEA; }
+.prio-mid  { color: #B07A0A; background: #FDF5E2; }
+.prio-low  { color: #2E3D50; background: #EFF4F9; }
+.card-desc { font-size: 14.5px; color: #2E3D50; line-height: 1.65; margin-bottom: 14px; font-weight: 500; }
+.card-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 14px; color: #2E3D50; margin-bottom: 12px;
+}
+.assignee { display: flex; align-items: center; gap: 7px; font-weight: 600; }
+.avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #E1EEFB; color: #2B7DE0;
+  font-size: 12px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+.due { display: flex; align-items: center; gap: 5px; font-weight: 600; }
+.due svg { width: 13px; height: 13px; stroke: #44556B; }
+
+/* 진행률 바 */
+.progress {
+  height: 6px; background: #EBF2F9; border-radius: 999px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2B7DE0, #5BA3F5);
+  border-radius: 999px;
+  transition: width .3s;
+}
+
+
+/* ── 섹션 블록 ─────────────────────────── */
+.section-block { margin-top: 48px; }
+.section-head { margin-bottom: 20px; }
+.section-head h2 {
+  font-size: 24px; font-weight: 900; letter-spacing: -0.5px;
+  color: #1A2433; margin-bottom: 4px;
+}
+.section-head p { font-size: 15px; color: #3A4A5E; font-weight: 500; }
+
+/* ── 협업 네트워크 ─────────────────────── */
+.network { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.net-card {
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+  transition: box-shadow .15s, border-color .15s;
+}
+.net-card:hover { border-color: #9FC4EE; box-shadow: 0 6px 24px rgba(40,90,160,.12); }
+.net-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.net-name { font-size: 16px; font-weight: 800; color: #1A2433; }
+.net-org {
+  font-size: 12.5px; font-weight: 700; color: #2B7DE0;
+  background: #E1EEFB; border-radius: 999px; padding: 3px 11px;
+  white-space: nowrap;
+}
+.net-tools { font-size: 14px; color: #2E3D50; font-weight: 600; line-height: 1.6; margin-bottom: 8px; }
+.net-note { font-size: 13px; color: #44556B; font-weight: 500; }
+
+/* ── 현안과제 태그 ─────────────────────── */
+.tasks { display: flex; flex-wrap: wrap; gap: 10px; }
+.task-tag {
+  font-size: 14px; font-weight: 700; color: #2E3D50;
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 999px;
+  padding: 9px 18px;
+  box-shadow: 0 2px 8px rgba(40,90,160,.05);
+  transition: all .15s;
+}
+.task-tag:hover { border-color: #9FC4EE; color: #2B7DE0; }
+.task-tag.hot {
+  color: #fff; background: #2B7DE0; border-color: #2B7DE0;
+}
+
+@media (max-width: 900px) {
+  .network { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .board { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 30px; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>개발관리 대시보드</h1>
-    <a href="/">← 개발일지로 돌아가기</a>
-  </header>
-  <main>
-    <div class="placeholder">
-      <h2>대시보드 준비 중</h2>
-      <p>이 페이지는 자리표시자입니다.</p>
-      <p>완성된 대시보드 HTML로 저장소 루트의 <code>dashboard.html</code>을 덮어쓰면 됩니다.</p>
+
+<!-- 히어로 -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">HWASEONG PALANTIR SYSTEM</span>
+    <h1>화성형 팔란티어<br>프로젝트 보드</h1>
+    <p class="sub">화성시 문제해결형 도시데이터플랫폼 · 인프라 전환 및 과제 추진 현황</p>
+    <p class="updated">최종 업데이트 — 2026년 7월 17일</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 요약 -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">12</div>
+      <div class="stat-label">전체 업무</div>
     </div>
-  </main>
+    <div class="stat">
+      <div class="stat-val">4</div>
+      <div class="stat-label"><span class="dot dot-gray"></span>예정</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">3</div>
+      <div class="stat-label"><span class="dot dot-orange"></span>진행 중</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val accent">5</div>
+      <div class="stat-label"><span class="dot dot-blue"></span>완료</div>
+    </div>
+  </div>
+
+  <!-- 필터 -->
+  <div class="filterbar">
+    <span class="label">담당</span>
+    <span class="chip active" data-filter-assignee="all">전체</span>
+    <span class="chip" data-filter-assignee="이동재">이동재</span>
+    <span class="chip" data-filter-assignee="Claude Code">Claude Code</span>
+    <span class="chip" data-filter-assignee="협업">협업</span>
+    <span class="divider-v"></span>
+    <span class="label">우선순위</span>
+    <span class="chip active" data-filter-prio="all">전체</span>
+    <span class="chip" data-filter-prio="high">높음</span>
+    <span class="chip" data-filter-prio="mid">중간</span>
+    <span class="chip" data-filter-prio="low">낮음</span>
+  </div>
+
+  <!-- 칸반 -->
+  <div class="board">
+
+    <!-- 예정 -->
+    <div class="col">
+      <div class="col-head">
+        <span class="col-dot cd-todo"></span>
+        <span class="name">예정</span>
+        <span class="count count-todo" data-count="todo">4</span>
+      </div>
+      <div class="col-body" data-col="todo">
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
+          <div class="card-top">
+            <div class="card-title">HTTPS + 도메인 연결</div>
+            <span class="prio prio-high">높음</span>
+          </div>
+          <div class="card-desc">cert-manager + Let's Encrypt 인증서 자동 발급. DNS를 NCP Load Balancer로 전환.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>7/25</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="Claude Code" data-prio="mid">
+          <div class="card-top">
+            <div class="card-title">GitHub Actions CI/CD</div>
+            <span class="prio prio-mid">중간</span>
+          </div>
+          <div class="card-desc">push → docker build → NCR push → kubectl rolling update 자동화 파이프라인.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">C</span>Claude Code</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>8/8</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="협업" data-prio="high">
+          <div class="card-top">
+            <div class="card-title">류승인 MCP 5종 연결</div>
+            <span class="prio prio-high">높음</span>
+          </div>
+          <div class="card-desc">법령·KOSIS 통계·특허·건축HUB·문서파싱 MCP를 AI 에이전트에 통합. mcp.gomdori.app 호스트 활용.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">협</span>협업</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>9/15</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
+          <div class="card-top">
+            <div class="card-title">교통도로민원 TF 시스템</div>
+            <span class="prio prio-high">높음</span>
+          </div>
+          <div class="card-desc">9.1 시범운영 대응. 민원 3단계 분류(즉시/단기/중장기) + 현장 DB + 민원다발구역 분석.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>9/1</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 진행중 -->
+    <div class="col">
+      <div class="col-head">
+        <span class="col-dot cd-doing"></span>
+        <span class="name">진행 중</span>
+        <span class="count count-doing" data-count="doing">3</span>
+      </div>
+      <div class="col-body" data-col="doing">
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
+          <div class="card-top">
+            <div class="card-title">LoadBalancer 엔드포인트 오픈</div>
+            <span class="prio prio-high">높음</span>
+          </div>
+          <div class="card-desc">Service 타입 ClusterIP → LoadBalancer 변경. 외부 접근 경로 확보 후 기능 검증.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>7/20</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:60%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="협업" data-prio="mid">
+          <div class="card-top">
+            <div class="card-title">온톨로지 연구분과 신설 추진</div>
+            <span class="prio prio-mid">중간</span>
+          </div>
+          <div class="card-desc">AI챔피언 네트워크 내 신설. 화성시 → 행안부·NIA 특강 요청. OpenCrab 온톨로지팩 검토.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">협</span>협업</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>8/31</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:30%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="Claude Code" data-prio="low">
+          <div class="card-top">
+            <div class="card-title">개발일지 블로그 운영</div>
+            <span class="prio prio-low">낮음</span>
+          </div>
+          <div class="card-desc">hscitycity.github.io 개발일지 지속 작성. 인프라 구축기·삽질 기록·아키텍처 분석 포스팅.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">C</span>Claude Code</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>상시</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:45%"></div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 완료 -->
+    <div class="col">
+      <div class="col-head">
+        <span class="col-dot cd-done"></span>
+        <span class="name">완료</span>
+        <span class="count count-done" data-count="done">5</span>
+      </div>
+      <div class="col-body" data-col="done">
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
+          <div class="card-top">
+            <div class="card-title">NCP 인프라 구축</div>
+            <span class="prio prio-high">높음</span>
+          </div>
+          <div class="card-desc">VPC + 서브넷 5개 + NAT Gateway + PostgreSQL(G3) + NCR + NKS 클러스터. 파드 2개 Running.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>7/17</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
+          <div class="card-top">
+            <div class="card-title">DB 접속 경로 보안 전환</div>
+            <span class="prio prio-high">높음</span>
+          </div>
+          <div class="card-desc">Public 도메인(공인IP 경유) → Private 도메인(VPC 내부 직통) 전환. 민원 데이터 평문 노출 차단.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>7/17</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="Claude Code" data-prio="mid">
+          <div class="card-top">
+            <div class="card-title">Docker 컨테이너화 + NCR Push</div>
+            <span class="prio prio-mid">중간</span>
+          </div>
+          <div class="card-desc">Vercel 서버리스 → Express 서버 전환. Dockerfile 작성, 이미지 빌드, Container Registry 푸시.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">C</span>Claude Code</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>7/7</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="mid">
+          <div class="card-top">
+            <div class="card-title">온톨로지 파일럿 프로젝트 (water-demo)</div>
+            <span class="prio prio-mid">중간</span>
+          </div>
+          <div class="card-desc">물난리 원인분석 Agent. 민원 클러스터 감지 → 4개 데이터소스 교차확인 → AI 원인특정.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>6/28</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+
+        <div class="card" draggable="true" data-assignee="이동재" data-prio="low">
+          <div class="card-top">
+            <div class="card-title">당직통합업무플랫폼 POC</div>
+            <span class="prio prio-low">낮음</span>
+          </div>
+          <div class="card-desc">바이브코딩 → 테스트 → 정식도입 프로세스 첫 사례. Vercel 배포 검증 완료.</div>
+          <div class="card-meta">
+            <span class="assignee"><span class="avatar">이</span>이동재</span>
+            <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>6/20</span>
+          </div>
+          <div class="progress"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 우수사례 협업 네트워크 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2>전국 우수 공무원 협업 네트워크</h2>
+      <p>검증된 도구들을 온톨로지로 연결한다 — 화성형 팔란티어의 협업 자산</p>
+    </div>
+    <div class="network">
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">류승인 주무관</span>
+          <span class="net-org">광진구</span>
+        </div>
+        <div class="net-tools">법령 MCP · KOSIS 통계 MCP · 특허 MCP · 건축HUB MCP · 문서파싱(kordoc) · LexDiff · 표준주소(gjdong)</div>
+        <div class="net-note">MCP 5종 통합 호스트 — mcp.gomdori.app</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">서호성 사무관</span>
+          <span class="net-org">행정안전부</span>
+        </div>
+        <div class="net-tools">대한민국 제도 총정리 (korea100)</div>
+        <div class="net-note">정책 분석 에이전트 컨텍스트로 활용</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">정솔현 주무관</span>
+          <span class="net-org">광양시</span>
+        </div>
+        <div class="net-tools">공공정책 총정리 플랫폼 (klocal)</div>
+        <div class="net-note">타 지자체 유사 사례 자동 검색·비교</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">전명구 주무관</span>
+          <span class="net-org">화성시 AI스마트전략실</span>
+        </div>
+        <div class="net-tools">계약업무 안내 · 담배소매인 지정 · 통신판매업 신고 플랫폼</div>
+        <div class="net-note">신규 공직자 업무 간편화 3종</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">신환철 팀장</span>
+          <span class="net-org">화성시 빅데이터팀</span>
+        </div>
+        <div class="net-tools">HwaSeong Knowledge Bank</div>
+        <div class="net-note">신규 공직자 지식창고 — Q&amp;A 정식 카드 등록 방식</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">나현희 주무관</span>
+          <span class="net-org">화성시 만세구 현장민원실</span>
+        </div>
+        <div class="net-tools">AI스마트 위생행정 플랫폼</div>
+        <div class="net-note">영업신고·건강진단·행정처분·위생교육 원스톱</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">권용환</span>
+          <span class="net-org">한국석유관리원</span>
+        </div>
+        <div class="net-tools">석유가격 모니터링 시스템 · 주기적 관리 프로그램</div>
+        <div class="net-note">경영공시·검사장비·차량검사 관리</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">김우영 대리</span>
+          <span class="net-org">KOICA</span>
+        </div>
+        <div class="net-tools">국제개발협력 지식그래프 · 무상원조 지도 · KOICA 규정 MCP</div>
+        <div class="net-note">지식그래프 모델링 참고 사례</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">AI정부 실험실</span>
+          <span class="net-org">행정안전부</span>
+        </div>
+        <div class="net-tools">시제품 개발·검증 환경 (7.3~ 시범운영)</div>
+        <div class="net-note">테스트 채널 — 우수과제는 공공 GitLab 등록 후 확산</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 화성시 현안과제 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2>화성시 현안과제 21건</h2>
+      <p>각 부서 업무개선 필요사항 → 순차적으로 정식 서비스로 구현 예정</p>
+    </div>
+    <div class="tasks">
+      <span class="task-tag hot">교통도로민원 신속처리 TF 시스템</span>
+      <span class="task-tag hot">상수도 요금민원 GIS 플랫폼</span>
+      <span class="task-tag">국내외 우수사례 AI크롤링</span>
+      <span class="task-tag">소방 건물안전점검 GIS</span>
+      <span class="task-tag">정책·문화 홍보 플랫폼</span>
+      <span class="task-tag">언론보도 AI 대시보드</span>
+      <span class="task-tag">당직 매뉴얼 챗봇</span>
+      <span class="task-tag">통신판매업 신고플랫폼</span>
+      <span class="task-tag">그냥드림 운영플랫폼</span>
+      <span class="task-tag">AED 위치 플랫폼</span>
+      <span class="task-tag">종량제봉투 잔량 확인</span>
+      <span class="task-tag">관광·상권 통합조회</span>
+      <span class="task-tag">업무추진비 맛집지도</span>
+      <span class="task-tag">산업현장 안전관리 AI</span>
+      <span class="task-tag">산불감시 최적 노선도</span>
+      <span class="task-tag">에코팜 응급대응 AI</span>
+      <span class="task-tag">공무원 학습연계 플랫폼</span>
+      <span class="task-tag">교통신호체계 최적화</span>
+      <span class="task-tag">대중교통 수요공급 GIS</span>
+      <span class="task-tag">로컬푸드 입지분석</span>
+      <span class="task-tag">위생행정 플랫폼 연계</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let dragged = null;
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('dragstart', () => {
+    dragged = card;
+    card.classList.add('dragging');
+  });
+  card.addEventListener('dragend', () => {
+    card.classList.remove('dragging');
+    dragged = null;
+    updateCounts();
+  });
+});
+
+document.querySelectorAll('.col-body').forEach(col => {
+  col.addEventListener('dragover', e => {
+    e.preventDefault();
+    col.classList.add('dragover');
+    const after = getAfterElement(col, e.clientY);
+    if (!dragged) return;
+    if (after == null) col.appendChild(dragged);
+    else col.insertBefore(dragged, after);
+  });
+  col.addEventListener('dragleave', () => col.classList.remove('dragover'));
+  col.addEventListener('drop', () => col.classList.remove('dragover'));
+});
+
+function getAfterElement(container, y) {
+  const els = [...container.querySelectorAll('.card:not(.dragging)')];
+  return els.reduce((closest, el) => {
+    const box = el.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) return { offset, element: el };
+    return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function updateCounts() {
+  document.querySelectorAll('.col-body').forEach(col => {
+    const key = col.dataset.col;
+    const visible = [...col.querySelectorAll('.card')].filter(c => c.style.display !== 'none').length;
+    document.querySelector(`[data-count="${key}"]`).textContent = visible;
+  });
+}
+
+let activeAssignee = 'all';
+let activePrio = 'all';
+
+document.querySelectorAll('[data-filter-assignee]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter-assignee]').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeAssignee = chip.dataset.filterAssignee;
+    applyFilters();
+  });
+});
+
+document.querySelectorAll('[data-filter-prio]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter-prio]').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activePrio = chip.dataset.filterPrio;
+    applyFilters();
+  });
+});
+
+function applyFilters() {
+  document.querySelectorAll('.card').forEach(card => {
+    const matchA = activeAssignee === 'all' || card.dataset.assignee === activeAssignee;
+    const matchP = activePrio === 'all' || card.dataset.prio === activePrio;
+    card.style.display = (matchA && matchP) ? '' : 'none';
+  });
+  updateCounts();
+}
+</script>
 </body>
 </html>
