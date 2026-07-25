@@ -90,163 +90,94 @@
         font-family: "Paperlogy", var(--font-fallback);
       }
 
-      /* ============ 상단 헤더 (재설계) ============ */
-      /* 색은 CSS 변수로 (라이트 전용). 기존 토큰 값 재사용 */
+      /* ============ 헤더: 상단바 + 이미지 하단 오버레이 메뉴 ============ */
       :root {
-        --hdr-bg: #ffffff; /* background */
-        --hdr-ink: #121314; /* surface */
-        --hdr-muted: #8d9299; /* graylv3 */
+        --hdr-bg: #ffffff;
+        --hdr-ink: #121314;
+        --hdr-muted: #8d9299;
         --hdr-line: rgba(18, 19, 20, 0.12);
-        --hdr-hover: #f3f5fa; /* graylv1 */
-        --hdr-primary: #2e6ff2; /* primary */
-        --hdr-h: 64px;
-        --hdr-h-shrink: 52px;
+        --hdr-hover: #f3f5fa;
+        --hdr-primary: #2e6ff2;
         --hdr-maxw: 1190px;
+        --ov-ink: #ffffff;
+        --ov-muted: rgba(255, 255, 255, 0.78);
+        --ov-line: rgba(255, 255, 255, 0.32);
+        --ov-hover: rgba(255, 255, 255, 0.16);
       }
 
-      .site-header {
+      /* 1) 상단 유틸리티 바 (방문자 통계 + 햄버거), sticky */
+      .top-bar {
         position: sticky;
         top: 0;
-        z-index: 40;
+        z-index: 50;
         background: var(--hdr-bg);
         border-bottom: 0.5px solid var(--hdr-line);
-        transition: box-shadow 0.2s ease;
       }
-      .site-nav {
-        height: var(--hdr-h);
+      .top-bar-inner {
         max-width: var(--hdr-maxw);
         margin: 0 auto;
-        padding: 0 28px;
+        padding: 8px 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
-        transition: height 0.2s ease;
+        gap: 12px;
       }
-
-      /* 왼쪽: 마크 + 워드마크 (+ 축소 시 글 제목) */
-      .hdr-left {
+      .visitor-stats {
         display: flex;
         align-items: center;
-        gap: 10px;
-        min-width: 0;
-      }
-      .hdr-mark {
-        width: 26px;
-        height: 26px;
-        border-radius: 7px;
-        background: var(--hdr-ink);
-        color: var(--hdr-bg);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-      .hdr-mark svg {
-        width: 15px;
-        height: 15px;
-      }
-      .wordmark {
-        font-size: 19px;
-        font-weight: 500;
-        color: var(--hdr-ink);
-        white-space: nowrap;
-        cursor: pointer;
-      }
-      .hdr-post-title {
-        display: none;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--hdr-ink);
+        gap: 12px;
+        font-size: 12px;
+        color: var(--hdr-muted);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 52vw;
+        min-width: 0;
       }
-
-      /* 오른쪽 */
-      .hdr-right {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-      .hdr-link {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        height: var(--hdr-h);
-        font-size: 14px;
-        color: var(--hdr-muted);
-        text-decoration: none;
-        white-space: nowrap;
-        transition: color 0.2s ease;
-      }
-      .hdr-link:hover {
+      .visitor-stats strong {
         color: var(--hdr-ink);
+        font-weight: 700;
       }
-      .hdr-link.is-current {
-        color: var(--hdr-ink);
-        font-weight: 500;
-      }
-      /* 현재 페이지 밑줄: 헤더 하단선(bottom:0)에 붙여 경계선과 이어지게 */
-      .hdr-link.is-current::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 2px;
-        background: var(--hdr-ink);
-      }
-
-      .hdr-iconbtn {
-        width: 32px;
-        height: 32px;
+      .hamburger-btn {
+        width: 40px;
+        height: 40px;
         border-radius: 8px;
+        flex-shrink: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         background: transparent;
         border: none;
         cursor: pointer;
-        color: var(--hdr-ink);
         transition: background 0.2s ease;
       }
-      .hdr-iconbtn:hover {
+      .hamburger-btn:hover {
         background: var(--hdr-hover);
       }
-      .hdr-iconbtn svg {
-        width: 18px;
-        height: 18px;
-      }
-      .hdr-divider {
-        width: 0.5px;
-        height: 20px;
-        background: var(--hdr-line);
-        flex-shrink: 0;
-      }
-      .hdr-dashboard-btn {
+      .hamburger-lines {
         display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        color: var(--hdr-ink);
-        text-decoration: none;
-        border: 0.5px solid var(--hdr-line);
-        border-radius: 8px;
-        padding: 6px 12px;
-        transition: background 0.2s ease, border-color 0.2s ease;
+        flex-direction: column;
+        gap: 4px;
+        width: 20px;
       }
-      .hdr-dashboard-btn:hover {
-        background: var(--hdr-hover);
-        border-color: var(--hdr-muted);
+      .hamburger-lines span {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: var(--hdr-ink);
+        border-radius: 2px;
+        transition: transform 0.2s ease, opacity 0.2s ease;
       }
-      .hdr-dashboard-btn svg {
-        width: 15px;
-        height: 15px;
+      .hamburger-btn[aria-expanded="true"] .hamburger-lines span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .hamburger-btn[aria-expanded="true"] .hamburger-lines span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger-btn[aria-expanded="true"] .hamburger-lines span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
       }
 
-      /* 읽기 진행선 (헤더 하단) */
+      /* 읽기 진행선 (상단바 하단) */
       .hdr-progress {
         position: absolute;
         left: 0;
@@ -257,35 +188,44 @@
         transition: width 0.1s linear;
       }
 
-      /* 맨 위로 버튼: 축소 상태에서만 노출 */
-      #hdr-top-btn {
+      /* 햄버거 드롭다운 메뉴 */
+      .menu-drawer {
+        position: fixed;
+        top: 48px;
+        right: 16px;
+        z-index: 60;
+        background: var(--hdr-bg);
+        border: 0.5px solid var(--hdr-line);
+        border-radius: 12px;
+        box-shadow: 0 12px 32px rgba(10, 22, 40, 0.16);
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        min-width: 200px;
+      }
+      .menu-drawer[hidden] {
         display: none;
+      }
+      .drawer-link {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--hdr-ink);
+        text-decoration: none;
+        text-align: left;
+        font-family: inherit;
+        padding: 10px 14px;
+        border-radius: 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .drawer-link:hover {
+        background: var(--hdr-hover);
       }
 
-      /* ---- 스크롤 80px 초과: 축소 상태 ---- */
-      .site-header.is-shrunk .site-nav {
-        height: var(--hdr-h-shrink);
-      }
-      .site-header.is-shrunk .hdr-link {
-        height: var(--hdr-h-shrink);
-        display: none;
-      } /* 메뉴 링크 숨김 */
-      .site-header.is-shrunk .hdr-divider,
-      .site-header.is-shrunk .hdr-dashboard-btn {
-        display: none;
-      }
-      .site-header.is-shrunk #hdr-top-btn {
-        display: inline-flex;
-      }
-      .site-header.is-shrunk .wordmark {
-        display: none;
-      }
-      .site-header.is-shrunk .hdr-post-title[data-has-title="true"] {
-        display: inline;
-      }
-
-      /* 헤더 아래 별도 이미지 배너 */
+      /* 2) 히어로 이미지 + 하단 오버레이 메뉴바 */
       .hero-banner {
+        position: relative;
         width: 100%;
         background: #0a1628;
         line-height: 0;
@@ -294,23 +234,162 @@
         display: block;
         width: 100%;
         height: auto;
-        max-height: 360px;
+        max-height: 420px;
         object-fit: cover;
         object-position: center;
       }
-
-      /* 검색 패널 (기존 search() 재사용) */
-      .hdr-search-panel {
-        position: sticky;
-        top: var(--hdr-h);
-        z-index: 39;
-        background: var(--hdr-bg);
-        border-bottom: 0.5px solid var(--hdr-line);
+      .hero-banner::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 140px;
+        background: linear-gradient(
+          180deg,
+          rgba(10, 22, 40, 0) 0%,
+          rgba(10, 22, 40, 0.78) 100%
+        );
+        pointer-events: none;
+        z-index: 1;
       }
-      .hdr-search-panel .hdr-search-inner {
+      .hero-menubar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        line-height: normal;
         max-width: var(--hdr-maxw);
         margin: 0 auto;
-        padding: 12px 28px;
+        padding: 16px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .hero-menubar .hdr-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .hero-menubar .hdr-mark {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: var(--ov-ink);
+        color: #0a1628;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-menubar .hdr-mark svg {
+        width: 15px;
+        height: 15px;
+      }
+      .hero-menubar .wordmark {
+        font-size: 21px;
+        font-weight: 500;
+        color: var(--ov-ink);
+        white-space: nowrap;
+        cursor: pointer;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+      }
+      .hero-menubar .hdr-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .hero-menubar .hdr-link {
+        position: relative;
+        font-size: 16px;
+        color: var(--ov-muted);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.2s ease;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+      }
+      .hero-menubar .hdr-link:hover {
+        color: var(--ov-ink);
+      }
+      .hero-menubar .hdr-link.is-current {
+        color: var(--ov-ink);
+        font-weight: 500;
+      }
+      .hero-menubar .hdr-link.is-current::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        height: 2px;
+        background: var(--ov-ink);
+      }
+      .hero-menubar .hdr-iconbtn {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        color: var(--ov-ink);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .hero-menubar .hdr-iconbtn:hover {
+        background: var(--ov-hover);
+      }
+      .hero-menubar .hdr-iconbtn svg {
+        width: 18px;
+        height: 18px;
+      }
+      .hero-menubar .hdr-divider {
+        width: 0.5px;
+        height: 20px;
+        background: var(--ov-line);
+        flex-shrink: 0;
+      }
+      .hero-menubar .hdr-dashboard-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 15px;
+        color: var(--ov-ink);
+        text-decoration: none;
+        border: 0.5px solid var(--ov-line);
+        border-radius: 8px;
+        padding: 6px 12px;
+        transition: background 0.2s ease;
+      }
+      .hero-menubar .hdr-dashboard-btn:hover {
+        background: var(--ov-hover);
+      }
+      .hero-menubar .hdr-dashboard-btn svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      /* 검색 패널 (우상단 드롭다운) */
+      .hdr-search-panel {
+        position: fixed;
+        top: 48px;
+        right: 16px;
+        z-index: 60;
+        background: var(--hdr-bg);
+        border: 0.5px solid var(--hdr-line);
+        border-radius: 12px;
+        box-shadow: 0 12px 32px rgba(10, 22, 40, 0.16);
+        padding: 10px;
+        width: min(320px, calc(100vw - 32px));
+      }
+      .hdr-search-panel[hidden] {
+        display: none;
+      }
+      .hdr-search-inner {
         display: flex;
         gap: 8px;
         align-items: center;
@@ -329,66 +408,112 @@
       .hdr-search-panel input:focus {
         border-color: var(--hdr-primary);
       }
+      .hdr-search-panel .hdr-iconbtn {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        color: var(--hdr-ink);
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .hdr-search-panel .hdr-iconbtn:hover {
+        background: var(--hdr-hover);
+      }
 
       /* 접근성: 포커스 링 유지 */
       .hdr-link:focus-visible,
       .hdr-iconbtn:focus-visible,
       .hdr-dashboard-btn:focus-visible,
       .wordmark:focus-visible,
+      .hamburger-btn:focus-visible,
+      .drawer-link:focus-visible,
       .hdr-search-panel input:focus-visible {
         outline: 2px solid var(--hdr-primary);
         outline-offset: 2px;
       }
 
-      /* 모바일 (<768px): 햄버거 없이 한 줄 유지 */
+      /* 모바일 (<768px): 오버레이 링크 숨기고 햄버거로 접근 */
       @media (max-width: 767px) {
-        .site-nav {
-          padding: 0 16px;
+        .top-bar-inner {
+          padding: 6px 16px;
+        }
+        .visitor-stats {
+          font-size: 11px;
           gap: 8px;
         }
-        .hdr-right {
-          gap: 8px;
+        .hero-menubar {
+          padding: 12px 16px;
         }
-        .hdr-link {
-          font-size: 13px;
+        .hero-menubar .wordmark {
+          font-size: 18px;
         }
-        .wordmark {
-          font-size: 16px;
-        }
-        .hdr-search-panel .hdr-search-inner {
-          padding: 10px 16px;
+        .hero-menubar .hdr-link,
+        .hero-menubar .hdr-divider,
+        .hero-menubar .hdr-dashboard-btn {
+          display: none;
         }
       }
 
-      /* 모션 최소화 설정 */
+      /* 모션 최소화 */
       @media (prefers-reduced-motion: reduce) {
-        .site-header,
-        .site-nav,
+        .top-bar,
+        .hero-menubar,
         .hdr-link,
         .hdr-iconbtn,
         .hdr-dashboard-btn,
-        .hdr-progress {
+        .hdr-progress,
+        .hamburger-lines span {
           transition: none;
         }
       }
     </style>
   </head>
   <body class="w-full text-surface">
-    <!-- 접속통계 -->
-    <div
-      id="visitor-stats"
-      class="fixed top-2 right-2 z-50 flex items-center gap-3 text-[11px] leading-5 bg-graylv4/90 text-white px-3 py-1.5 rounded-full opacity-90 hover:opacity-100 transition-opacity whitespace-nowrap"
-    >
-      <span>일간 방문자수 <strong id="stat-daily">-</strong>명</span>
-      <span>월간 방문자수 <strong id="stat-monthly">-</strong>명</span>
-      <span>누적 방문자수 <strong id="stat-total">-</strong>명</span>
+    <!-- ① 상단 유틸리티 바: 방문자 통계(좌) + 햄버거(우), sticky -->
+    <div id="top-bar" class="top-bar">
+      <div class="top-bar-inner">
+        <div id="visitor-stats" class="visitor-stats">
+          <span>일간 방문자수 <strong id="stat-daily">-</strong>명</span>
+          <span>월간 방문자수 <strong id="stat-monthly">-</strong>명</span>
+          <span>누적 방문자수 <strong id="stat-total">-</strong>명</span>
+        </div>
+        <button
+          id="hamburger-btn"
+          class="hamburger-btn"
+          type="button"
+          aria-label="메뉴 열기"
+          aria-expanded="false"
+          aria-controls="menu-drawer"
+        >
+          <span class="hamburger-lines" aria-hidden="true"
+            ><span></span><span></span><span></span
+          ></span>
+        </button>
+      </div>
+      <!-- 읽기 진행선 -->
+      <div id="hdr-progress" class="hdr-progress" aria-hidden="true"></div>
     </div>
-    <!-- // 접속통계 -->
 
-    <!-- ================= 상단 헤더 (불투명, sticky) ================= -->
-    <header id="site-header" class="site-header">
-      <nav class="site-nav" aria-label="주요 메뉴">
-        <!-- 왼쪽: 마크 + 워드마크 (+ 축소 시 현재 글 제목) -->
+    <!-- 햄버거 드롭다운 메뉴 (항상 사용 가능한 메뉴 토글) -->
+    <nav id="menu-drawer" class="menu-drawer" aria-label="메뉴" hidden>
+      <a href="#" class="drawer-link" data-nav="about">소개</a>
+      <a href="#" class="drawer-link" data-nav="blog">개발일지</a>
+      <a href="dashboard.html" class="drawer-link">개발관리 대시보드</a>
+      <button type="button" class="drawer-link" data-nav="search">검색</button>
+    </nav>
+
+    <!-- ② 핵심 이미지(낮) + 하단 오버레이 메뉴바 -->
+    <div class="hero-banner">
+      <img
+        src="/img/코리요_온톨로지_낮.png"
+        alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
+      />
+      <nav class="hero-menubar" aria-label="주요 메뉴">
         <div class="hdr-left">
           <span class="hdr-mark" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -399,30 +524,24 @@
           <span id="blog-title" class="wordmark" role="link" tabindex="0"
             >화성형 팔란티어 개발일지</span
           >
-          <span id="hdr-post-title" class="hdr-post-title" data-has-title="false"></span>
         </div>
-
-        <!-- 오른쪽: 링크 → 검색 → (축소 시 맨위로) → 구분선 → 대시보드 -->
         <div class="hdr-right">
-          <a href="#" id="nav-about" class="hdr-link">소개</a>
-          <a href="#" id="nav-blog" class="hdr-link">개발일지</a>
-
-          <button id="hdr-search-btn" class="hdr-iconbtn" type="button" aria-label="검색 열기" aria-expanded="false">
+          <a href="#" id="nav-about" class="hdr-link" data-nav="about">소개</a>
+          <a href="#" id="nav-blog" class="hdr-link" data-nav="blog">개발일지</a>
+          <button
+            id="hdr-search-btn"
+            class="hdr-iconbtn"
+            type="button"
+            aria-label="검색 열기"
+            aria-expanded="false"
+            data-nav="search"
+          >
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="7" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </button>
-
-          <button id="hdr-top-btn" class="hdr-iconbtn" type="button" aria-label="맨 위로 이동">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="19" x2="12" y2="5" />
-              <polyline points="6 11 12 5 18 11" />
-            </svg>
-          </button>
-
           <span class="hdr-divider" aria-hidden="true"></span>
-
           <a href="dashboard.html" id="nav-dashboard" class="hdr-dashboard-btn">
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -434,11 +553,9 @@
           </a>
         </div>
       </nav>
-      <!-- 읽기 진행선 -->
-      <div id="hdr-progress" class="hdr-progress" aria-hidden="true"></div>
-    </header>
+    </div>
 
-    <!-- 검색 패널 (헤더 아래, 기존 search() 재사용) -->
+    <!-- 검색 패널 (기존 search() 재사용) -->
     <div id="hdr-search-panel" class="hdr-search-panel" hidden>
       <div class="hdr-search-inner">
         <label for="search-input" class="sr-only">검색어</label>
@@ -450,14 +567,6 @@
           </svg>
         </button>
       </div>
-    </div>
-
-    <!-- 핵심 이미지 배너 (낮) — 헤더 아래 별도 블록 -->
-    <div class="hero-banner">
-      <img
-        src="/img/코리요_온톨로지_낮.png"
-        alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
-      />
     </div>
 
     <main class="container p-8 pb-4 w-full mx-auto max-w-[1190px] md:pt-[60px]">
