@@ -19,6 +19,19 @@
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  // ---------- 상단바 높이 → --topbar-h (sticky 메뉴바가 그 아래에 붙도록) ----------
+  const topBar = document.getElementById("top-bar");
+  function setTopbarH() {
+    if (!topBar) return;
+    document.documentElement.style.setProperty(
+      "--topbar-h",
+      topBar.offsetHeight + "px"
+    );
+  }
+  setTopbarH();
+  window.addEventListener("resize", setTopbarH);
+  window.addEventListener("load", setTopbarH);
+
   // ---------- 현재 페이지 표시 ----------
   function currentView() {
     const p = new URLSearchParams(location.search);

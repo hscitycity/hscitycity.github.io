@@ -131,6 +131,13 @@
         white-space: nowrap;
         cursor: pointer;
         letter-spacing: -0.5px;
+        background: rgba(18, 19, 20, 0.06);
+        border: 0.5px solid rgba(18, 19, 20, 0.08);
+        border-radius: 14px;
+        padding: 6px 18px;
+      }
+      .wordmark-top:hover {
+        background: rgba(18, 19, 20, 0.1);
       }
       .top-bar-right {
         display: flex;
@@ -207,7 +214,7 @@
       /* 햄버거 드롭다운 메뉴 */
       .menu-drawer {
         position: fixed;
-        top: 48px;
+        top: calc(var(--topbar-h, 56px) + 6px);
         right: 16px;
         z-index: 60;
         background: var(--hdr-bg);
@@ -260,29 +267,35 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: 140px;
+        height: 100px;
         background: linear-gradient(
           180deg,
           rgba(10, 22, 40, 0) 0%,
-          rgba(10, 22, 40, 0.78) 100%
+          rgba(10, 22, 40, 0.35) 100%
         );
         pointer-events: none;
         z-index: 1;
       }
       .hero-menubar {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 2;
+        position: sticky;
+        top: var(--topbar-h, 60px);
+        z-index: 44;
         line-height: normal;
+        margin-top: -76px; /* 이미지 하단에 겹치기 */
+        background: rgba(10, 22, 40, 0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: background 0.2s ease;
+      }
+      .hero-menubar-inner {
         max-width: var(--hdr-maxw);
         margin: 0 auto;
         padding: 16px 28px;
+        min-height: 44px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        gap: 16px;
+        gap: 20px;
       }
       .hero-menubar .hdr-left {
         display: flex;
@@ -320,7 +333,7 @@
       }
       .hero-menubar .hdr-link {
         position: relative;
-        font-size: 18px;
+        font-size: 22px;
         color: var(--ov-muted);
         text-decoration: none;
         white-space: nowrap;
@@ -344,8 +357,8 @@
         background: var(--ov-ink);
       }
       .hero-menubar .hdr-iconbtn {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         border-radius: 8px;
         color: var(--ov-ink);
         display: inline-flex;
@@ -360,12 +373,12 @@
         background: var(--ov-hover);
       }
       .hero-menubar .hdr-iconbtn svg {
-        width: 18px;
-        height: 18px;
+        width: 24px;
+        height: 24px;
       }
       .hero-menubar .hdr-divider {
         width: 0.5px;
-        height: 20px;
+        height: 26px;
         background: var(--ov-line);
         flex-shrink: 0;
       }
@@ -373,7 +386,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 18px;
+        font-size: 20px;
         color: var(--ov-ink);
         text-decoration: none;
         border: 0.5px solid var(--ov-line);
@@ -385,14 +398,14 @@
         background: var(--ov-hover);
       }
       .hero-menubar .hdr-dashboard-btn svg {
-        width: 15px;
-        height: 15px;
+        width: 18px;
+        height: 18px;
       }
 
       /* 검색 패널 (우상단 드롭다운) */
       .hdr-search-panel {
         position: fixed;
-        top: 48px;
+        top: calc(var(--topbar-h, 56px) + 6px);
         right: 16px;
         z-index: 60;
         background: var(--hdr-bg);
@@ -444,20 +457,20 @@
       /* 맨 위로 이동 버튼 (FAB) */
       .scroll-top-fab {
         position: fixed;
-        right: 20px;
-        bottom: 20px;
+        right: 24px;
+        bottom: 24px;
         z-index: 55;
-        width: 46px;
-        height: 46px;
+        width: 54px;
+        height: 54px;
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         color: #ffffff;
-        background: var(--hdr-primary);
-        border: none;
+        background: #0a1628;
+        border: 2px solid #ffffff;
         cursor: pointer;
-        box-shadow: 0 6px 20px rgba(46, 111, 242, 0.4);
+        box-shadow: 0 8px 24px rgba(10, 22, 40, 0.45);
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.2s ease, transform 0.2s ease;
@@ -470,11 +483,11 @@
         transform: translateY(0);
       }
       .scroll-top-fab:hover {
-        background: #245fd0;
+        background: #1a2f52;
       }
       .scroll-top-fab svg {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
       }
 
       /* 접근성: 포커스 링 유지 */
@@ -573,13 +586,17 @@
       <button type="button" class="drawer-link" data-nav="search">검색</button>
     </nav>
 
-    <!-- ② 핵심 이미지(낮) + 하단 오버레이 메뉴바 -->
+    <!-- ② 핵심 이미지(낮) -->
     <div class="hero-banner">
       <img
         src="/img/코리요_온톨로지_낮.png"
         alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
       />
-      <nav class="hero-menubar" aria-label="주요 메뉴">
+    </div>
+
+    <!-- 메뉴바: 이미지 하단에 겹쳤다가 스크롤 시 상단 고정(sticky) -->
+    <nav class="hero-menubar" aria-label="주요 메뉴">
+      <div class="hero-menubar-inner">
         <div class="hdr-right">
           <a href="#" id="nav-about" class="hdr-link" data-nav="about">소개</a>
           <a href="#" id="nav-blog" class="hdr-link" data-nav="blog">개발일지</a>
@@ -607,8 +624,8 @@
             <span>대시보드</span>
           </a>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
 
     <!-- 맨 위로 이동 버튼 (스크롤 시 노출, 모든 페이지 공통) -->
     <button id="scroll-top-fab" class="scroll-top-fab" type="button" aria-label="맨 위로 이동" hidden>
