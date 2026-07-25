@@ -19,10 +19,15 @@ body {
 
 /* ── 히어로 밴드 ─────────────────────── */
 .hero {
-  background: #0A1628;
+  background-color: #0A1628;
   background-image:
     radial-gradient(ellipse 80% 60% at 70% -10%, rgba(43,125,224,.28) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 15% 110%, rgba(91,163,245,.15) 0%, transparent 55%);
+    radial-gradient(ellipse 50% 40% at 15% 110%, rgba(91,163,245,.15) 0%, transparent 55%),
+    linear-gradient(rgba(10,22,40,.60), rgba(10,22,40,.80)),
+    url("/img/코리요_온톨로지_밤.jpg");
+  background-size: auto, auto, cover, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat;
   padding: 64px 28px 72px;
   position: relative;
   overflow: hidden;
