@@ -474,6 +474,104 @@ html { scroll-behavior: smooth; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .hero h1 { font-size: 30px; }
 }
+
+      /* ===== 섹션 이동 메뉴바 ===== */
+      .section-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.92);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #E3EDF7;
+        box-shadow: 0 2px 10px rgba(40, 90, 160, 0.05);
+      }
+      .section-nav-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 10px 28px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .section-nav a {
+        flex-shrink: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: #2E3D50;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid #E3EDF7;
+        background: #fff;
+        transition: background 0.15s, border-color 0.15s, color 0.15s;
+      }
+      .section-nav a:hover {
+        border-color: #9FC4EE;
+        color: #2B7DE0;
+        background: #F4F8FC;
+      }
+      .section-nav a.active {
+        background: #2B7DE0;
+        border-color: #2B7DE0;
+        color: #fff;
+      }
+      /* 앵커 점프 시 sticky 메뉴바에 가리지 않게 */
+      h2[id],
+      #board {
+        scroll-margin-top: 72px;
+      }
+      /* ===== 외부기관 DB연계추진 표 ===== */
+      .extdb-wrap {
+        overflow-x: auto;
+        border-radius: 16px;
+        box-shadow: 0 2px 10px rgba(40, 90, 160, 0.05);
+      }
+      .extdb-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border: 1px solid #E3EDF7;
+        border-radius: 16px;
+        overflow: hidden;
+        font-size: 13.5px;
+      }
+      .extdb-table thead th {
+        position: sticky;
+        top: 0;
+        background: #0A1628;
+        color: #7BB8FF;
+        font-weight: 800;
+        text-align: left;
+        padding: 12px 16px;
+        white-space: nowrap;
+      }
+      .extdb-table td {
+        padding: 10px 16px;
+        border-top: 1px solid #EDF3FA;
+        color: #2E3D50;
+        vertical-align: top;
+      }
+      .extdb-table tbody tr:hover td {
+        background: #F7FAFD;
+      }
+      .extdb-table td a {
+        color: #2B7DE0;
+        text-decoration: none;
+        font-weight: 600;
+        word-break: break-all;
+      }
+      .extdb-table td a:hover {
+        text-decoration: underline;
+      }
+      .extdb-num {
+        width: 48px;
+        text-align: center;
+        color: #7A8CA0;
+        font-weight: 800;
+      }
 </style>
 </head>
 <body>
@@ -487,6 +585,19 @@ html { scroll-behavior: smooth; }
     <p class="updated">최종 업데이트 — 2026년 7월 17일</p>
   </div>
 </div>
+
+<!-- 섹션 이동 메뉴바 -->
+<nav class="section-nav" aria-label="섹션 이동">
+  <div class="section-nav-inner">
+    <a href="#strategy">전략</a>
+    <a href="#board">현황</a>
+    <a href="#network">협업 네트워크</a>
+    <a href="#issues">현안과제(안)</a>
+    <a href="#todos">할 일 리스트</a>
+    <a href="#dblink">정보시스템 DB연계현황</a>
+    <a href="#extdb">외부기관 DB연계추진</a>
+  </div>
+</nav>
 
 <div class="container">
 
@@ -1591,6 +1702,372 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
+  <!-- 외부기관 DB연계추진 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="extdb">외부기관 DB연계추진</h2>
+      <p>붙임1 타 기관 데이터플랫폼 현황 · 총 69개 — 순차 연계 검토 대상</p>
+    </div>
+    <div class="extdb-wrap">
+      <table class="extdb-table">
+        <thead>
+          <tr>
+            <th class="extdb-num">번호</th>
+            <th>포털명(플랫폼)</th>
+            <th>웹사이트 주소</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="extdb-num">01</td>
+          <td>금융데이터거래소</td>
+          <td><a href="https://www.findatall.net" target="_blank" rel="noopener noreferrer">www.findatall.net</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">02</td>
+          <td>금융 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-finance.kr" target="_blank" rel="noopener noreferrer">www.bigdata-finance.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">03</td>
+          <td>환경 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-environment.kr" target="_blank" rel="noopener noreferrer">www.bigdata-environment.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">04</td>
+          <td>교통 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-transportation.kr" target="_blank" rel="noopener noreferrer">www.bigdata-transportation.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">05</td>
+          <td>문화 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-culture.kr" target="_blank" rel="noopener noreferrer">www.bigdata-culture.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">06</td>
+          <td>통신 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-telecom.kr" target="_blank" rel="noopener noreferrer">www.bigdata-telecom.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">07</td>
+          <td>유통·소비 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-retail.kr" target="_blank" rel="noopener noreferrer">www.bigdata-retail.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">08</td>
+          <td>중소기업 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-sme.kr" target="_blank" rel="noopener noreferrer">www.bigdata-sme.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">09</td>
+          <td>헬스케어 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-healthcare.kr" target="_blank" rel="noopener noreferrer">www.bigdata-healthcare.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">10</td>
+          <td>산림 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-forest.kr" target="_blank" rel="noopener noreferrer">www.bigdata-forest.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">11</td>
+          <td>농식품 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-agriculture.kr" target="_blank" rel="noopener noreferrer">www.bigdata-agriculture.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">12</td>
+          <td>수산 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-fisheries.kr" target="_blank" rel="noopener noreferrer">www.bigdata-fisheries.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">13</td>
+          <td>소방안전 빅데이터플랫폼</td>
+          <td><a href="https://www.bigdata-119.kr" target="_blank" rel="noopener noreferrer">www.bigdata-119.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">14</td>
+          <td>스마트치안 빅데이터플랫폼</td>
+          <td><a href="https://www.bigdata-policing.kr" target="_blank" rel="noopener noreferrer">www.bigdata-policing.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">15</td>
+          <td>AI 허브 (AI Hub)</td>
+          <td><a href="https://www.aihub.or.kr" target="_blank" rel="noopener noreferrer">www.aihub.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">16</td>
+          <td>K-GEO플랫폼</td>
+          <td><a href="https://kgeop.go.kr" target="_blank" rel="noopener noreferrer">kgeop.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">17</td>
+          <td>LX인허가민원지원서비스</td>
+          <td><a href="https://factory.dtsp.go.kr" target="_blank" rel="noopener noreferrer">factory.dtsp.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">18</td>
+          <td>LX플랫폼(디지털트윈)</td>
+          <td><a href="https://dtsp.go.kr" target="_blank" rel="noopener noreferrer">dtsp.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">19</td>
+          <td>건강보험공단 빅데이터플랫폼</td>
+          <td><a href="https://nhiss.nhis.or.kr" target="_blank" rel="noopener noreferrer">nhiss.nhis.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">20</td>
+          <td>건축데이터개방</td>
+          <td><a href="https://open.eais.go.kr" target="_blank" rel="noopener noreferrer">open.eais.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">21</td>
+          <td>경기기후플랫폼</td>
+          <td><a href="https://climate.gg.go.kr" target="_blank" rel="noopener noreferrer">climate.gg.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">22</td>
+          <td>경기데이터드림</td>
+          <td><a href="https://data.gg.go.kr" target="_blank" rel="noopener noreferrer">data.gg.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">23</td>
+          <td>고용노동통계</td>
+          <td><a href="https://laborstat.moel.go.kr" target="_blank" rel="noopener noreferrer">laborstat.moel.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">24</td>
+          <td>공공기관 전력량 모니터링 시스템</td>
+          <td><a href="https://min24.energy.or.kr/gb/public/dashboard/dashboard.do" target="_blank" rel="noopener noreferrer">min24.energy.or.kr/gb/public/dashboard/dashboard.do</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">25</td>
+          <td>공공데이터포털</td>
+          <td><a href="https://www.data.go.kr" target="_blank" rel="noopener noreferrer">www.data.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">26</td>
+          <td>교육통계서비스</td>
+          <td><a href="https://kess.kedi.re.kr" target="_blank" rel="noopener noreferrer">kess.kedi.re.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">27</td>
+          <td>교통사고분석시스템(TAAS)</td>
+          <td><a href="https://taas.koroad.or.kr" target="_blank" rel="noopener noreferrer">taas.koroad.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">28</td>
+          <td>교통카드 빅데이터플랫폼</td>
+          <td><a href="https://www.stcis.go.kr" target="_blank" rel="noopener noreferrer">www.stcis.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">29</td>
+          <td>국가공유데이터플랫폼</td>
+          <td><a href="https://www.sharedata.go.kr" target="_blank" rel="noopener noreferrer">www.sharedata.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">30</td>
+          <td>국가과학기술데이터서비스(NTIS)</td>
+          <td><a href="https://www.ntis.go.kr" target="_blank" rel="noopener noreferrer">www.ntis.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">31</td>
+          <td>국가교통정보센터</td>
+          <td><a href="https://its.go.kr/opendata" target="_blank" rel="noopener noreferrer">its.go.kr/opendata</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">32</td>
+          <td>국가데이터처 MDIS(마이크로데이터)</td>
+          <td><a href="https://mdis.mods.go.kr" target="_blank" rel="noopener noreferrer">mdis.mods.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">33</td>
+          <td>국가재난안전관리시스템</td>
+          <td><a href="https://www.safekorea.go.kr" target="_blank" rel="noopener noreferrer">www.safekorea.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">34</td>
+          <td>국가지식정보 통합플랫폼</td>
+          <td><a href="https://k-knowledge.kr" target="_blank" rel="noopener noreferrer">k-knowledge.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">35</td>
+          <td>국가통계포털(KOSIS)</td>
+          <td><a href="https://kosis.kr" target="_blank" rel="noopener noreferrer">kosis.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">36</td>
+          <td>국민연금 빅데이터 플랫폼</td>
+          <td><a href="https://data.nps.or.kr" target="_blank" rel="noopener noreferrer">data.nps.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">37</td>
+          <td>국세통계센터</td>
+          <td><a href="https://datalab.nts.go.kr" target="_blank" rel="noopener noreferrer">datalab.nts.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">38</td>
+          <td>국세통계포털</td>
+          <td><a href="https://tasis.nts.go.kr" target="_blank" rel="noopener noreferrer">tasis.nts.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">39</td>
+          <td>국토정보플랫폼</td>
+          <td><a href="https://map.ngii.go.kr" target="_blank" rel="noopener noreferrer">map.ngii.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">40</td>
+          <td>균형발전 종합정보시스템(NABIS)</td>
+          <td><a href="https://www.nabis.go.kr" target="_blank" rel="noopener noreferrer">www.nabis.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">41</td>
+          <td>기상자료개방포털</td>
+          <td><a href="https://data.kma.go.kr" target="_blank" rel="noopener noreferrer">data.kma.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">42</td>
+          <td>농림축산식품 공공데이터포털</td>
+          <td><a href="https://data.mafra.go.kr" target="_blank" rel="noopener noreferrer">data.mafra.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">43</td>
+          <td>보건의료빅데이터개방시스템</td>
+          <td><a href="https://opendata.hira.or.kr" target="_blank" rel="noopener noreferrer">opendata.hira.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">44</td>
+          <td>부동산 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-realestate.kr" target="_blank" rel="noopener noreferrer">www.bigdata-realestate.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">45</td>
+          <td>브이월드(GIS데이터)</td>
+          <td><a href="https://www.vworld.kr" target="_blank" rel="noopener noreferrer">www.vworld.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">46</td>
+          <td>빈집 데이터플랫폼</td>
+          <td><a href="https://binzibe.kr" target="_blank" rel="noopener noreferrer">binzibe.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">47</td>
+          <td>사회복지시설정보시스템</td>
+          <td><a href="https://www.w4c.go.kr" target="_blank" rel="noopener noreferrer">www.w4c.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">48</td>
+          <td>산림공간정보시스템</td>
+          <td><a href="https://map.forest.go.kr" target="_blank" rel="noopener noreferrer">map.forest.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">49</td>
+          <td>산업단지공단 데이터(KICX)</td>
+          <td><a href="https://www.kicx.or.kr" target="_blank" rel="noopener noreferrer">www.kicx.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">50</td>
+          <td>생활안전지도</td>
+          <td><a href="https://safemap.go.kr" target="_blank" rel="noopener noreferrer">safemap.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">51</td>
+          <td>서울데이터허브</td>
+          <td><a href="https://data.seoul.go.kr" target="_blank" rel="noopener noreferrer">data.seoul.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">52</td>
+          <td>서울빅데이터캠퍼스</td>
+          <td><a href="https://bigdata.seoul.go.kr/main.do" target="_blank" rel="noopener noreferrer">bigdata.seoul.go.kr/main.do</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">53</td>
+          <td>서울실시간데이터</td>
+          <td><a href="https://data.seoul.go.kr/SeoulRtd/map" target="_blank" rel="noopener noreferrer">data.seoul.go.kr/SeoulRtd/map</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">54</td>
+          <td>수원시 데이터플랫폼</td>
+          <td><a href="https://data.suwon.go.kr" target="_blank" rel="noopener noreferrer">data.suwon.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">55</td>
+          <td>스마트시티 데이터 허브</td>
+          <td><a href="https://hub.smartcity.go.kr" target="_blank" rel="noopener noreferrer">hub.smartcity.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">56</td>
+          <td>에듀데이터서비스(EDSS)</td>
+          <td><a href="https://edss.moe.go.kr" target="_blank" rel="noopener noreferrer">edss.moe.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">57</td>
+          <td>열린재정</td>
+          <td><a href="https://www.openfiscaldata.go.kr" target="_blank" rel="noopener noreferrer">www.openfiscaldata.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">58</td>
+          <td>온나라 부동산포털 (씨:리얼)</td>
+          <td><a href="https://seereal.lh.or.kr" target="_blank" rel="noopener noreferrer">seereal.lh.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">59</td>
+          <td>원-윈도우</td>
+          <td><a href="https://www.data1window.kr" target="_blank" rel="noopener noreferrer">www.data1window.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">60</td>
+          <td>재난안전데이터공유플랫폼</td>
+          <td><a href="https://www.safetydata.go.kr" target="_blank" rel="noopener noreferrer">www.safetydata.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">61</td>
+          <td>지방재정365</td>
+          <td><a href="https://lofin365.go.kr" target="_blank" rel="noopener noreferrer">lofin365.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">62</td>
+          <td>철도데이터플랫폼</td>
+          <td><a href="https://data.kric.go.kr/rips" target="_blank" rel="noopener noreferrer">data.kric.go.kr/rips</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">63</td>
+          <td>통계데이터센터</td>
+          <td><a href="https://data.kostat.go.kr" target="_blank" rel="noopener noreferrer">data.kostat.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">64</td>
+          <td>통계지리정보서비스(SGIS)</td>
+          <td><a href="https://sgis.mods.go.kr" target="_blank" rel="noopener noreferrer">sgis.mods.go.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">65</td>
+          <td>특허정보넷 키프리스(KIPRIS)</td>
+          <td><a href="https://www.kipris.or.kr" target="_blank" rel="noopener noreferrer">www.kipris.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">66</td>
+          <td>한국관광 데이터랩</td>
+          <td><a href="https://datalab.visitkorea.or.kr" target="_blank" rel="noopener noreferrer">datalab.visitkorea.or.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">67</td>
+          <td>한국전력 데이터포털 (EN:TER)</td>
+          <td><a href="https://en-ter.co.kr" target="_blank" rel="noopener noreferrer">en-ter.co.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">68</td>
+          <td>해양수산 빅데이터 플랫폼</td>
+          <td><a href="https://www.bigdata-ocean.kr" target="_blank" rel="noopener noreferrer">www.bigdata-ocean.kr</a></td>
+        </tr>
+        <tr>
+          <td class="extdb-num">69</td>
+          <td>행안부 주민등록 인구통계</td>
+          <td><a href="https://jumin.mois.go.kr" target="_blank" rel="noopener noreferrer">jumin.mois.go.kr</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
 
@@ -1846,6 +2323,41 @@ function applyFilters() {
   });
   updateCounts();
 }
+</script>
+
+<script>
+  // 섹션 메뉴바: 스크롤 위치에 따라 활성 표시
+  (function () {
+    const links = Array.from(document.querySelectorAll(".section-nav a"));
+    const map = links.map((a) => ({
+      a,
+      el: document.querySelector(a.getAttribute("href")),
+    }));
+    function onScroll() {
+      const y = window.scrollY + 90;
+      let cur = map[0];
+      for (const m of map) {
+        if (m.el && m.el.offsetTop <= y) cur = m;
+      }
+      links.forEach((a) => a.classList.remove("active"));
+      if (cur) cur.a.classList.add("active");
+    }
+    let t = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!t) {
+          t = true;
+          requestAnimationFrame(() => {
+            onScroll();
+            t = false;
+          });
+        }
+      },
+      { passive: true }
+    );
+    onScroll();
+  })();
 </script>
 </body>
 </html>
