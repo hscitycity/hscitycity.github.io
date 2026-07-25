@@ -582,7 +582,7 @@ html { scroll-behavior: smooth; }
     <span class="hero-eyebrow">HWASEONG PALANTIR SYSTEM</span>
     <h1>화성형 팔란티어<br>프로젝트 보드</h1>
     <p class="sub">화성시 문제해결형 도시데이터플랫폼 · 인프라 전환 및 과제 추진 현황</p>
-    <p class="updated">최종 업데이트 — 2026년 7월 17일</p>
+    <p class="updated">최종 업데이트 — 2026년 7월 25일</p>
   </div>
 </div>
 
@@ -664,6 +664,70 @@ html { scroll-behavior: smooth; }
         <div class="strat-title">2027 고도화 미리 만지기</div>
         <div class="strat-desc">Gov Ontology 표준·범정부 LLM 에이전트·Human-in-the-loop은 2차 과업. 올해 트랙 B에서 미리 실험한 devlog 기록이 2차 기획의 근거 자료가 된다.</div>
         <div class="strat-link">상세 검토 보기 →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 구축 전략 (기술 아키텍처) -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="build">구축 전략 — 기술 아키텍처</h2>
+      <p>2026.07.25 확정. 팔란티어의 철학만 가져와서, 화성시 규모에 맞게 — 카드를 클릭하면 결정 근거와 상세 설계가 열립니다.</p>
+    </div>
+    <div class="strat-grid">
+      <div class="strat-card" onclick="openStrat('archStore')">
+        <div class="strat-badge badge-a">저장 3층</div>
+        <div class="strat-title">하둡 없이 — Lake·DW·Mart</div>
+        <div class="strat-desc">화성시 데이터는 누적 수 TB 이하의 "중간 데이터". Object Storage(Lake) → PostgreSQL(DW) → 스키마·뷰(Mart) 3층으로 충분. 하둡 배제, 스파크는 조건부.</div>
+        <div class="strat-link">도입/배제 판정표 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archOnto')">
+        <div class="strat-badge badge-net">온톨로지</div>
+        <div class="strat-title">PostgreSQL 한 대 + 확장 3종</div>
+        <div class="strat-desc">PostGIS(공간) + Apache AGE(그래프) + pgvector(의미)로 RFP의 RDB·GraphDB·VectorDB 3계층을 전부 커버. 운영할 DB가 하나면 모든 게 단순해진다.</div>
+        <div class="strat-link">계층 설계 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archPipe')">
+        <div class="strat-badge badge-b">파이프라인</div>
+        <div class="strat-title">연계는 신선도로 협상한다</div>
+        <div class="strat-desc">API·DB View·SFTP 혼합이 실무 표준. 방식이 아니라 데이터별 신선도 3등급(준실시간/일/주월)으로 매칭. 민원·센서 3~5종만 준실시간 양보 불가.</div>
+        <div class="strat-link">3등급 매칭표 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archMsa')">
+        <div class="strat-badge badge-hot">MSA</div>
+        <div class="strat-title">서비스는 잘게, 데이터는 하나로</div>
+        <div class="strat-desc">과제 하나 = 파드 하나, 데이터는 공유 계층. 처음부터 12개로 쪼개지 않고 게이트웨이+데이터API+GIS렌더러 3~4개로 시작. 지도는 재사용 컴포넌트.</div>
+        <div class="strat-link">MSA 원칙 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archGis')">
+        <div class="strat-badge badge-a">GIS 12종</div>
+        <div class="strat-title">월별 8종 + 실시간 3종 + 예산맵</div>
+        <div class="strat-desc">인구(11/11)부터 동물사체(12/13)까지. 월별 8종은 동일 패턴이라 11월 연쇄 오픈. 실시간 3종(소음·미세먼지·동물사체)이 난이도 최상위.</div>
+        <div class="strat-link">12종 전체 목록 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archIssue')">
+        <div class="strat-badge badge-risk">현안 4유형</div>
+        <div class="strat-title">19건은 같은 종류가 아니다</div>
+        <div class="strat-desc">A 지도레이어(6건, 11월 일괄) · B 워크플로(4건, 교통TF 최우선) · C 분석파이프라인(7건) · D 포털(2건). 모든 유형에 지도 포함. 유형별 템플릿으로 찍어낸다.</div>
+        <div class="strat-link">유형 분해 + 착수 배치 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archAgent')">
+        <div class="strat-badge badge-net">에이전트</div>
+        <div class="strat-title">탐지 → 진단 → 조치안내</div>
+        <div class="strat-desc">탐지는 룰 엔진(싸고 확실하게), 진단은 그래프 탐색+벡터 검색+LLM 종합, 조치안내는 초안 생성까지만. Human-in-the-loop — 결정은 사람이.</div>
+        <div class="strat-link">3단 파이프라인 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archRoad')">
+        <div class="strat-badge badge-later">로드맵</div>
+        <div class="strat-title">Phase 1~5, 검증 포인트까지</div>
+        <div class="strat-desc">8월 기반(온톨로지 정의) → 9월 파이프라인 → 10월 내부연계·중간보고 → 11월 서비스 연쇄 오픈 → 12월 에이전트·완료보고. 최종 검수는 수도파열 실데이터 재현.</div>
+        <div class="strat-link">단계별 계획 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('archOne')">
+        <div class="strat-badge badge-b">한 문장</div>
+        <div class="strat-title">전략 전체 요약</div>
+        <div class="strat-desc">PostgreSQL 한 대 + 확장 3종 위에, 공통 GIS 컴포넌트와 유형별 템플릿 4개로 서비스를 찍어내고, 탐지-진단-조치안내 에이전트가 도시문제를 잡아낸다.</div>
+        <div class="strat-link">전문 보기 →</div>
       </div>
     </div>
   </div>
@@ -2156,6 +2220,86 @@ document.querySelectorAll('[data-filter-prio]').forEach(chip => {
 
 // ── 전략 상세 데이터 ──────────────
 const stratData = {
+  archStore: {
+    title: "저장 3층 — 도입/배제 판정",
+    body: `<p><b>설계 제1원칙.</b> 화성시 인구 100만, 민원 연간 수십만 건, DB연계 76종, 센서 수백 개 — 전부 합쳐도 연간 수백 GB, 누적 수 TB 이하. 빅데이터가 아니라 중간 데이터다. 이 판단이 모든 기술 선택을 지배한다.</p>
+<p><b>하둡 — 배제.</b> 페타바이트급 분산저장용. HDFS의 역할은 NCP Object Storage가 완전 대체.</p>
+<p><b>스파크 — 보류.</b> 일 배치 수 GB는 SQL 변환으로 충분. 통신사 유동인구 등 민간 대용량 유입 시점에 단일노드 Spark 또는 DuckDB로 재검토.</p>
+<p><b>도입 3층:</b> Lake(Object Storage+Parquet, 원천 원형 보존) → DW(PostgreSQL+PostGIS, 비식별·표준화 통합 스키마, 좌표·국가기초구역이 공통 키) → Mart(서비스별 스키마·머티리얼라이즈드 뷰, "인구지도 마트 = 뷰 3개" 수준).</p>
+<p><b>효과:</b> 개방형 표준·벤더 비종속(팔란티어 Multimodal Data Plane 철학)과 일치. 수행사가 불필요한 상용 DW를 제안할 때의 방어 논리.</p>`,
+    links: [["#dblink","DB연계 76종 현황"],["#build","구축 전략으로"]]
+  },
+  archOnto: {
+    title: "온톨로지 — PostgreSQL 한 대 + 확장 3종",
+    body: `<p><b>RDB(PostgreSQL)</b> — 사실의 저장. 민원·시설물·센서값 원본과 이력.</p>
+<p><b>GraphDB(Apache AGE)</b> — 관계의 저장. "이 민원은 이 배관과, 이 배관은 이 공사와 연결된다". 1차는 POC이므로 PostgreSQL 확장인 AGE로 시작, 관계 탐색이 실전 병목이 되면 2차에서 Neo4j 검토.</p>
+<p><b>VectorDB(pgvector)</b> — 의미의 저장. 민원 텍스트 임베딩 → 유사 민원 검색·RAG.</p>
+<p><b>왜 한 대인가:</b> 운영할 DB가 하나면 백업·보안·장애 대응이 전부 단순해진다. 공무원 1인+수행사 체제에서 운영 가능한 유일한 형태.</p>
+<p><b>순서가 중요:</b> 온톨로지 모델링(개념 정의)은 기술 이전의 행정 작업 — 8/6 도시상태 정의에서 5개 분야의 객체(명사)·관계(링크)·행동(동사)을 문서로 먼저 확정하고, 그것을 스키마로 옮긴다.</p>`,
+    links: [["#strategy","8월 승부 카드 보기"],["#palantir","팔란티어 온톨로지 비교"]]
+  },
+  archPipe: {
+    title: "파이프라인 + 연계방식 — 신선도 3등급",
+    body: `<p><b>업체가 API를 부담스러워하는 건 구조적으로 타당하다.</b> API는 원천 시스템 쪽 개발이 필요해 38종마다 별도 유지보수 업체와 협의·비용·일정이 발생. 혼합 방식이 실무 표준. 단, 협상의 축은 "방식"이 아니라 "데이터별 신선도"다.</p>
+<p><b>등급 1 준실시간(양보 불가):</b> 새올 민원 접수·센서(대기질·소음·DMS) 3~5종. API 또는 시간 단위 DB View 폴링. 임계값 경보("향남읍 수도민원 1시간 7건")가 사업의 정체성인데 일 배치로는 이 기능이 무너진다.</p>
+<p><b>등급 2 일 배치(대부분):</b> 인구·계약·도서관 등 통계성 30종+. DB View든 SFTP든 업체 편한 대로.</p>
+<p><b>등급 3 주·월 배치:</b> 예산 등. SFTP로 충분.</p>
+<p><b>수집 구조:</b> 화성시 필터 공통 라이브러리(행정구역코드 41590·국가기초구역·좌표 BBox) → Argo Workflows(수집기 하나 = CronWorkflow 하나) → Lake(raw) → 비식별화 ETL 관문 → DW → Mart. 연계 장애 로그는 방식 무관 한 곳에(SFR-025).</p>
+<p><b>확인 필요:</b> 업체의 "DB Viewer"가 뷰 테이블 제공인지, 사람이 보는 조회 도구인지 — 후자면 데이터 연계가 아니다.</p>`,
+    links: [["#todos","연계 일정 보기 (할일 6번)"],["#build","구축 전략으로"]]
+  },
+  archMsa: {
+    title: "MSA — 서비스는 잘게, 데이터는 하나로",
+    body: `<p><b>팔란티어도 300개 서비스지만 데이터 플레인은 하나다.</b></p>
+<p><b>원칙 1 — 과제 하나 = 서비스 하나, 데이터는 공유 계층.</b> GIS 12종·현안과제는 얇은 파드(프론트+API)로 배포하되 DB 접속·인증·지도 타일·비식별 처리는 공통 플랫폼 서비스로. 서비스 추가 비용이 "컨테이너 하나 + Mart 뷰 몇 개"로 떨어진다.</p>
+<p><b>원칙 2 — 처음부터 쪼개지 않는다.</b> 1차는 게이트웨이+데이터API+GIS렌더러 3~4개 서비스로 시작, 지도 12종은 그 위의 라우트/모듈. 트래픽·팀이 커지면 그때 분리. 실패한 MSA 프로젝트들의 교훈.</p>
+<p><b>원칙 3 — 재사용 지도 컴포넌트.</b> 공통 GIS 엔진(타일+레이어+팝업)을 컴포넌트화. 유형 A는 단독 화면으로, 유형 B는 애플리케이션 안에 끼워 넣는다. 교통TF 개발자는 지도를 새로 만드는 게 아니라 컴포넌트 한 줄로 붙인다.</p>
+<p><b>원칙 4 — 쿠버네티스 검수 기준.</b> 수행사에게 컨테이너 이미지 + K8s 매니페스트 산출물을 요구. "내 클러스터(NKS)에서 뜨는가"가 검수 기준.</p>`,
+    links: [["#board","칸반 — NKS·CI/CD 카드"],["#build","구축 전략으로"]]
+  },
+  archGis: {
+    title: "GIS서비스 12종 (RFP SFR-013)",
+    body: `<p>공간단위 표준은 <b>국가기초구역(우편번호)</b>, 12번 동물사체만 좌표 단위. 좌표·격자·행정동 선택 기능 병행.</p>
+<p><b>월별 8종(11월 연쇄 오픈):</b> ① 인구현황(성별·연령별, 11/11) ② 전입전출(사유별, 11/14) ③ 민간데이터(통신사·카드·기업, 11/17) ④ 사회경제(소득·주택가격·빈집·공실률·주차장, 11/20) ⑤ 모기·해충 DMS(11/26) ⑥ 지역경제(상권진흥원·코나아이, 11/23) ⑦ 의료취약지(심평원·보건소, 12/7) ⑧ 생활쓰레기(청소행정포털 GPS, 11/28). 전부 "월 배치 수집 → 기초구역 집계 → 마트 뷰 → 레이어" 동일 패턴 — GIS 엔진 완성 직후 연쇄 오픈이 가능한 이유.</p>
+<p><b>실시간 3종(난이도 최상위):</b> ⑨ 소음(군소음·공사장, 12/1) ⑩ 미세먼지(센서 100+악취 10, 12/4) ⑫ 동물사체처리신고(12/13). 준실시간 연계 등급이 바로 이들을 위한 것. IoT 장비는 대여 방식 기본(RFP 명시).</p>
+<p><b>⑪ 예산맵(분기, 12/10):</b> 어디에 얼마의 예산이 쓰였는지 + 지오코딩.</p>
+<p><b>⑫ 동물사체 지도는 당직플랫폼의 직계 후손</b> — "당직민원처리 개선"이라는 출처가 RFP에 명시. 개인 POC가 본사업 공식 과업이 된 첫 사례.</p>
+<p><b>고도화 예고 5종:</b> 정주여건·작은시설·안전분야·하수우수관로·교통신호 최적화 — 현안과제 17번과 겹치므로 2차 편입 근거가 RFP에 이미 있다.</p>`,
+    links: [["#todos","GIS 일정 (할일 36~47번)"],["#duty","당직 → 동물사체 계보"]]
+  },
+  archIssue: {
+    title: "현안과제 4유형 분해 — 전부 지도 포함",
+    body: `<p><b>19건은 같은 종류가 아니다.</b> 유형을 나누면 만드는 방법이 완전히 달라진다. A/B 구분은 지도 유무가 아니라 "지도가 전부냐, 여러 화면 중 하나냐"의 차이 — 모든 유형에 지도가 들어간다.</p>
+<p><b>유형 A 지도 레이어형(6건):</b> 소방안전·그냥드림·AED·종량제·관광상권·맛집지도. 공통 GIS 엔진 위의 레이어+마트 뷰 하나. GIS 엔진 뜨는 11월 일괄, 과제당 며칠.</p>
+<p><b>유형 B 워크플로형(4건):</b> 교통TF·상수도·당직·통신판매업. 접수→처리→기록 상태관리가 뼈대, 지도는 핵심 화면(접수 위치 지정·처리현황 지도·다발구역 히트맵·계량기 지도). <b>교통TF가 최우선 — 9/1 유일한 확정 데드라인.</b> 여기서 만든 골격이 나머지에 재사용. 유형 B는 지도에 찍히는 데이터를 생산한다 — 교통TF 4개월이면 위치 딸린 처리 이력이 본사업 온톨로지의 실전 데이터가 된다.</p>
+<p><b>유형 C 분석 파이프라인형(7건):</b> 크롤링·언론보도·산불·에코팜·신호·대중교통·로컬푸드. CronWorkflow+결과 마트+시각화 패턴. 신호·대중교통은 민간데이터 확보 전 착수 불가.</p>
+<p><b>유형 D 포털형(2건):</b> 홍보·학습. 별도 경량 서비스, API로만 연결.</p>
+<p><b>신규 과제 온보딩 4단계:</b> ①유형 판정 ②데이터 존재 확인 ③운영 주체 확정(주인 없는 과제는 죽는다) ④템플릿 배정. 22번째 과제가 와도 체계가 흔들리지 않는다.</p>`,
+    links: [["#issues","현안과제 목록 보기"],["#build","구축 전략으로"]]
+  },
+  archAgent: {
+    title: "에이전트 — 탐지·진단·조치안내 3단",
+    body: `<p><b>1단 탐지(Detect):</b> 온톨로지에 정의된 임계값 룰이 상시 감시. "향남읍 수도민원 1시간 7건 > 기준 5건" → 이벤트. LLM이 아니라 SQL/룰 엔진 — 싸고 확실하게.</p>
+<p><b>2단 진단(Diagnose):</b> 이벤트 발생 시 에이전트 기동. ① 그래프 탐색 — 민원 위치 주변 배관·공사·시설물 관계를 AGE로 순회 ② 벡터 검색 — 유사 과거 민원·처리 이력을 pgvector로 회수 ③ LLM 종합 — 교차 근거로 원인 가설 생성. water-agent.js가 이 축소판을 이미 구현.</p>
+<p><b>3단 조치안내(Act):</b> 원인별 조치 시나리오(담당 부서·매뉴얼·공지 초안) 생성까지만. <b>실행은 하지 않는다. Human-in-the-loop — AI는 선택지를 제시하고 책임자가 결정한다.</b> 공공에서 이 선을 지키는 것이 신뢰의 전부.</p>
+<p><b>최종 검수 시나리오:</b> water-demo의 실데이터 버전 — "향남읍 수도 민원 급증 → 플랫폼 감지 → 원인 분석 → 조치 안내"가 실제로 돌아가면 그것이 곧 '문제해결형'의 증명.</p>`,
+    links: [["#board","칸반 — water-demo 카드"],["#palantir","AIP 비교 보기"]]
+  },
+  archRoad: {
+    title: "로드맵 Phase 1~5 — 검증 포인트까지",
+    body: `<p><b>Phase 1 기반(8월):</b> 온톨로지 모델 문서화(8/6), 임계값 정의(8/10), PostgreSQL+확장3종, Lake 버킷 구조, 교통TF 개발. 검증 — 도시상태 정의서가 수행사에 전달됐는가.</p>
+<p><b>Phase 2 파이프라인(9월):</b> 화성시 필터 라이브러리, 외부 13종 수집기(SGIS 8/31~), Argo 배치, 비식별 ETL 관문, 교통TF 시범(9/1). 검증 — 기초구역 단위로 데이터가 쌓이는가.</p>
+<p><b>Phase 3 내부연계·마트(9~10월):</b> 내부 DB 38종 연계(10/7), DW 표준 스키마, 마트 뷰, 중간보고(10/19). 검증 — 연계 장애 로그가 자동 기록되는가.</p>
+<p><b>Phase 4 서비스(11월):</b> GIS 12종 순차 오픈(인구 11/11→예산맵 12/10), 셀프BI, 현안 유형A 6건 일괄. 검증 — 지도 하나 추가에 며칠 걸리는가.</p>
+<p><b>Phase 5 에이전트(11~12월):</b> 탐지룰 가동, 진단 에이전트, 조치안내 UI, 완료보고(12/15). 검증 — 수도파열 시나리오가 실데이터로 재현되는가.</p>`,
+    links: [["#todos","할 일 리스트 전체"],["#strategy","이중 트랙 전략"]]
+  },
+  archOne: {
+    title: "구축 전략 — 한 문장 요약",
+    body: `<p style="font-size:18px; line-height:1.8;"><b>PostgreSQL 한 대 + 확장 3종 위에, 공통 GIS 컴포넌트와 유형별 템플릿 4개로 서비스를 찍어내고, 탐지-진단-조치안내 에이전트가 그 위에서 도시문제를 잡아낸다. 하둡 없이, 팔란티어의 철학만 가져와서, 화성시 규모에 맞게.</b></p>
+<p>전문은 개발일지 블로그의 "개발 전략 종합(2026.07.25)" 포스트 참고. 원본 파일 — 2026-07-25-development-strategy.md</p>`,
+    links: [["#build","구축 전략 카드로"],["#palantir","팔란티어 비교"],["#strategy","이중 트랙"]]
+  },
   trackA: {
     title: "트랙 A — 본사업 발주·관리·검사",
     body: `<p><b>정확한 위치 잡기.</b> 본사업(사업비 19.3억, 180일)은 수행사가 구축하고, 나는 주관기관(화성시 AI스마트전략실) 담당자로서 발주·관리·검사를 맡는다. 직접 코딩하는 사업이 아니다.</p>
