@@ -106,6 +106,21 @@ const localDataUsing = false;
 ### `js/URLparsing.js` (수정됨)
 - 홈 클릭 URL: `https://hscitycity.github.io/` (프로젝트 사이트가 아닌 유저 사이트이므로 repositoryName 경로 없음)
 
+### 상단 메뉴 구조 (2026-07-25 변경)
+
+**메뉴 3개: 소개 / 개발일지 / 개발관리 대시보드**
+
+메뉴 시스템의 원리와 이번 변경의 핵심:
+- 메뉴 항목 = `menu/` 폴더의 파일 목록(GitHub API `contents/menu`로 조회). 순서는 파일명 오름차순
+- **`blog.md`는 특별 취급**: 클릭 시 글 목록을 렌더링. 이 파일명이 4곳에 하드코딩됨 — [`render.js`](../js/render.js) 87행(클릭)·647행(초기로드), [`URLparsing.js`](../js/URLparsing.js) 77행(popstate), [`mobileMenuToggle.js`](../js/mobileMenuToggle.js) 37행
+- **파일명은 ASCII 그대로 유지**(`about.md`, `blog.md`)하고 **화면 라벨만 매핑**함:
+  - `render.js`의 `menuLabelMap = { about: "소개", blog: "개발일지" }`
+  - 파일명을 한글로 바꾸면 URL이 퍼센트 인코딩(`개발일지.md`→`%EA…`)되어 `=== "blog.md"` 비교가 깨지므로, 라벨만 바꾸는 방식이 안전
+- **모바일 메뉴 주의**: 예전엔 `innerText + ".md"`로 파일명을 역추적했는데, 라벨≠파일명이 되면서 깨짐 → 각 링크에 `data-menu-file`(실제 파일명)을 심고 모바일이 그걸 읽도록 고침
+- **개발관리 대시보드**: `menu/`의 .md가 아니라 저장소 루트의 **정적 `dashboard.html`**. `render.js`에서 메뉴 루프 뒤에 하드코딩으로 `<a href="dashboard.html" data-external="true">`를 append. `data-external="true"`면 SPA 렌더링을 거치지 않고 **같은 탭 이동**(데스크톱은 기본 링크 동작, 모바일은 `mobileMenuToggle.js`에서 `window.location.href`로 이동)
+  - `dashboard.html`은 현재 **자리표시자**("준비 중"). 사용자가 실제 대시보드로 루트의 이 파일을 덮어쓰면 됨
+  - 새 외부 HTML 메뉴를 추가하려면 같은 패턴(`data-external="true"` + 루트 상대경로) 사용
+
 ---
 
 ## 4. 썸네일 이미지

@@ -22,9 +22,19 @@ window.addEventListener("click", (event) => {
             mobileMenu.innerHTML = "";
         }
     } else if (event.target.parentNode === mobileMenu) {
+        // 외부 HTML 페이지(개발관리 대시보드 등)는 기본 동작(같은 탭 이동)을 허용
+        if (event.target.dataset.external === "true") {
+            mobileMenu.innerHTML = "";
+            window.location.href = event.target.getAttribute("href");
+            return;
+        }
+
         event.preventDefault();
 
-        if (event.target.innerText + ".md" === "blog.md") {
+        // 라벨(innerText)이 아니라 data 속성에 보존된 실제 파일명으로 판별
+        const menuFile = event.target.dataset.menuFile;
+
+        if (menuFile === "blog.md") {
             if (blogList.length === 0) {
                 // 블로그 리스트 로딩
                 initDataBlogList().then(() => {
@@ -35,11 +45,11 @@ window.addEventListener("click", (event) => {
             }
             // console.log(origin)
             const url = new URL(origin);
-            url.searchParams.set("menu", event.target.innerText + ".md");
+            url.searchParams.set("menu", menuFile);
             window.history.pushState({}, "", url);
             mobileMenu.innerHTML = "";
         } else {
-            renderOtherContents(event.target.innerText + ".md");
+            renderOtherContents(menuFile);
             mobileMenu.innerHTML = "";
         }
     } else {

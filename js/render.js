@@ -58,6 +58,13 @@ async function renderMenu() {
     1. 메인페이지 메뉴 생성 및 메뉴클릭 이벤트 정의
     2. 검색창과 검색 이벤트 정의(검색이 메뉴에 있으므로) - 함수가 커지면 별도 파일로 분리 필요
     */
+  // 파일명(ASCII)은 그대로 두고 화면에 보이는 라벨만 매핑한다.
+  // (파일명을 한글로 바꾸면 URL 인코딩·하드코딩된 blog.md 비교가 깨지므로 라벨만 교체)
+  const menuLabelMap = {
+    about: "소개",
+    blog: "개발일지",
+  };
+
   blogMenu.forEach((menu) => {
     // 메뉴 링크 생성
     const link = document.createElement("a");
@@ -67,9 +74,11 @@ async function renderMenu() {
     link.classList.add(`${menu.name}`);
 
     link.href = menu.download_url;
-    // 확장자를 제외하고 이름만 innerText로 사용
+    // 확장자를 제외한 파일명(예: blog) → 라벨 매핑(예: 개발일지)
     const menuName = menu.name.split(".")[0];
-    link.innerText = menuName;
+    // 모바일 메뉴가 실제 파일명을 알 수 있도록 data 속성에 보존
+    link.dataset.menuFile = menu.name;
+    link.innerText = menuLabelMap[menuName] || menuName;
 
     link.onclick = (event) => {
       // 메뉴 링크 클릭 시 이벤트 중지 후 menu 내용을 읽어와 contents 영역에 렌더링
@@ -93,6 +102,15 @@ async function renderMenu() {
     };
     document.getElementById("menu").appendChild(link);
   });
+
+  // 개발관리 대시보드 — 별도 HTML 페이지(같은 탭에서 이동)
+  // menu/ 폴더의 .md가 아니라 정적 HTML이므로 SPA 렌더링을 거치지 않고 실제 링크로 이동시킨다.
+  const dashboardLink = document.createElement("a");
+  dashboardLink.classList.add(...menuListStyle.split(" "));
+  dashboardLink.href = "dashboard.html";
+  dashboardLink.dataset.external = "true"; // 모바일 메뉴에서 기본 이동을 허용하기 위한 표식
+  dashboardLink.innerText = "개발관리 대시보드";
+  document.getElementById("menu").appendChild(dashboardLink);
 
   // 검색 버튼 클릭 시 검색창 출력
   const searchButton = document.getElementById("search-button");
