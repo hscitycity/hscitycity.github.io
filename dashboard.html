@@ -17,38 +17,59 @@ body {
 }
 .container { max-width: 1280px; margin: 0 auto; padding: 0 28px 80px; }
 
-/* ── 히어로 배너 ───────────────────────── */
+/* ── 히어로 밴드 ─────────────────────── */
 .hero {
-  background: linear-gradient(135deg, #4A90E2 0%, #5BA3F5 45%, #7BB8FF 100%);
-  padding: 52px 28px 60px;
+  background: #0A1628;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(43,125,224,.28) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 110%, rgba(91,163,245,.15) 0%, transparent 55%);
+  padding: 64px 28px 72px;
   position: relative;
   overflow: hidden;
 }
 .hero::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: radial-gradient(circle at 15% 30%, rgba(255,255,255,.14) 0, rgba(255,255,255,.14) 60px, transparent 61px),
-                    radial-gradient(circle at 85% 20%, rgba(255,255,255,.1) 0, rgba(255,255,255,.1) 45px, transparent 46px),
-                    radial-gradient(circle at 70% 80%, rgba(255,255,255,.08) 0, rgba(255,255,255,.08) 70px, transparent 71px),
-                    radial-gradient(circle at 30% 85%, rgba(255,255,255,.1) 0, rgba(255,255,255,.1) 35px, transparent 36px);
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, #000 20%, transparent 75%);
+}
+.hero::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(123,184,255,.4), transparent);
 }
 .hero-inner { max-width: 1280px; margin: 0 auto; position: relative; }
 .hero-eyebrow {
   display: inline-block;
-  font-size: 14px; font-weight: 800; color: #fff;
-  background: rgba(255,255,255,.22);
-  border: 1px solid rgba(255,255,255,.35);
-  border-radius: 999px; padding: 6px 16px;
-  margin-bottom: 18px; letter-spacing: .5px;
+  font-size: 12.5px; font-weight: 700;
+  color: #7BB8FF;
+  background: rgba(43,125,224,.12);
+  border: 1px solid rgba(123,184,255,.25);
+  border-radius: 999px; padding: 7px 18px;
+  margin-bottom: 24px; letter-spacing: 2.5px;
 }
 .hero h1 {
-  font-size: 48px; font-weight: 900; color: #fff;
-  letter-spacing: -1px; line-height: 1.15;
-  margin-bottom: 12px;
-  text-shadow: 0 2px 12px rgba(0,40,100,.15);
+  font-size: 52px; font-weight: 900;
+  letter-spacing: -1.5px; line-height: 1.12;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #C9E2FF 45%, #7BB8FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
-.hero .sub { font-size: 19px; color: #fff; font-weight: 600; }
-.hero .updated { font-size: 15px; color: rgba(255,255,255,.95); font-weight: 500; margin-top: 6px; }
+.hero .sub {
+  font-size: 18px; font-weight: 500;
+  color: #A8C4E4; letter-spacing: -0.2px;
+}
+.hero .updated {
+  font-size: 14px; color: #5E7A9C; font-weight: 500;
+  margin-top: 10px; letter-spacing: .3px;
+}
 
 /* ── 요약 스트립 (히어로에 걸침) ─────────── */
 .stats {
@@ -58,7 +79,7 @@ body {
 .stat {
   background: #fff; border-radius: 16px;
   padding: 22px 24px;
-  box-shadow: 0 4px 20px rgba(40,90,160,.1);
+  box-shadow: 0 8px 32px rgba(10,22,40,.18);
   border: 1px solid #E3EDF7;
 }
 .stat-val { font-size: 36px; font-weight: 900; letter-spacing: -0.5px; color: #1A2433; }
@@ -69,7 +90,7 @@ body {
 .dot-orange { background: #F5A623; }
 .dot-blue { background: #2B7DE0; }
 
-/* ── 필터 바 ───────────────────────────── */
+/* ── 필터 바 ─────────────────────────── */
 .filterbar {
   display: flex; gap: 8px; align-items: center; margin-bottom: 24px;
   flex-wrap: wrap;
@@ -88,7 +109,7 @@ body {
 .chip.active { background: #2B7DE0; border-color: #2B7DE0; color: #fff; }
 .divider-v { width: 1px; height: 20px; background: #E3EDF7; margin: 0 8px; }
 
-/* ── 칸반 ──────────────────────────────── */
+/* ── 칸반 ───────────────────────────── */
 .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .col-head {
   display: flex; align-items: center; gap: 9px;
@@ -115,7 +136,7 @@ body {
 }
 .col-body.dragover { background: #E9F2FB; }
 
-/* ── 카드 ──────────────────────────────── */
+/* ── 카드 ───────────────────────────── */
 .card {
   background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
   padding: 20px; cursor: grab;
@@ -164,7 +185,7 @@ body {
 }
 
 
-/* ── 섹션 블록 ─────────────────────────── */
+/* ── 섹션 블록 ─────────────────────── */
 .section-block { margin-top: 48px; }
 .section-head { margin-bottom: 20px; }
 .section-head h2 {
@@ -173,7 +194,7 @@ body {
 }
 .section-head p { font-size: 15px; color: #3A4A5E; font-weight: 500; }
 
-/* ── 협업 네트워크 ─────────────────────── */
+/* ── 협업 네트워크 ─────────────────── */
 .network { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .net-card {
   background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
@@ -189,10 +210,19 @@ body {
   background: #E1EEFB; border-radius: 999px; padding: 3px 11px;
   white-space: nowrap;
 }
+
+.net-tools a { color: #2B7DE0; text-decoration: none; font-weight: 700; }
+.net-tools a:hover { text-decoration: underline; }
+.net-note a { color: #2B7DE0; text-decoration: none; font-weight: 700; }
+.net-note a:hover { text-decoration: underline; }
+.tool-row a { text-decoration: none; }
+.tool-row a:hover b { text-decoration: underline; }
+.card { cursor: pointer; }
+
 .net-tools { font-size: 14px; color: #2E3D50; font-weight: 600; line-height: 1.6; margin-bottom: 8px; }
 .net-note { font-size: 13px; color: #44556B; font-weight: 500; }
 
-/* ── 현안과제 태그 ─────────────────────── */
+/* ── 현안과제 태그 ─────────────────── */
 .tasks { display: flex; flex-wrap: wrap; gap: 10px; }
 .task-tag {
   font-size: 14px; font-weight: 700; color: #2E3D50;
@@ -204,6 +234,230 @@ body {
 .task-tag:hover { border-color: #9FC4EE; color: #2B7DE0; }
 .task-tag.hot {
   color: #fff; background: #2B7DE0; border-color: #2B7DE0;
+}
+
+
+
+
+/* ── 전략 카드 ─────────────────────── */
+.strat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.strat-card {
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  padding: 22px; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+  transition: box-shadow .15s, transform .15s, border-color .15s;
+}
+.strat-card:hover { border-color: #9FC4EE; box-shadow: 0 8px 28px rgba(40,90,160,.14); transform: translateY(-2px); }
+.strat-card.track-a { border-top: 4px solid #2B7DE0; border-radius: 0 0 16px 16px; }
+.strat-card.track-b { border-top: 4px solid #16A085; border-radius: 0 0 16px 16px; }
+.strat-badge {
+  display: inline-block; font-size: 12px; font-weight: 800;
+  border-radius: 999px; padding: 4px 13px; margin-bottom: 12px;
+}
+.badge-a { color: #fff; background: #2B7DE0; }
+.badge-b { color: #fff; background: #16A085; }
+.badge-hot { color: #A03818; background: #FDEEEA; }
+.badge-risk { color: #8A5A00; background: #FDF5DC; }
+.badge-net { color: #3C3489; background: #EEEDFE; }
+.badge-later { color: #44556B; background: #EDF2F8; }
+.strat-title { font-size: 17px; font-weight: 800; color: #1A2433; margin-bottom: 8px; letter-spacing: -0.2px; }
+.strat-desc { font-size: 14px; color: #2E3D50; font-weight: 500; line-height: 1.65; margin-bottom: 14px; }
+.strat-link { font-size: 13.5px; font-weight: 800; color: #2B7DE0; }
+
+/* ── 팔란티어 비교표 ────────────────── */
+.pal-table {
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  overflow: hidden; box-shadow: 0 2px 10px rgba(40,90,160,.05);
+}
+.pal-row {
+  display: grid; grid-template-columns: 190px 1fr 1fr;
+  border-bottom: 1px solid #EDF3FA; cursor: pointer;
+  transition: background .12s;
+}
+.pal-row:last-child { border-bottom: none; }
+.pal-row:hover { background: #F7FAFD; }
+.pal-head-row { background: #0A1628; cursor: default; }
+.pal-head-row:hover { background: #0A1628; }
+.pal-head-row .pal-cell { color: #7BB8FF; font-weight: 800; font-size: 13.5px; letter-spacing: .5px; }
+.pal-cell { padding: 16px 18px; font-size: 14px; color: #2E3D50; font-weight: 500; line-height: 1.6; }
+.pc-concept b { color: #1A2433; font-weight: 800; font-size: 15px; }
+.pc-orig { border-left: 1px solid #EDF3FA; color: #44556B; }
+.pc-ours { border-left: 1px solid #EDF3FA; }
+.pc-ours { color: #0C447C; font-weight: 600; }
+
+/* ── 당직 플로우 ────────────────────── */
+.duty-flow { display: flex; align-items: stretch; gap: 10px; margin-bottom: 14px; }
+.duty-step {
+  flex: 1; display: flex; gap: 14px; align-items: flex-start;
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  padding: 20px; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+  transition: border-color .15s, box-shadow .15s;
+}
+.duty-step:hover { border-color: #9FC4EE; box-shadow: 0 6px 22px rgba(40,90,160,.12); }
+.done-step { border-top: 4px solid #2B7DE0; border-radius: 0 0 16px 16px; }
+.next-step { border-top: 4px solid #F5A623; border-radius: 0 0 16px 16px; }
+.duty-num {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+  background: #E1EEFB; color: #2B7DE0;
+  font-size: 16px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+.duty-title { font-size: 15.5px; font-weight: 800; color: #1A2433; margin-bottom: 4px; }
+.duty-desc { font-size: 13px; color: #2E3D50; font-weight: 500; line-height: 1.55; }
+.duty-arrow { align-self: center; font-size: 22px; font-weight: 900; color: #9FC4EE; }
+.duty-note {
+  background: #E1EEFB; border-radius: 12px; padding: 16px 22px;
+  font-size: 14.5px; color: #0C447C; font-weight: 600; line-height: 1.6;
+  cursor: pointer; transition: background .15s;
+}
+.duty-note:hover { background: #CFE3F9; }
+.duty-note b { font-weight: 900; }
+
+@media (max-width: 900px) {
+  .strat-grid { grid-template-columns: 1fr; }
+  .pal-row { grid-template-columns: 1fr; }
+  .pc-orig, .pc-ours { border-left: none; border-top: 1px solid #EDF3FA; }
+  .duty-flow { flex-direction: column; }
+  .duty-arrow { transform: rotate(90deg); align-self: center; }
+}
+
+/* ── 할 일 리스트 ─────────────────── */
+.todo-list {
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+}
+.todo-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 22px;
+  border-bottom: 1px solid #EDF3FA;
+}
+.todo-row:last-child { border-bottom: none; }
+.todo-row:hover { background: #F7FAFD; }
+.todo-num {
+  flex-shrink: 0; width: 38px; text-align: center;
+  font-size: 14px; font-weight: 800; color: #7A8CA0;
+}
+.todo-main { flex: 1; min-width: 0; }
+.todo-name { font-size: 15px; font-weight: 800; color: #1A2433; }
+.todo-desc { font-size: 13px; color: #44556B; font-weight: 500; margin-top: 2px; line-height: 1.5; }
+.cha {
+  font-size: 11px; font-weight: 700; color: #7A5C00;
+  background: #FDF5DC; border-radius: 5px; padding: 1px 7px;
+  vertical-align: 1px; margin-left: 4px;
+}
+.todo-due {
+  flex-shrink: 0; font-size: 14px; font-weight: 800; color: #2E3D50;
+  width: 52px; text-align: right;
+}
+.st {
+  flex-shrink: 0; font-size: 12.5px; font-weight: 800;
+  border-radius: 999px; padding: 4px 13px; width: 68px; text-align: center;
+}
+.st-done { color: #fff; background: #2B7DE0; }
+.st-doing { color: #8A5A00; background: #FDEDC8; }
+.st-todo { color: #44556B; background: #EDF2F8; }
+
+/* ── DB연계 카드 ───────────────────── */
+.db-card {
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 10px rgba(40,90,160,.05);
+}
+.db-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.db-title { font-size: 17px; font-weight: 800; color: #1A2433; }
+.db-count {
+  font-size: 15px; font-weight: 900; color: #fff;
+  background: #2B7DE0; border-radius: 999px; padding: 4px 16px;
+}
+.db-body { font-size: 13.5px; color: #2E3D50; font-weight: 500; line-height: 1.7; margin-bottom: 10px; }
+.db-note { font-size: 13px; color: #44556B; font-weight: 700; padding-top: 10px; border-top: 1px solid #EDF3FA; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+
+
+html { scroll-behavior: smooth; }
+.modal-body p { margin-bottom: 12px; }
+.modal-body p:last-of-type { margin-bottom: 0; }
+.modal-body b { font-weight: 800; color: #1A2433; }
+.modal-links {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;
+  padding-top: 16px; border-top: 1px solid #EDF3FA;
+}
+.modal-links a {
+  font-size: 13.5px; font-weight: 800; color: #2B7DE0;
+  background: #E1EEFB; border-radius: 999px; padding: 8px 18px;
+  text-decoration: none; transition: background .15s;
+}
+.modal-links a:hover { background: #CFE3F9; }
+
+/* ── 모달 (base) */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(15,30,50,.5); z-index: 100;
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #fff; border-radius: 20px;
+  max-width: 560px; width: 100%; max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(10,30,60,.3);
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 28px 0;
+}
+.modal-head h3 { font-size: 21px; font-weight: 900; color: #1A2433; letter-spacing: -0.3px; }
+.modal-close {
+  border: none; background: #F0F5FA; color: #44556B;
+  width: 34px; height: 34px; border-radius: 50%;
+  font-size: 20px; font-weight: 700; cursor: pointer;
+  flex-shrink: 0;
+}
+.modal-close:hover { background: #E1EEFB; color: #2B7DE0; }
+.modal-body {
+  padding: 16px 28px 28px;
+  font-size: 15.5px; color: #2E3D50; font-weight: 500; line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .todo-row { flex-wrap: wrap; }
+}
+
+/* ── 현안과제 카드 ─────────────────── */
+.issues { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.issue-card {
+  display: flex; gap: 14px;
+  background: #fff; border: 1px solid #E3EDF7; border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(40,90,160,.05);
+  transition: border-color .15s, box-shadow .15s;
+}
+.issue-card:hover { border-color: #9FC4EE; box-shadow: 0 6px 20px rgba(40,90,160,.1); }
+.issue-card.hot { border: 2px solid #2B7DE0; }
+.issue-num {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+  background: #E1EEFB; color: #2B7DE0;
+  font-size: 15px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+.issue-card.hot .issue-num { background: #2B7DE0; color: #fff; }
+.issue-title { font-size: 15.5px; font-weight: 800; color: #1A2433; margin-bottom: 5px; line-height: 1.4; }
+.issue-desc { font-size: 13.5px; color: #2E3D50; font-weight: 500; line-height: 1.6; }
+
+/* 류승인 카드 확장 */
+.net-card.wide { grid-column: span 3; }
+.tool-row { font-size: 13.5px; color: #2E3D50; font-weight: 500; line-height: 1.7; padding: 3px 0; border-bottom: 1px solid #F0F5FA; }
+.tool-row:last-child { border-bottom: none; }
+.tool-row b { color: #2B7DE0; font-weight: 800; }
+
+@media (max-width: 900px) {
+  .issues { grid-template-columns: 1fr; }
+  .net-card.wide { grid-column: span 1; }
 }
 
 @media (max-width: 900px) {
@@ -235,7 +489,7 @@ body {
   <div class="stats">
     <div class="stat">
       <div class="stat-val">12</div>
-      <div class="stat-label">전체 업무</div>
+      <div class="stat-label">전체 작업</div>
     </div>
     <div class="stat">
       <div class="stat-val">4</div>
@@ -248,6 +502,134 @@ body {
     <div class="stat">
       <div class="stat-val accent">5</div>
       <div class="stat-label"><span class="dot dot-blue"></span>완료</div>
+    </div>
+  </div>
+
+
+  <!-- 종합 전략 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="strategy">종합 전략 — 이중 트랙</h2>
+      <p>본사업(19.3억 · 180일 · 수행사 구축)과 개인 Beta(NKS 실험실)를 분리 운영하되 상호 환류. 카드를 클릭하면 상세 검토 내용과 관련 항목으로 이동합니다.</p>
+    </div>
+    <div class="strat-grid">
+      <div class="strat-card track-a" onclick="openStrat('trackA')">
+        <div class="strat-badge badge-a">트랙 A</div>
+        <div class="strat-title">본사업 — 발주·관리·검사</div>
+        <div class="strat-desc">RFP 핵심기능 7개. 민원AI(국토연구원), 온톨로지 이상징후 탐지, DB연계 38종, GIS대시보드 12종. 내 역할은 구축이 아니라 발주자로서 방향 제시와 검사.</div>
+        <div class="strat-link">상세 검토 + 관련 할일 보기 →</div>
+      </div>
+      <div class="strat-card track-b" onclick="openStrat('trackB')">
+        <div class="strat-badge badge-b">트랙 B</div>
+        <div class="strat-title">개인 Beta — 검증·실험실</div>
+        <div class="strat-desc">NKS 위 직접 개발. water-demo로 온톨로지 실증 완료. 본사업 범위 밖인 현안과제 21건·우수공무원 MCP 연계·당직플랫폼을 여기서 흡수한다.</div>
+        <div class="strat-link">상세 검토 + 현안과제 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('aug')">
+        <div class="strat-badge badge-hot">8월 승부</div>
+        <div class="strat-title">도시상태 정의는 행정 판단</div>
+        <div class="strat-desc">온톨로지 모델링(8/6)·임계값 경보(8/10)는 기술이 아니라 화성시가 정해야 하는 것. 수도민원 시간당 몇 건이면 이상인가 — water-demo 시나리오가 초안 템플릿.</div>
+        <div class="strat-link">상세 검토 + 관련 일정 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('risk')">
+        <div class="strat-badge badge-risk">리스크 3</div>
+        <div class="strat-title">병목·지연·혼선 대응</div>
+        <div class="strat-desc">① 발주자 의존 구간 병목 ② 타기관 데이터 협약 지연 ③ Beta와 본사업 혼선. 각각 선제 초안·순서 재배치·역할 문서화로 대응.</div>
+        <div class="strat-link">상세 검토 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('assets')">
+        <div class="strat-badge badge-net">협업 투입</div>
+        <div class="strat-title">협업 자산의 투입 시점</div>
+        <div class="strat-desc">류승인 MCP 5종·korea100·klocal은 본사업 과업이 아니므로 트랙 B에서 9월부터 연결. 성과가 나오면 2차 사업(2027) 과업으로 공식 편입 제안.</div>
+        <div class="strat-link">상세 검토 + 협업 네트워크 보기 →</div>
+      </div>
+      <div class="strat-card" onclick="openStrat('phase2')">
+        <div class="strat-badge badge-later">2차 포석</div>
+        <div class="strat-title">2027 고도화 미리 만지기</div>
+        <div class="strat-desc">Gov Ontology 표준·범정부 LLM 에이전트·Human-in-the-loop은 2차 과업. 올해 트랙 B에서 미리 실험한 devlog 기록이 2차 기획의 근거 자료가 된다.</div>
+        <div class="strat-link">상세 검토 보기 →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 팔란티어 vs 화성형 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="palantir">팔란티어 vs 화성형 팔란티어</h2>
+      <p>팔란티어 Foundry 공식 아키텍처 문서 7편 분석 결과 — 원본 개념과 화성형 구현 방안의 대응</p>
+    </div>
+    <div class="pal-table">
+      <div class="pal-row pal-head-row">
+        <div class="pal-cell pc-concept">팔란티어 개념</div>
+        <div class="pal-cell pc-orig">원본 (Foundry · AIP · Apollo)</div>
+        <div class="pal-cell pc-ours">화성형 구현</div>
+      </div>
+      <div class="pal-row" onclick="openStrat('palOnto')">
+        <div class="pal-cell pc-concept"><b>온톨로지 시스템</b></div>
+        <div class="pal-cell pc-orig">데이터(명사)+액션(동사)+로직+보안 4중 통합. "The Ontology models decisions, not simply data"</div>
+        <div class="pal-cell pc-ours">민원(명사)+처리(동사)+AI분석(로직)+거버넌스(보안). RDB+GraphDB+VectorDB 3계층 — RFP 핵심기능②와 동일 구조</div>
+      </div>
+      <div class="pal-row" onclick="openStrat('palAip')">
+        <div class="pal-cell pc-concept"><b>AIP → AI 에이전트</b></div>
+        <div class="pal-cell pc-orig">Secure LLM integration, Agent lifecycle, 12개 AI 역량 카테고리</div>
+        <div class="pal-cell pc-ours">Claude·Gemini 에이전트(agent.js, water-agent.js) + 류승인 MCP 허브. 2차에서 범정부 LLM으로 확장</div>
+      </div>
+      <div class="pal-row" onclick="openStrat('palFoundry')">
+        <div class="pal-cell pc-concept"><b>Foundry → 데이터 파이프라인</b></div>
+        <div class="pal-cell pc-orig">수집→변환→가상화→저장→모니터링. Multimodal Data Plane 개방형 아키텍처</div>
+        <div class="pal-cell pc-ours">search.js(수집)→extract.js(변환)→PostgreSQL(저장). 본사업 DB연계 38종 + 연계 장애관리(SFR-025)</div>
+      </div>
+      <div class="pal-row" onclick="openStrat('palApollo')">
+        <div class="pal-cell pc-concept"><b>Apollo → 배포 자동화</b></div>
+        <div class="pal-cell pc-orig">주당 수만 건 릴리즈, 자율적 소프트웨어 딜리버리</div>
+        <div class="pal-cell pc-ours">GitHub Actions → docker build → NCR push → NKS 롤링업데이트. 동일 철학의 축소판</div>
+      </div>
+      <div class="pal-row" onclick="openStrat('palRubix')">
+        <div class="pal-cell pc-concept"><b>Rubix → 보안 기반</b></div>
+        <div class="pal-cell pc-orig">Zero-trust, 군사급 보안, 행 수준 접근제어</div>
+        <div class="pal-cell pc-ours">민원 개인정보 비식별화 ETL(RFP 필수), Private 도메인 전환 완료, 정책·실행협의체 거버넌스</div>
+      </div>
+      <div class="pal-row" onclick="openStrat('palDiff')">
+        <div class="pal-cell pc-concept"><b>결정적 차이</b></div>
+        <div class="pal-cell pc-orig">300+ 마이크로서비스, 수십억 달러, 20년</div>
+        <div class="pal-cell pc-ours">공무원 1인 + 오픈소스 + 협업 네트워크 + 19.3억 본사업. 같은 방향, 6개월 MVP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 당직플랫폼 스포트라이트 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="duty">당직통합업무플랫폼 — 프로세스의 원형</h2>
+      <p>단순 POC가 아니라 "바이브코딩 → 테스트 → 정식도입" 전체 프로세스를 처음으로 검증한 사례</p>
+    </div>
+    <div class="duty-flow">
+      <div class="duty-step done-step" onclick="openStrat('duty1')">
+        <div class="duty-num">1</div>
+        <div class="duty-body">
+          <div class="duty-title">바이브코딩 개발</div>
+          <div class="duty-desc">당직 근무자 상황별 대응 절차·체크리스트 즉시 안내. Claude와 함께 단기간 구축</div>
+        </div>
+      </div>
+      <div class="duty-arrow">→</div>
+      <div class="duty-step done-step" onclick="openStrat('duty2')">
+        <div class="duty-num">2</div>
+        <div class="duty-body">
+          <div class="duty-title">Vercel 배포 검증</div>
+          <div class="duty-desc">duty-management-platform.vercel.app 실배포. 실사용 피드백 수집</div>
+        </div>
+      </div>
+      <div class="duty-arrow">→</div>
+      <div class="duty-step next-step" onclick="openStrat('duty3')">
+        <div class="duty-num">3</div>
+        <div class="duty-body">
+          <div class="duty-title">정식 도입 경로</div>
+          <div class="duty-desc">현안과제 7번(당직 매뉴얼 대시보드) + 47번(동물사체신고 모니터링, 당직민원 개선)으로 본사업·트랙B 연결</div>
+        </div>
+      </div>
+    </div>
+    <div class="duty-note" onclick="openStrat('dutyWhy')">
+      <b>왜 중요한가</b> — 이 3단계가 현안과제 21건 전체에 적용될 표준 프로세스다. 당직플랫폼이 첫 번째로 길을 뚫었다. 클릭해서 상세 보기 →
     </div>
   </div>
 
@@ -267,7 +649,7 @@ body {
   </div>
 
   <!-- 칸반 -->
-  <div class="board">
+  <div class="board" id="board">
 
     <!-- 예정 -->
     <div class="col">
@@ -280,7 +662,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
           <div class="card-top">
-            <div class="card-title">HTTPS + 도메인 연결</div>
+            <div class="card-title" data-detail="cert-manager와 Lets Encrypt로 인증서 자동 발급 체계를 구축합니다. DNS를 NCP Load Balancer IP로 전환하고, Ingress에 TLS 설정을 추가합니다. 완료되면 https://hspalantir-demo.com 형태로 보안 접속이 가능해집니다.">HTTPS + 도메인 연결</div>
             <span class="prio prio-high">높음</span>
           </div>
           <div class="card-desc">cert-manager + Let's Encrypt 인증서 자동 발급. DNS를 NCP Load Balancer로 전환.</div>
@@ -293,7 +675,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="Claude Code" data-prio="mid">
           <div class="card-top">
-            <div class="card-title">GitHub Actions CI/CD</div>
+            <div class="card-title" data-detail="main 브랜치에 push하면 자동으로: ① docker build → ② NCR push → ③ kubectl set image로 롤링 업데이트가 실행되는 파이프라인입니다. Vercel의 "push하면 자동배포" 경험을 NKS에서 재현합니다. NCP Access Key는 GitHub Secrets에 안전하게 저장합니다.">GitHub Actions CI/CD</div>
             <span class="prio prio-mid">중간</span>
           </div>
           <div class="card-desc">push → docker build → NCR push → kubectl rolling update 자동화 파이프라인.</div>
@@ -306,7 +688,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="협업" data-prio="high">
           <div class="card-top">
-            <div class="card-title">류승인 MCP 5종 연결</div>
+            <div class="card-title" data-detail="광진구 류승인 주무관의 MCP 통합 호스트(mcp.gomdori.app)를 Claude API mcp_servers 파라미터로 연결합니다. 법령·통계·특허·건축·학교정보 5종을 AI 에이전트가 자유롭게 호출하게 됩니다. 민원 분석 시 관련 법령과 통계가 자동으로 연결됩니다.">류승인 MCP 5종 연결</div>
             <span class="prio prio-high">높음</span>
           </div>
           <div class="card-desc">법령·KOSIS 통계·특허·건축HUB·문서파싱 MCP를 AI 에이전트에 통합. mcp.gomdori.app 호스트 활용.</div>
@@ -319,7 +701,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
           <div class="card-top">
-            <div class="card-title">교통도로민원 TF 시스템</div>
+            <div class="card-title" data-detail="교통국 주관 TF(2026.9.1~12.31 시범운영) 지원 시스템. 팀장1·팀원5, 대표전화 접수 → 1시간 내 처리방안 안내. 민원 3단계 분류(즉시 24h/단기 48h~7일/중장기 협의체 상정), 기동반·도로반·교통안전반·버스민원반 운영. 민원현장 DB로 다발구역 원인분석까지.">교통도로민원 TF 시스템</div>
             <span class="prio prio-high">높음</span>
           </div>
           <div class="card-desc">9.1 시범운영 대응. 민원 3단계 분류(즉시/단기/중장기) + 현장 DB + 민원다발구역 분석.</div>
@@ -344,7 +726,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
           <div class="card-top">
-            <div class="card-title">LoadBalancer 엔드포인트 오픈</div>
+            <div class="card-title" data-detail="Service 타입을 ClusterIP에서 LoadBalancer로 변경해 NCP가 자동으로 로드밸런서를 프로비저닝하게 합니다. EXTERNAL-IP가 발급되면 외부에서 접속 가능한 첫 엔드포인트가 열립니다. search/extract/agent/water-agent 전체 기능 검증 후 다음 단계로.">LoadBalancer 엔드포인트 오픈</div>
             <span class="prio prio-high">높음</span>
           </div>
           <div class="card-desc">Service 타입 ClusterIP → LoadBalancer 변경. 외부 접근 경로 확보 후 기능 검증.</div>
@@ -357,7 +739,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="협업" data-prio="mid">
           <div class="card-top">
-            <div class="card-title">온톨로지 연구분과 신설 추진</div>
+            <div class="card-title" data-detail="AI챔피언 네트워크 내 온톨로지 연구분과 신설을 행안부·NIA에 건의합니다. 온톨로지 특강 요청과 OpenCrab 온톨로지팩(opencrab.sh) 활용 검토를 병행합니다. 혼자 공부하기엔 방대한 분야라 전국 공무원 협업 체계로 풀어갑니다.">온톨로지 연구분과 신설 추진</div>
             <span class="prio prio-mid">중간</span>
           </div>
           <div class="card-desc">AI챔피언 네트워크 내 신설. 화성시 → 행안부·NIA 특강 요청. OpenCrab 온톨로지팩 검토.</div>
@@ -370,7 +752,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="Claude Code" data-prio="low">
           <div class="card-top">
-            <div class="card-title">개발일지 블로그 운영</div>
+            <div class="card-title" data-detail="hscitycity.github.io에 인프라 구축기, 삽질 기록, 팔란티어 아키텍처 분석 등을 지속 포스팅합니다. Claude Code devlog 역할이 자동으로 작성·커밋·푸시합니다.">개발일지 블로그 운영</div>
             <span class="prio prio-low">낮음</span>
           </div>
           <div class="card-desc">hscitycity.github.io 개발일지 지속 작성. 인프라 구축기·삽질 기록·아키텍처 분석 포스팅.</div>
@@ -395,7 +777,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
           <div class="card-top">
-            <div class="card-title">NCP 인프라 구축</div>
+            <div class="card-title" data-detail="VPC(192.168.0.0/16) + 서브넷 5개(public/private/nks/lb/nat-gw) + NAT Gateway(공인IP 223.130.131.157) + Cloud DB PostgreSQL G3 + Container Registry + NKS 클러스터(K8s 1.35.3, 노드 2개). 파드 2개 Running 확인 완료.">NCP 인프라 구축</div>
             <span class="prio prio-high">높음</span>
           </div>
           <div class="card-desc">VPC + 서브넷 5개 + NAT Gateway + PostgreSQL(G3) + NCR + NKS 클러스터. 파드 2개 Running.</div>
@@ -408,7 +790,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="high">
           <div class="card-top">
-            <div class="card-title">DB 접속 경로 보안 전환</div>
+            <div class="card-title" data-detail="파드가 vpc-pub 도메인으로 DB 접속 시 NAT→인터넷→공인IP(101.79.10.213)를 우회하던 문제 발견. Private 도메인(vpc-cdb, 192.168.1.6)으로 전환해 VPC 내부 직통 통신으로 변경. 민원 데이터 평문 노출 위험 차단. "같은 아파트 옆집에 국제우편 보내던 격"">DB 접속 경로 보안 전환</div>
             <span class="prio prio-high">높음</span>
           </div>
           <div class="card-desc">Public 도메인(공인IP 경유) → Private 도메인(VPC 내부 직통) 전환. 민원 데이터 평문 노출 차단.</div>
@@ -421,7 +803,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="Claude Code" data-prio="mid">
           <div class="card-top">
-            <div class="card-title">Docker 컨테이너화 + NCR Push</div>
+            <div class="card-title" data-detail="Vercel 서버리스 함수(api/*.js)를 Express 서버(server.js)로 감싸고 node:20-alpine 기반 Dockerfile 작성. WSL2 설치, BIOS 가상화 활성화 등 삽질 극복 후 hspalantir-api:v1 이미지를 NCR에 push 완료.">Docker 컨테이너화 + NCR Push</div>
             <span class="prio prio-mid">중간</span>
           </div>
           <div class="card-desc">Vercel 서버리스 → Express 서버 전환. Dockerfile 작성, 이미지 빌드, Container Registry 푸시.</div>
@@ -434,10 +816,10 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="mid">
           <div class="card-top">
-            <div class="card-title">온톨로지 파일럿 프로젝트 (water-demo)</div>
+            <div class="card-title" data-detail="2026-06-21 향남읍 수도 배관 파열 시나리오. 민원 7건 순차 접수 → 클러스터 감지 경보 → 4개 데이터소스(긴급출동/공사일정/기상/수압센서) 교차확인 → Gemini AI 원인 특정 → 긴급공지 초안 자동생성. 온톨로지적 사고방식의 첫 실증.">온톨로지 토이프로젝트 (water-demo)</div>
             <span class="prio prio-mid">중간</span>
           </div>
-          <div class="card-desc">물난리 원인분석 Agent. 민원 클러스터 감지 → 4개 데이터소스 교차확인 → AI 원인특정.</div>
+          <div class="card-desc">물단수 원인파악 Agent. 민원 클러스터 감지 → 4개 데이터소스 교차확인 → AI 원인특정.</div>
           <div class="card-meta">
             <span class="assignee"><span class="avatar">이</span>이동재</span>
             <span class="due"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>6/28</span>
@@ -447,7 +829,7 @@ body {
 
         <div class="card" draggable="true" data-assignee="이동재" data-prio="low">
           <div class="card-top">
-            <div class="card-title">당직통합업무플랫폼 POC</div>
+            <div class="card-title" data-detail="당직 근무자가 상황별 대응 절차와 체크리스트를 즉시 안내받는 시스템. duty-management-platform.vercel.app에 배포. 바이브코딩 → 테스트 → 정식도입 프로세스의 첫 검증 사례.">당직통합업무플랫폼 POC</div>
             <span class="prio prio-low">낮음</span>
           </div>
           <div class="card-desc">바이브코딩 → 테스트 → 정식도입 프로세스 첫 사례. Vercel 배포 검증 완료.</div>
@@ -466,24 +848,38 @@ body {
   <!-- 우수사례 협업 네트워크 -->
   <div class="section-block">
     <div class="section-head">
-      <h2>전국 우수 공무원 협업 네트워크</h2>
+      <h2 id="network">전국 우수 공무원 협업 네트워크</h2>
       <p>검증된 도구들을 온톨로지로 연결한다 — 화성형 팔란티어의 협업 자산</p>
     </div>
     <div class="network">
-      <div class="net-card">
+      <div class="net-card wide">
         <div class="net-top">
           <span class="net-name">류승인 주무관</span>
           <span class="net-org">광진구</span>
         </div>
-        <div class="net-tools">법령 MCP · KOSIS 통계 MCP · 특허 MCP · 건축HUB MCP · 문서파싱(kordoc) · LexDiff · 표준주소(gjdong)</div>
-        <div class="net-note">MCP 5종 통합 호스트 — mcp.gomdori.app</div>
+        <div class="net-tools">
+          <div class="tool-row"><a href="https://github.com/chrisryugj/korean-law-mcp" target="_blank"><b>korean-law-mcp</b></a> — 법제처 42개 API 통합. 법령·판례·행정규칙·자치법규·조약·해석례 검색, AI가 법령 원문·판례 근거로 답변</div>
+          <div class="tool-row"><a href="https://github.com/chrisryugj/korean-stats-mcp" target="_blank"><b>korean-stats-mcp</b></a> — KOSIS 통계 한국어 질의, 출처와 함께 공식 수치 제공 (도구 14개)</div>
+          <div class="tool-row"><b>korean-patent-mcp</b> — KIPRIS 특허·실용신안·상표·디자인 검색 (도구 7개)</div>
+          <div class="tool-row"><b>archhub-mcp</b> — 건축HUB 건축물대장·인허가 데이터 (도구 12개)</div>
+          <div class="tool-row"><b>schoolinfo-mcp</b> — 학교알리미 공시정보. 급식·수행평가·학사일정 (도구 13개)</div>
+          <div class="tool-row"><a href="https://github.com/chrisryugj/kordoc" target="_blank"><b>kordoc</b></a> — HWP·HWPX·PDF·DOCX·XLSX → 마크다운 변환, 양식채움·문서diff (도구 15개)</div>
+          <div class="tool-row"><b>Anything (Docufinder)</b> — 로컬 문서 내용 검색 데스크톱 앱, 수식 검색·OCR</div>
+          <div class="tool-row"><a href="https://github.com/chrisryugj/lexdiff" target="_blank"><b>lexdiff</b></a> — 공공 Legal AI, 법령 비교·분석 (BYOK 지원)</div>
+          <div class="tool-row"><b>gjdong</b> — 주소 드래그 시 표준주소 자동 정리 (확장프로그램+웹앱)</div>
+          <div class="tool-row"><b>온톨로지 시각화</b> — 복지·국가제도 지식그래프</div>
+        </div>
+        <div class="net-note">
+          <a href="https://chris.gomdori.app" target="_blank">포트폴리오 chris.gomdori.app ↗</a> ·
+          <a href="https://mcp.gomdori.app" target="_blank">MCP 5종 통합 호스트 mcp.gomdori.app ↗</a>
+        </div>
       </div>
       <div class="net-card">
         <div class="net-top">
           <span class="net-name">서호성 사무관</span>
           <span class="net-org">행정안전부</span>
         </div>
-        <div class="net-tools">대한민국 제도 총정리 (korea100)</div>
+        <div class="net-tools"><a href="https://hosungseo.github.io/korea100" target="_blank">대한민국 제도 총정리 (korea100) ↗</a></div>
         <div class="net-note">정책 분석 에이전트 컨텍스트로 활용</div>
       </div>
       <div class="net-card">
@@ -491,95 +887,736 @@ body {
           <span class="net-name">정솔현 주무관</span>
           <span class="net-org">광양시</span>
         </div>
-        <div class="net-tools">공공정책 총정리 플랫폼 (klocal)</div>
+        <div class="net-tools"><a href="https://klocal.solvonluchs.com" target="_blank">공공정책 총정리 플랫폼 (klocal) ↗</a></div>
         <div class="net-note">타 지자체 유사 사례 자동 검색·비교</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">공공데이터포털</span>
+          <span class="net-org">공공데이터활용지원센터</span>
+        </div>
+        <div class="net-tools">데이터목록조회 API</div>
+        <div class="net-note">화성시 관련 공공데이터 전체 목록 자동 탐색 — 수집 파이프라인 연동</div>
       </div>
       <div class="net-card">
         <div class="net-top">
           <span class="net-name">전명구 주무관</span>
           <span class="net-org">화성시 AI스마트전략실</span>
         </div>
-        <div class="net-tools">계약업무 안내 · 담배소매인 지정 · 통신판매업 신고 플랫폼</div>
-        <div class="net-note">신규 공직자 업무 간편화 3종</div>
+        <div class="net-tools">계약업무 안내 플랫폼 · 담배소매인 지정 플랫폼 · 통신판매업 신고 플랫폼</div>
+        <div class="net-note">신규 공직자 업무 절차 확인·서식 일괄 출력·거리 제한 사전 확인</div>
       </div>
       <div class="net-card">
         <div class="net-top">
-          <span class="net-name">신환철 팀장</span>
-          <span class="net-org">화성시 빅데이터팀</span>
+          <span class="net-name">신환철 빅데이터팀장</span>
+          <span class="net-org">화성시 AI스마트전략실</span>
         </div>
-        <div class="net-tools">HwaSeong Knowledge Bank</div>
-        <div class="net-note">신규 공직자 지식창고 — Q&amp;A 정식 카드 등록 방식</div>
+        <div class="net-tools"><a href="https://hskb.netlify.app" target="_blank">HwaSeong Knowledge Bank ↗</a></div>
+        <div class="net-note">신규 공직자 지식창고 — 질문에 누구나 답하고, 검증된 답변은 정식 카드로 등록</div>
       </div>
       <div class="net-card">
         <div class="net-top">
           <span class="net-name">나현희 주무관</span>
           <span class="net-org">화성시 만세구 현장민원실</span>
         </div>
-        <div class="net-tools">AI스마트 위생행정 플랫폼</div>
-        <div class="net-note">영업신고·건강진단·행정처분·위생교육 원스톱</div>
+        <div class="net-tools"><a href="https://we-one-hygiene-platform-k23z.vercel.app/" target="_blank">AI스마트 위생행정 플랫폼 ↗</a></div>
+        <div class="net-note">영업신고·건강진단·행정처분 조회·위생교육·지도점검·현황대시보드 원스톱</div>
       </div>
       <div class="net-card">
         <div class="net-top">
           <span class="net-name">권용환</span>
           <span class="net-org">한국석유관리원</span>
         </div>
-        <div class="net-tools">석유가격 모니터링 시스템 · 주기적 관리 프로그램</div>
-        <div class="net-note">경영공시·검사장비·차량검사 관리</div>
+        <div class="net-tools"><a href="https://opms.replit.app/public" target="_blank">석유가격 모니터링시스템 ↗</a> · <a href="https://github.com/yonghwan86/noti.kpetro" target="_blank">주기적 관리 프로그램 ↗</a></div>
+        <div class="net-note">내부 직원용 확장 기능 운영 중, 임시계정 발급 가능</div>
       </div>
       <div class="net-card">
         <div class="net-top">
           <span class="net-name">김우영 대리</span>
           <span class="net-org">KOICA</span>
         </div>
-        <div class="net-tools">국제개발협력 지식그래프 · 무상원조 지도 · KOICA 규정 MCP</div>
+        <div class="net-tools"><a href="https://devcoop-trends-wiki.pages.dev" target="_blank">국제개발협력 지식그래프 ↗</a> · <a href="https://oda-map-lab.pages.dev" target="_blank">무상원조 사업 지도 ↗</a> · <a href="https://github.com/amnotyoung/koica-reg-mcp" target="_blank">KOICA 규정 MCP ↗</a></div>
         <div class="net-note">지식그래프 모델링 참고 사례</div>
       </div>
       <div class="net-card">
         <div class="net-top">
-          <span class="net-name">AI정부 실험실</span>
-          <span class="net-org">행정안전부</span>
+          <span class="net-name">ipzitalk</span>
+          <span class="net-org">오픈소스</span>
         </div>
-        <div class="net-tools">시제품 개발·검증 환경 (7.3~ 시범운영)</div>
-        <div class="net-note">테스트 채널 — 우수과제는 공공 GitLab 등록 후 확산</div>
+        <div class="net-tools"><a href="https://github.com/chatdaeri/ipzitalk" target="_blank">부동산 분양·청약·입지 분석 Claude Code 플러그인 (스킬 27종) ↗</a></div>
+        <div class="net-note">공간 분석 스킬 구조 참고</div>
+      </div>
+      <div class="net-card">
+        <div class="net-top">
+          <span class="net-name">AI정부 실험실</span>
+          <span class="net-org">행정안전부 인공지능정부정책과</span>
+        </div>
+        <div class="net-tools">공무원이 직접 시제품 개발·검증하는 공공 AX 실험 환경 (7.3~ 시범운영)</div>
+        <div class="net-note">예산·기획절차 없이 바로 시제품화 — 산출물 공공 GitLab 등록, 우수과제 전국 확산. 2027년 동시접속 3천명 확대. 등록과제: 나라예산한눈에·재난문자지도·모두의민원콜</div>
       </div>
     </div>
   </div>
 
-  <!-- 화성시 현안과제 -->
+  <!-- 화성시 현안과제 21건 -->
   <div class="section-block">
     <div class="section-head">
-      <h2>화성시 현안과제 21건</h2>
-      <p>각 부서 업무개선 필요사항 → 순차적으로 정식 서비스로 구현 예정</p>
+      <h2 id="issues">화성시 현안과제 21건</h2>
+      <p>각 부서 업무개선 필요사항 (전명구·이진아 주무관 발굴) — 순차적으로 정식 서비스로 구현</p>
     </div>
-    <div class="tasks">
-      <span class="task-tag hot">교통도로민원 신속처리 TF 시스템</span>
-      <span class="task-tag hot">상수도 요금민원 GIS 플랫폼</span>
-      <span class="task-tag">국내외 우수사례 AI크롤링</span>
-      <span class="task-tag">소방 건물안전점검 GIS</span>
-      <span class="task-tag">정책·문화 홍보 플랫폼</span>
-      <span class="task-tag">언론보도 AI 대시보드</span>
-      <span class="task-tag">당직 매뉴얼 챗봇</span>
-      <span class="task-tag">통신판매업 신고플랫폼</span>
-      <span class="task-tag">그냥드림 운영플랫폼</span>
-      <span class="task-tag">AED 위치 플랫폼</span>
-      <span class="task-tag">종량제봉투 잔량 확인</span>
-      <span class="task-tag">관광·상권 통합조회</span>
-      <span class="task-tag">업무추진비 맛집지도</span>
-      <span class="task-tag">산업현장 안전관리 AI</span>
-      <span class="task-tag">산불감시 최적 노선도</span>
-      <span class="task-tag">에코팜 응급대응 AI</span>
-      <span class="task-tag">공무원 학습연계 플랫폼</span>
-      <span class="task-tag">교통신호체계 최적화</span>
-      <span class="task-tag">대중교통 수요공급 GIS</span>
-      <span class="task-tag">로컬푸드 입지분석</span>
-      <span class="task-tag">위생행정 플랫폼 연계</span>
+    <div class="issues">
+      <div class="issue-card hot">
+        <div class="issue-num">01</div>
+        <div class="issue-body">
+          <div class="issue-title">교통도로민원 신속처리 기동단 TF 시스템 (교통정책과)</div>
+          <div class="issue-desc">2026.9.1~12.31 시범운영. 대표전화 접수 → 현장확인 → 처리 원스톱 (접수 1시간 내 안내). 민원 3단계 분류: 즉시처리(24h, 포트홀·불법주정차) / 단기처리(48h~7일, 시설물 보수·신호개선) / 중장기처리(실무협의체 상정). 민원현장 DB 구축으로 민원다발구역 원인분석·예방.</div>
+        </div>
+      </div>
+      <div class="issue-card hot">
+        <div class="issue-num">02</div>
+        <div class="issue-body">
+          <div class="issue-title">GIS 기반 상수도 요금민원이력 관리플랫폼 (맑은물사업소)</div>
+          <div class="issue-desc">수작업 검침·수기 기록 문제 해결. 건축물대장·소유주·실거주자 데이터를 GIS 연계, 계량기 위치·정보를 지도에서 조회. 현장 직원 모바일 실시간 검침 입력. 제주도청 콜센터 자동녹음·전사 시스템 POC 참고.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">03</div>
+        <div class="issue-body">
+          <div class="issue-title">국내외 우수사례 AI크롤링 플랫폼</div>
+          <div class="issue-desc">"상수도 계량기 시스템" 검색 시 국내외 추진 사례·사업비를 자동 조사해주는 AI 검색 플랫폼.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">04</div>
+        <div class="issue-body">
+          <div class="issue-title">소방서 건물안전점검 GIS 안전구역 플랫폼</div>
+          <div class="issue-desc">건물안전점검(소방화재설비) 데이터를 지도에 시각화 — 화성시 안전건물·안전구역 현황 한눈에.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">05</div>
+        <div class="issue-body">
+          <div class="issue-title">화성시 정책·문화 홍보 플랫폼</div>
+          <div class="issue-desc">정책·문화·공연·행사 정보 통합 시민 포털. 메인 화면 알림·행사 위젯 연동.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">06</div>
+        <div class="issue-body">
+          <div class="issue-title">화성시 언론보도 대시보드 (AI크롤링)</div>
+          <div class="issue-desc">언론보도 자동 수집·분석 — 이슈 트렌드·감성·위험도 모니터링 정책 패널.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">07</div>
+        <div class="issue-body">
+          <div class="issue-title">당직 매뉴얼 대시보드</div>
+          <div class="issue-desc">AI 챗봇 기반 상황별 대응 절차·체크리스트 즉시 안내. 당직통합업무플랫폼 POC로 검증 완료.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">08</div>
+        <div class="issue-body">
+          <div class="issue-title">통신판매업 신고업무 플랫폼</div>
+          <div class="issue-desc">신고 업무 매뉴얼·단계별 처리 절차 제공 — 담당자 업무 간소화. (전명구 주무관 플랫폼 연계)</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">09</div>
+        <div class="issue-body">
+          <div class="issue-title">그냥드림 운영플랫폼</div>
+          <div class="issue-desc">기부물품 입출고·재고·유통기한 통합 관리, 기부 거점 위치 지도 표시 — 복지 자원 레이어.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">10</div>
+        <div class="issue-body">
+          <div class="issue-title">심장제세동기(AED) 위치 플랫폼</div>
+          <div class="issue-desc">AED 위치·이용 가능 여부 지도 제공 — 시민 안전 서비스. AED찾기 어플 연계.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">11</div>
+        <div class="issue-body">
+          <div class="issue-title">종량제 봉투 잔량 확인 플랫폼</div>
+          <div class="issue-desc">판매소별 종량제 봉투 규격별 재고 현황 지도 실시간 조회. 통합서비스 어플 연계.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">12</div>
+        <div class="issue-body">
+          <div class="issue-title">관광·상권 통합조회 플랫폼</div>
+          <div class="issue-desc">관광지·맛집·축제·주차장·지역화폐 가맹점 정보 지도 기반 통합 제공.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">13</div>
+        <div class="issue-body">
+          <div class="issue-title">업무추진비 연계 화성시 맛집지도</div>
+          <div class="issue-desc">업무추진비 데이터 정제·지오코딩 — 방문 빈도 기반 맛집 랭킹 지도 시각화.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">14</div>
+        <div class="issue-body">
+          <div class="issue-title">AI 기반 산업·건설현장 안전관리 플랫폼</div>
+          <div class="issue-desc">AI·IoT 센서로 작업자 위치·위험구역 접근·안전장비 착용 실시간 감지·모니터링.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">15</div>
+        <div class="issue-body">
+          <div class="issue-title">데이터 기반 산불감시 최적 노선도</div>
+          <div class="issue-desc">강풍·건조·식생 위험도 데이터 분석 — 최적 산불 순찰 노선 지도 추천.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">16</div>
+        <div class="issue-body">
+          <div class="issue-title">에코팜테마파크 응급상황 AI대응 모델</div>
+          <div class="issue-desc">방문객 수·위치 데이터 + 시설 특성 결합 — 응급 위험도 예측·대응 자원 지도 배치.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">17</div>
+        <div class="issue-body">
+          <div class="issue-title">AI 기반 공무원 학습연계 플랫폼</div>
+          <div class="issue-desc">학습자료 저장·AI 요약·질의응답·학습경로 추천 — 관리자 전용 역량강화 도구.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">18</div>
+        <div class="issue-body">
+          <div class="issue-title">AI 기반 교통신호체계 최적화</div>
+          <div class="issue-desc">교차로별 교통량·대기행렬 분석 — 시간대별 최적 신호주기 시뮬레이션 제안.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">19</div>
+        <div class="issue-body">
+          <div class="issue-title">대중교통 수요·공급현황 GIS 대시보드</div>
+          <div class="issue-desc">통신사·교통카드 데이터로 수요·공급 불균형 지역 GIS 시각화, 노선 조정안 제시.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">20</div>
+        <div class="issue-body">
+          <div class="issue-title">로컬푸드 직매장 입지·효과분석 모델</div>
+          <div class="issue-desc">인구·소득·유동인구 공공데이터 융합 분석 — 최적 입지·판매 예상 농산물 도출.</div>
+        </div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-num">21</div>
+        <div class="issue-body">
+          <div class="issue-title">소방서 건물안전점검 GIS 안전구역 플랫폼 (확장)</div>
+          <div class="issue-desc">주기적 안전점검 데이터 시각화 고도화 — 안전등급·구역별 현황 대시보드.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 할 일 리스트 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="todos">할 일 리스트 — 빨리빨리 쳐내기</h2>
+      <p>정보화사업 끌지 말고 빨리 쳐낼 리스트 · 총 50건 (완료 2 · 진행중 5 · 예정 43)</p>
+    </div>
+    <div class="todo-list">
+      <div class="todo-row">
+        <div class="todo-num">1</div>
+        <div class="todo-main">
+          <div class="todo-name">기술협상, 확약서 요청, 투입인력 <span class="cha">1차</span></div>
+          <div class="todo-desc">기술협상 완료(7.10) · 사업수행확약서(7.10) · 인력중복투입금지 확약서(7.21) · 투입인력 확정(7.21)</div>
+        </div>
+        <div class="todo-due">7/21</div>
+        <span class="st st-done">완료</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">2</div>
+        <div class="todo-main">
+          <div class="todo-name">계약체결 <span class="cha">1차</span></div>
+          <div class="todo-desc">계약이행동의서 및 검사담당자 통보서 제출</div>
+        </div>
+        <div class="todo-due">7/24</div>
+        <span class="st st-doing">진행중</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">3</div>
+        <div class="todo-main">
+          <div class="todo-name">착수보고회 <span class="cha">1차</span></div>
+          <div class="todo-desc">사업 착수보고 및 추진계획 공유 (제2부시장님 일정 확정 후 참석자 조사)</div>
+        </div>
+        <div class="todo-due">7/30</div>
+        <span class="st st-doing">진행중</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">4</div>
+        <div class="todo-main">
+          <div class="todo-name">상주공간확보 <span class="cha">1차</span></div>
+          <div class="todo-desc">모두누림센터 통계상황실 확보 완료 (7.20) — AI허브센터·민원동 등 5개 후보 검토 끝</div>
+        </div>
+        <div class="todo-due">7/31</div>
+        <span class="st st-done">완료</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">5</div>
+        <div class="todo-main">
+          <div class="todo-name">타 기관 보유 市 데이터 수집 <span class="cha">1차</span></div>
+          <div class="todo-desc">국민연금공단·소방청·경찰청·심평원·국가데이터처. 7.27 국가데이터처 방문 예정</div>
+        </div>
+        <div class="todo-due">10/25</div>
+        <span class="st st-doing">진행중</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">5-1</div>
+        <div class="todo-main">
+          <div class="todo-name">데이터플랫폼으로 해결할 문제 기록 <span class="cha">1차</span></div>
+          <div class="todo-desc">우수사례 및 현안과제 정리 페이지 지속 업데이트</div>
+        </div>
+        <div class="todo-due">11/1</div>
+        <span class="st st-doing">진행중</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">6</div>
+        <div class="todo-main">
+          <div class="todo-name">내부 정보시스템 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">새올 등 주요 업무시스템 DB 38종</div>
+        </div>
+        <div class="todo-due">10/7</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">7</div>
+        <div class="todo-main">
+          <div class="todo-name">다출처 민원 통합 분석 <span class="cha">1차</span></div>
+          <div class="todo-desc">9개 출처 민원 자동 수집·분류·유형화</div>
+        </div>
+        <div class="todo-due">7/23</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">8</div>
+        <div class="todo-main">
+          <div class="todo-name">AI챔피언 네트워크 활용 <span class="cha">1차</span></div>
+          <div class="todo-desc">온톨로지 연구분과 운영 — 자문·검토·협업 체계 구축</div>
+        </div>
+        <div class="todo-due">8/19</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">9</div>
+        <div class="todo-main">
+          <div class="todo-name">민원 급증 사전 예측 <span class="cha">1차</span></div>
+          <div class="todo-desc">우편번호(국가기초구역) 단위 일별 예측 모델</div>
+        </div>
+        <div class="todo-due">7/28</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">10</div>
+        <div class="todo-main">
+          <div class="todo-name">공모전 우수사례 정식서비스 도입 <span class="cha">1차</span></div>
+          <div class="todo-desc">시민-공직자 AI공모전 · 관내대학생 공모전 · 화성데이터포럼 우수작</div>
+        </div>
+        <div class="todo-due">11/20</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">11</div>
+        <div class="todo-main">
+          <div class="todo-name">AI챔피언 네트워크 우수사례 활용 <span class="cha">1차</span></div>
+          <div class="todo-desc">우수사례 정리 및 활용</div>
+        </div>
+        <div class="todo-due">11/20</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">12</div>
+        <div class="todo-main">
+          <div class="todo-name">민생지원금·지역화폐 분석 시스템화 <span class="cha">1차</span></div>
+          <div class="todo-desc">행안부·경기도 분석과제 상시 모니터링 체계 전환</div>
+        </div>
+        <div class="todo-due">8/1</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">13</div>
+        <div class="todo-main">
+          <div class="todo-name">도시 온톨로지 모델링 <span class="cha">1차</span></div>
+          <div class="todo-desc">민원·교통·방범·안전·재난 5개 분야 데이터 연관관계 구조화 (민원 우선)</div>
+        </div>
+        <div class="todo-due">8/6</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">14</div>
+        <div class="todo-main">
+          <div class="todo-name">임계값 정의 및 자동 경보 <span class="cha">1차</span></div>
+          <div class="todo-desc">분야별 위험 수치 기준 → 초과 시 담당 부서 자동 통보</div>
+        </div>
+        <div class="todo-due">8/10</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">15</div>
+        <div class="todo-main">
+          <div class="todo-name">복합 이상징후 원인 분석 <span class="cha">1차</span></div>
+          <div class="todo-desc">연관 데이터로 민원 발생 원인 AI 설명</div>
+        </div>
+        <div class="todo-due">8/14</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">16</div>
+        <div class="todo-main">
+          <div class="todo-name">온톨로지 지식베이스 고도화 <span class="cha">2차</span></div>
+          <div class="todo-desc">도시상황 시나리오 추가, 추론 규칙 확장</div>
+        </div>
+        <div class="todo-due">8/23</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">17</div>
+        <div class="todo-main">
+          <div class="todo-name">민생회복지원금 분석 시스템화 <span class="cha">1차</span></div>
+          <div class="todo-desc">행안부(2025)·경기도(2025) → 우편번호 단위 상시 시스템화</div>
+        </div>
+        <div class="todo-due">8/25</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">18</div>
+        <div class="todo-main">
+          <div class="todo-name">지역화폐 분석보고서 시스템화 <span class="cha">1차</span></div>
+          <div class="todo-desc">화성시(2023)·경기도(2025)·화성시연구원(2025) → 상시 모니터링</div>
+        </div>
+        <div class="todo-due">8/28</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">19</div>
+        <div class="todo-main">
+          <div class="todo-name">SGIS 정밀데이터 구축 <span class="cha">1차</span></div>
+          <div class="todo-desc">행정동·시군구 국가통계 → 국가기초구역 단위 정밀화·GIS 시각화</div>
+        </div>
+        <div class="todo-due">8/31</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">20</div>
+        <div class="todo-main">
+          <div class="todo-name">생활안전 GIS 분석 체계 <span class="cha">1차</span></div>
+          <div class="todo-desc">재난·치안·기반시설·보건·교통·생활·환경·시설 8개 안전 데이터</div>
+        </div>
+        <div class="todo-due">9/2</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">21</div>
+        <div class="todo-main">
+          <div class="todo-name">국가공유데이터플랫폼 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">데이터 표준화·품질관리 후 행안부·NIA 플랫폼 활용 체계</div>
+        </div>
+        <div class="todo-due">9/4</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">22</div>
+        <div class="todo-main">
+          <div class="todo-name">국토정보플랫폼·브이월드 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">국토지표 200여 종 확보 → GIS 분석 적용</div>
+        </div>
+        <div class="todo-due">9/7</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">23</div>
+        <div class="todo-main">
+          <div class="todo-name">경기데이터드림 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">실시간 방문소비·생활이동소비 상황판 (KT+5개 카드사)</div>
+        </div>
+        <div class="todo-due">9/10</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">24</div>
+        <div class="todo-main">
+          <div class="todo-name">경기기후지도 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">탄소·태양광·기후위기·그린인프라 좌표 수준 정밀공간데이터</div>
+        </div>
+        <div class="todo-due">9/12</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">25</div>
+        <div class="todo-main">
+          <div class="todo-name">공간정보시스템·재난재해지도 <span class="cha">1차</span></div>
+          <div class="todo-desc">도로·상수·하수·지하시설물·화재위험지도 등</div>
+        </div>
+        <div class="todo-due">9/14</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">26</div>
+        <div class="todo-main">
+          <div class="todo-name">다모아플랫폼 데이터 통합관리 <span class="cha">1차</span></div>
+          <div class="todo-desc">인구·행정·재난·교통·문화·돌봄 → 통합관리 후 대시보드 공급</div>
+        </div>
+        <div class="todo-due">9/17</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">27</div>
+        <div class="todo-main">
+          <div class="todo-name">청소행정포털 DB 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">생활폐기물 수집·운반 GPS·불편신고 → 생활쓰레기 GIS 모니터링</div>
+        </div>
+        <div class="todo-due">9/20</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">28</div>
+        <div class="todo-main">
+          <div class="todo-name">교통정보센터 DB 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">도로소통·스마트교차로(딥러닝 교통량) → 융합분석</div>
+        </div>
+        <div class="todo-due">9/22</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">29</div>
+        <div class="todo-main">
+          <div class="todo-name">대기환경정보서비스 센서 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">대기질 센서 100개·악취 센서 10개 → GIS 히트맵</div>
+        </div>
+        <div class="todo-due">9/24</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">30</div>
+        <div class="todo-main">
+          <div class="todo-name">디지털모기측정시스템(DMS) 연계 <span class="cha">1차</span></div>
+          <div class="todo-desc">장비설치·해충발생·방역활동 GPS → 동탄구 GIS 분석</div>
+        </div>
+        <div class="todo-due">9/27</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">31</div>
+        <div class="todo-main">
+          <div class="todo-name">신규·미연계 시스템 확장 <span class="cha">2차</span></div>
+          <div class="todo-desc">잔여 25개 시스템 단계적 연계</div>
+        </div>
+        <div class="todo-due">10/18</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">32</div>
+        <div class="todo-main">
+          <div class="todo-name">분야별 전문가 자문 <span class="cha">공통</span></div>
+          <div class="todo-desc">데이터·AI·GIS 전문가 자문단, 전 기간 수시 추진</div>
+        </div>
+        <div class="todo-due">12/10</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">33</div>
+        <div class="todo-main">
+          <div class="todo-name">중간보고회 <span class="cha">1차</span></div>
+          <div class="todo-desc">사업 중간 추진현황 및 향후계획 보고</div>
+        </div>
+        <div class="todo-due">10/19</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">34</div>
+        <div class="todo-main">
+          <div class="todo-name">데이터 카탈로그 정비 <span class="cha">1차</span></div>
+          <div class="todo-desc">전체 데이터 목록화·메타데이터 체계화 (부산시 모델 참고)</div>
+        </div>
+        <div class="todo-due">11/1</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">35</div>
+        <div class="todo-main">
+          <div class="todo-name">품질관리 체계 <span class="cha">1차</span></div>
+          <div class="todo-desc">데이터 정합성 검증·결측치 처리·갱신 주기 관리</div>
+        </div>
+        <div class="todo-due">11/8</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">36</div>
+        <div class="todo-main">
+          <div class="todo-name">인구현황 지도 <span class="cha">1차</span></div>
+          <div class="todo-desc">성별·연령별 / 우편번호 단위</div>
+        </div>
+        <div class="todo-due">11/11</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">37</div>
+        <div class="todo-main">
+          <div class="todo-name">전입전출 지도 <span class="cha">1차</span></div>
+          <div class="todo-desc">전입사유별 분석</div>
+        </div>
+        <div class="todo-due">11/14</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">38</div>
+        <div class="todo-main">
+          <div class="todo-name">민간데이터 시각화 <span class="cha">1차</span></div>
+          <div class="todo-desc">통신사·카드사·기업 데이터 (道 공동구매)</div>
+        </div>
+        <div class="todo-due">11/17</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">39</div>
+        <div class="todo-main">
+          <div class="todo-name">사회경제분석 지도 <span class="cha">1차</span></div>
+          <div class="todo-desc">소득·주택가격·빈집·공실률·사업체·근로자수·주차장</div>
+        </div>
+        <div class="todo-due">11/20</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">40</div>
+        <div class="todo-main">
+          <div class="todo-name">지역경제현황 지도 <span class="cha">1차</span></div>
+          <div class="todo-desc">경기도시장상권진흥원·코나아이·민간카드사</div>
+        </div>
+        <div class="todo-due">11/23</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">41</div>
+        <div class="todo-main">
+          <div class="todo-name">모기 해충 밀집발생지역 모니터링 <span class="cha">1차</span></div>
+          <div class="todo-desc">디지털모기측정기(DMS) 데이터 활용</div>
+        </div>
+        <div class="todo-due">11/26</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">42</div>
+        <div class="todo-main">
+          <div class="todo-name">생활쓰레기 배출 모니터링 <span class="cha">1차</span></div>
+          <div class="todo-desc">청소행정포털 연계</div>
+        </div>
+        <div class="todo-due">11/28</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">43</div>
+        <div class="todo-main">
+          <div class="todo-name">소음 실시간 모니터링 <span class="cha">1차</span></div>
+          <div class="todo-desc">군소음·공사장 등 화성시 전체 소음</div>
+        </div>
+        <div class="todo-due">12/1</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">44</div>
+        <div class="todo-main">
+          <div class="todo-name">미세먼지 GIS 시각화 <span class="cha">1차</span></div>
+          <div class="todo-desc">화성시 측정데이터 실시간 지도 서비스</div>
+        </div>
+        <div class="todo-due">12/4</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">45</div>
+        <div class="todo-main">
+          <div class="todo-name">의료취약지 분석 서비스 <span class="cha">1차</span></div>
+          <div class="todo-desc">국립중앙의료원·심평원·보건소</div>
+        </div>
+        <div class="todo-due">12/7</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">46</div>
+        <div class="todo-main">
+          <div class="todo-name">예산맵 <span class="cha">1차</span></div>
+          <div class="todo-desc">어디에 얼마의 예산이 쓰였는지 지역별 집행 현황</div>
+        </div>
+        <div class="todo-due">12/10</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">47</div>
+        <div class="todo-main">
+          <div class="todo-name">동물사체처리신고 모니터링 <span class="cha">1차</span></div>
+          <div class="todo-desc">좌표 기반 실시간 지도 (당직민원처리 개선)</div>
+        </div>
+        <div class="todo-due">12/13</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">48</div>
+        <div class="todo-main">
+          <div class="todo-name">완료보고회 <span class="cha">2차</span></div>
+          <div class="todo-desc">사업 완료 및 최종 산출물 보고</div>
+        </div>
+        <div class="todo-due">12/15</div>
+        <span class="st st-todo">예정</span>
+      </div>
+      <div class="todo-row">
+        <div class="todo-num">-</div>
+        <div class="todo-main">
+          <div class="todo-name">바이브코딩 배포서버 구축 <span class="cha">1차</span></div>
+          <div class="todo-desc">네이버클라우드 NKS 배포 서버 (현재 진행 중인 인프라 작업)</div>
+        </div>
+        <div class="todo-due">8/30</div>
+        <span class="st st-doing">진행중</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정보시스템 DB연계 -->
+  <div class="section-block">
+    <div class="section-head">
+      <h2 id="dblink">정보시스템 DB연계 현황</h2>
+      <p>화성시 내부 정보시스템 데이터품질관리 → 플랫폼 DB 연계 대상</p>
+    </div>
+    <div class="grid2">
+      <div class="db-card">
+        <div class="db-head">
+          <span class="db-title">1차 — 2025년 품질관리 완료</span>
+          <span class="db-count">35종</span>
+        </div>
+        <div class="db-body">새올행정시스템 · 온나라 · 지킴e · KRAS(부동산종합공부) · KOLASⅢ(도서관) · RMS(기록관리) · 신우편모아 · 청소행정포털 · 다모아플랫폼 · 아이사랑키움 · 장애인동행플랫폼 · 계약정보공개 · 체납통합영치 · 무상교통 · 버스재정지원 · 문화관광 · 만성질환관리 · 로컬푸드인증 · 토양환경정보 · 군소음피해보상 · 스마트포도관제 · 정책광장 · 예산재정정보 · 독립운동기념관 · 역사박물관 등</div>
+        <div class="db-note">표준배포시스템 7종 + 개별시스템 28종</div>
+      </div>
+      <div class="db-card">
+        <div class="db-head">
+          <span class="db-title">2차 — 2026년 품질관리 예정</span>
+          <span class="db-count">41종</span>
+        </div>
+        <div class="db-body">스마트시티 통합플랫폼 · 공간정보시스템(구 지리정보) · UPIS(도시계획정보) · 통합주차관제 · 불법건축물통합관리 · 스마트그린도시포털 · 도시계획위원회 통합관리 · 데이터로(공통활용연계) · 시립도서관 통합 · 시민강사 통합정보 · 통합예약시스템 · 청년지원센터 · 유스호스텔 · 공룡알화석산지 · 보타닉가든 · 동탄호수공원 · 3.1운동만세길 · 어린이문화센터 · 포토갤러리 등</div>
+        <div class="db-note">지킴e DB 2개 분리 연계 포함 — 잔여 25개 시스템은 2차 확장(10/18)</div>
+      </div>
     </div>
   </div>
 
 </div>
 
+
+<!-- 상세 모달 -->
+<div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modal-title"></h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modal-body" class="modal-body"></div>
+  </div>
+</div>
+
 <script>
 let dragged = null;
+let justDragged = false;
 
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('dragstart', () => {
@@ -589,6 +1626,8 @@ document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('dragend', () => {
     card.classList.remove('dragging');
     dragged = null;
+    justDragged = true;
+    setTimeout(() => { justDragged = false; }, 200);
     updateCounts();
   });
 });
@@ -642,6 +1681,169 @@ document.querySelectorAll('[data-filter-prio]').forEach(chip => {
     chip.classList.add('active');
     activePrio = chip.dataset.filterPrio;
     applyFilters();
+  });
+});
+
+
+
+// ── 전략 상세 데이터 ──────────────
+const stratData = {
+  trackA: {
+    title: "트랙 A — 본사업 발주·관리·검사",
+    body: `<p><b>정확한 위치 잡기.</b> 본사업(사업비 19.3억, 180일)은 수행사가 구축하고, 나는 주관기관(화성시 AI스마트전략실) 담당자로서 발주·관리·검사를 맡는다. 직접 코딩하는 사업이 아니다.</p>
+<p><b>RFP 핵심기능 7개:</b> ① 국토연구원 Urban AI 민원분석·예측 ② 온톨로지 이상징후 탐지(임계값 경보 POC + GraphDB POC) ③ 기구축 시스템 13종 활용 ④ 정보시스템 DB연계 38종 ⑤ 타기관 데이터 확보 ⑥ 데이터 표준화·품질관리 ⑦ GIS서비스·대시보드 12종.</p>
+<p><b>일정 방어선:</b> 착수보고(7/30) → 중간보고(10/19) 전까지 DB연계 13종 + 기구축 플랫폼 연계가 마지노선 → 완료보고(12/15).</p>
+<p><b>개인 Beta의 역할:</b> ① 요구사항 검증 프로토타입("혼자 한 달 만에 POC 만들었다"는 협상 카드) ② 검사 기준의 내재화(NKS·PostgreSQL 직접 구축 경험으로 수행사 제안서의 허점을 짚는 눈) ③ 본사업이 못 담는 것의 실험실.</p>`,
+    links: [["#todos","관련 할 일 리스트 보기"],["#dblink","DB연계 38종 현황 보기"]]
+  },
+  trackB: {
+    title: "트랙 B — 개인 Beta 검증·실험실",
+    body: `<p><b>공식 역할 부여.</b> NKS 위의 화성형 팔란티어 Beta는 본사업과 혼동되지 않도록 '검증·실험 전용'으로 위치를 문서화한다. 정식 데이터는 본사업 플랫폼만 다룬다.</p>
+<p><b>Beta가 흡수하는 것:</b> 현안과제 21건(본사업 과업 범위 밖), 류승인 MCP 5종 연계, korea100·klocal 등 우수공무원 도구, 당직플랫폼 고도화, AI모두의실험실 테스트 채널.</p>
+<p><b>이미 실증한 것:</b> water-demo — 향남읍 수도파열 시나리오로 민원 클러스터 감지 → 4개 데이터소스 교차확인 → AI 원인특정 → 긴급공지 자동생성. RFP 핵심기능②(임계값 경보)의 축소판이 이미 돌아간다.</p>
+<p><b>환류 구조:</b> 트랙 B의 검증 결과가 트랙 A의 검사 기준이 되고, 트랙 A의 표준 산출물(온톨로지 스키마, 데이터 카탈로그)이 트랙 B의 확장 기반이 된다.</p>`,
+    links: [["#issues","현안과제 21건 보기"],["#board","칸반 보드 보기"]]
+  },
+  aug: {
+    title: "8월 승부 — 도시상태 정의는 행정 판단",
+    body: `<p><b>가장 중요한 전략적 발견.</b> RFP 핵심기능②의 '도시상태 정의'는 기술이 아니라 행정 판단이다. 향남읍에서 수도민원이 시간당 몇 건이면 이상인가, 초과 시 어느 부서에 통보하나 — 이건 수행사가 정할 수 없고 화성시가 줘야 한다.</p>
+<p><b>일정:</b> 도시 온톨로지 모델링 8/6 → 임계값 정의·자동 경보 8/10 → 복합 이상징후 원인분석 8/14 → 지식베이스 고도화 8/23. 8월 첫 2주가 '화성시가 줘야 할 것' 집중 기간.</p>
+<p><b>무기:</b> water-demo의 4단계 시나리오(민원 클러스터 → 교차확인 → 원인특정 → 공지)가 도시상태 정의 초안의 템플릿. 민원·교통·방범·안전·재난 5개 분야로 확장하면 된다.</p>
+<p><b>추가 액션:</b> 국토연구원 보고서 2건(Urban AI 도시문제 예측, 민원지도 민생현안 모니터링) 8월 중 정독. 7/27 국가데이터처 방문처럼 국토연구원 방문 일정도 잡을 것(자문기관).</p>`,
+    links: [["#todos","8월 일정 확인 (할일 13~16번)"]]
+  },
+  risk: {
+    title: "리스크 상위 3개와 대응",
+    body: `<p><b>리스크 1 — 발주자 역량 의존 구간의 병목.</b> 도시상태 정의(8/6), 임계값(8/10), DB연계 부서 협조공문은 전부 수행사가 아닌 화성시 몫. → 대응: 8월 첫 2주 집중 + water-demo 템플릿 재사용으로 선제 초안 작성.</p>
+<p><b>리스크 2 — 타기관 데이터 확보 지연.</b> 국민연금공단·소방청·경찰청·심평원 협약은 통제 밖 변수, 6개월 안에 안 끝날 수 있다. → 대응: 핵심기능③(공개 플랫폼 API — SGIS·생활안전지도·경기데이터드림)을 먼저 완성해 ⑤의 지연을 흡수하는 순서로 수행사와 합의. 2차 이월 기준을 미리 정한다.</p>
+<p><b>리스크 3 — Beta와 본사업의 혼선.</b> 수행사가 "주무관 시스템과 뭐가 다르냐" 하거나 반대로 Beta에 과의존할 위험. → 대응: 역할 문서화. Beta는 검증·실험 전용, 정식 데이터는 본사업만. 본사업 완료 후 Beta는 현안과제 21건 전용 실험 서버로 공식 위치 부여.</p>`,
+    links: [["#strategy","전략 섹션으로 돌아가기"]]
+  },
+  assets: {
+    title: "협업 자산의 투입 시점",
+    body: `<p><b>원칙 — 혼자 다 만들지 않는다.</b> 전국 우수 공무원의 검증된 도구를 온톨로지라는 공통 언어로 연결하는 것이 화성형 팔란티어의 본질.</p>
+<p><b>왜 지금이 아닌 9월인가:</b> 류승인 MCP 5종(법령·통계·특허·건축·학교), korea100, klocal은 본사업 RFP 과업이 아니다. 본사업 계약·착수(7~8월)가 정리된 뒤 트랙 B에서 연결 실험을 시작한다.</p>
+<p><b>편입 경로:</b> 트랙 B에서 성과(예: 민원 분석 시 관련 법령 자동 연결)가 검증되면 → devlog로 기록 → 2차 사업(2027) 과업으로 공식 편입 제안. 이렇게 하면 우수공무원 도구가 정식 예산이 붙은 시스템이 된다.</p>
+<p><b>투입 순서(안):</b> ① korean-law-mcp(민원-법령 연결, 즉효) ② korean-stats-mcp(KOSIS 통계) ③ kordoc(공문서 파싱) ④ korea100·klocal(정책 컨텍스트) ⑤ 나머지.</p>`,
+    links: [["#network","협업 네트워크 11팀 보기"]]
+  },
+  phase2: {
+    title: "2차 사업(2027) 포석",
+    body: `<p><b>2차 과업 예고편:</b> RFP상 2차 사업은 ① 온톨로지 고도화(Gov Ontology 정부 표준 반영, GraphDB 표준화) ② 범정부 LLM 에이전트(민원 벡터DB + 범정부 AI인프라) ③ Human-in-the-loop(AI는 선택지 제시, 책임자가 결정) ④ 신규·미연계 시스템 25종 확장.</p>
+<p><b>올해 할 일:</b> 트랙 B에서 미리 만져본다. Claude API로 에이전트 패턴 실험(이미 agent.js·water-agent.js), 벡터DB 개념 검증, MCP 기반 도구 호출 체계. 전부 devlog로 기록.</p>
+<p><b>왜 기록이 무기인가:</b> 2차 사업 기획 시 "이미 Beta에서 검증했고 결과는 이렇다"는 근거 자료가 예산 확보와 과업 설계의 설득력을 만든다. hscitycity.github.io의 개발일지가 그 축적처.</p>`,
+    links: [["#palantir","팔란티어 비교표 보기"]]
+  },
+  palOnto: {
+    title: "온톨로지 시스템 — 심층 비교",
+    body: `<p><b>팔란티어:</b> 온톨로지는 데이터(명사·Objects), 액션(동사·Actions), 로직(Functions), 보안(Security)의 4중 통합. 핵심 문장 — "The Ontology models decisions, not simply data"(온톨로지는 데이터가 아니라 의사결정을 모델링한다).</p>
+<p><b>화성형:</b> 민원·시설물(명사) + 접수·처리·출동(동사) + AI 원인분석(로직) + 비식별화·협의체(보안). RFP 핵심기능②가 요구하는 RDB+GraphDB+VectorDB 3계층 구조가 팔란티어의 멀티모달 데이터 플레인과 같은 발상.</p>
+<p><b>구현 방안:</b> 1차에서는 GraphDB POC + 임계값 경보 POC(가볍게), 2차에서 Gov Ontology 표준 반영. 개인 Beta에서는 PostGIS 객체-링크-액션 모델 + OpenCrab 온톨로지팩으로 축소 실험. 좌표+국가기초구역이 공통 식별자.</p>
+<p><b>화성시 민원 데이터도 단순 데이터가 아니라 시민의 결정, 공무원의 판단, 도시의 상태를 담은 의사결정 흔적이다.</b></p>`,
+    links: [["#strategy","전략 섹션 보기"]]
+  },
+  palAip: {
+    title: "AIP → AI 에이전트 — 심층 비교",
+    body: `<p><b>팔란티어 AIP:</b> Secure LLM integration(보안 통제 하의 LLM 연동), Agent lifecycle 관리, Operational automation, 12개 AI 역량 카테고리.</p>
+<p><b>화성형:</b> 현재 Claude(agent.js — 장소추출·분석)와 Gemini(water-agent.js — 수도민원 원인분석) 이중 에이전트. 여기에 류승인 MCP 허브(mcp.gomdori.app)를 연결하면 에이전트가 법령·통계·특허·건축·문서를 자유롭게 호출.</p>
+<p><b>RFP 대응:</b> SFR-027이 요구하는 Hybrid Search·Re-ranking·Query Expansion·환각 최소화는 본사업 수행사 몫이지만, water-agent.js에서 RAG 패턴을 이미 축소 구현해봤기 때문에 제안서 평가 때 뭘 봐야 하는지 안다.</p>
+<p><b>2차 확장:</b> 범정부 AI인프라(파싱·청킹·임베딩 API + LLM모델)로 갈아타는 것이 2027 과업. Human-in-the-loop — AI는 선택지를 제시하고 책임자가 결정.</p>`,
+    links: [["#network","MCP 제공자 — 협업 네트워크 보기"]]
+  },
+  palFoundry: {
+    title: "Foundry 데이터 파이프라인 — 심층 비교",
+    body: `<p><b>팔란티어 Foundry:</b> Data Connection(수집) → Transforms(변환) → Virtualization(가상화) → Storage(저장) → Health(모니터링). Multimodal Data Plane은 벤더 종속 없는 개방형 컴퓨트·스토리지.</p>
+<p><b>화성형 현재:</b> search.js(네이버 뉴스·블로그 수집) → extract.js(Claude 장소 추출·정형화) → PostgreSQL(저장). 소박하지만 같은 단계 구조.</p>
+<p><b>본사업으로 확장:</b> DB연계 38종(1차 35 + 지킴e 분리) + 타기관 플랫폼 13종이 수집 계층이 되고, 통합형 데이터표준화·품질관리(핵심기능⑥)가 변환 계층, 연계 장애관리(SFR-025 — 실시간 로그·상태조회·장애 분리처리)가 Health 계층에 해당.</p>
+<p><b>이식성 확보:</b> NCP 기반이지만 표준 K8s + PostgreSQL이라 특정 벤더에 묶이지 않는다 — 팔란티어의 개방형 철학과 일치.</p>`,
+    links: [["#dblink","DB연계 76종 현황 보기"]]
+  },
+  palApollo: {
+    title: "Apollo 배포 자동화 — 심층 비교",
+    body: `<p><b>팔란티어 Apollo:</b> 주당 수만 건 릴리즈를 자율적으로 배포하는 소프트웨어 딜리버리 플랫폼. 정부·군사망 같은 폐쇄 환경에도 자동 배포.</p>
+<p><b>화성형:</b> GitHub Actions → docker build → NCR push → kubectl 롤링업데이트. 규모는 다르지만 "사람 손 없이 코드가 운영에 도달한다"는 철학은 동일.</p>
+<p><b>현재 상태:</b> NKS 파드 2개 Running까지 완료, CI/CD 파이프라인은 예정(8/8 목표). LoadBalancer 엔드포인트 오픈이 선행 과제.</p>
+<p><b>의미:</b> 현안과제 21건을 '과제 하나 = 마이크로서비스 하나'로 붙여나갈 때, 배포 자동화가 없으면 과제 추가마다 수작업이 반복된다. Apollo 철학의 축소판이 확장 속도를 결정한다.</p>`,
+    links: [["#board","칸반 — CI/CD 카드 보기"]]
+  },
+  palRubix: {
+    title: "Rubix 보안 기반 — 심층 비교",
+    body: `<p><b>팔란티어 Rubix:</b> Zero-trust 보안 인프라, 군사급 암호화, 행(row) 수준 접근제어 — 사용자마다 볼 수 있는 데이터 행이 다르다.</p>
+<p><b>화성형:</b> ① 민원 개인정보 비식별화 ETL(RFP 필수 — 모든 민원 연계 수집 시 비식별 조치) ② 폭언·욕설 자동정제 프로세스 ③ DB Private 도메인 전환 완료(공인IP 우회 경로 차단 — 실제로 겪고 고친 사례) ④ 정책협의체(제1부시장)·실행협의체(과장급) 거버넌스, 조례 제14조 근거.</p>
+<p><b>본사업 요구:</b> COR-002 보안특약, DAR-013 데이터 암호화, 개인정보 분리 테이블 설계(DAR-009). 계정권한(핵심기능⑬)에서 RBAC 구현.</p>
+<p><b>교훈:</b> vpc-pub 도메인 사건 — 같은 VPC 안인데 인터넷을 우회하던 경로를 SSL 에러가 드러내줬다. 보안은 설정이 아니라 경로 검증이다.</p>`,
+    links: [["#board","칸반 — DB 보안 전환 카드 보기"]]
+  },
+  palDiff: {
+    title: "결정적 차이 — 그리고 같은 방향",
+    body: `<p><b>규모의 차이:</b> 팔란티어는 300개 이상의 마이크로서비스, 수십억 달러 인프라, 20년의 축적. 화성형은 공무원 1인 + 오픈소스 + 클라우드 API + 전국 협업 네트워크 + 19.3억 본사업.</p>
+<p><b>같은 방향:</b> 데이터 사일로 해소 → 온톨로지로 연결 → AI 의사결정 지원. RFP 추진배경에도 명시되어 있다 — "해외사례(팔란티어 등)를 보면, 여러 기관에 산재된 데이터를 온톨로지 모델로 통합함으로써... 최적의 의사결정 지원 체계가 내재화되어 있음."</p>
+<p><b>화성형의 고유 강점:</b> 팔란티어에 없는 것 — 전국 공무원이 각자 만든 도구(MCP·플랫폼)를 연결하는 개방형 협업 모델. 팔란티어가 벤더로서 파는 것을, 한국 공무원들은 서로 나누며 만든다.</p>
+<p><b>목표 문장:</b> 팔란티어가 미국 정부기관에 20년에 걸쳐 증명한 것을, 화성시는 6개월 MVP + 협업으로 실현한다.</p>`,
+    links: [["#network","협업 네트워크 보기"],["#strategy","전략으로 돌아가기"]]
+  },
+  duty1: {
+    title: "당직플랫폼 1단계 — 바이브코딩 개발",
+    body: `<p>당직 근무자가 야간·휴일에 마주치는 상황(민원 전화, 재난 신고, 시설 장애)마다 대응 절차와 체크리스트를 즉시 안내받는 시스템. Claude와의 바이브코딩으로 별도 예산·기획절차 없이 단기간에 구축했다.</p>
+<p><b>핵심 검증 포인트:</b> 공무원 1인이 외주 없이 실사용 가능한 업무 도구를 만들 수 있는가 — 가능했다. 이것이 이후 모든 프로젝트(water-demo, 화성형 팔란티어)의 자신감의 출발점.</p>`,
+    links: [["#duty","당직 플로우로 돌아가기"]]
+  },
+  duty2: {
+    title: "당직플랫폼 2단계 — Vercel 배포 검증",
+    body: `<p>duty-management-platform.vercel.app 으로 실배포. GitHub 저장소(hscitycity/Duty-Management-Platform)와 연동해 push하면 자동 배포되는 체계까지 경험.</p>
+<p><b>배운 것:</b> ① 서버리스 배포의 편리함과 한계(상시 DB 연결 불가 → 이후 NCP 전환의 이유) ② 실사용자 피드백 수집 방법 ③ 행안부 AI모두의실험실이 요구하는 '시제품 검증' 단계의 실제 모습.</p>`,
+    links: [["#duty","당직 플로우로 돌아가기"]]
+  },
+  duty3: {
+    title: "당직플랫폼 3단계 — 정식 도입 경로",
+    body: `<p>현안과제 7번(당직 매뉴얼 대시보드 — AI 챗봇 기반 상황별 대응 안내)이 당직플랫폼의 정식 버전이다. 본사업 GIS대시보드 목록의 12번(동물사체처리신고 실시간 모니터링 — 당직민원처리 개선)도 당직 업무에서 파생된 과제.</p>
+<p><b>경로:</b> 트랙 B에서 고도화(AI 챗봇 추가) → AI모두의실험실 테스트 → 화성시 문제해결형 도시데이터플랫폼 정식 기능 편입. RFP 붙임2 총괄목록에 동물사체 신고 지도가 이미 12번으로 등재되어 있다.</p>`,
+    links: [["#issues","현안과제 7번 보기"],["#todos","할일 47번 — 동물사체 모니터링"]]
+  },
+  dutyWhy: {
+    title: "당직플랫폼이 중요한 이유 — 표준 프로세스의 원형",
+    body: `<p>당직플랫폼은 단순 POC가 아니라 <b>"바이브코딩 → 테스트(AI모두의실험실) → 정식서비스 도입(도시데이터플랫폼)"</b>이라는 3단계 표준 프로세스를 처음으로 끝까지 밟아본 사례다.</p>
+<p><b>이 프로세스가 적용될 곳:</b> 현안과제 21건 전체. 공모전 우수사례(할일 10번 — 시민·공직자 AI공모전, 관내대학생 공모전, 화성데이터포럼 우수작). 우수공무원 도구 연계 실험.</p>
+<p><b>행안부 AI정부실험실과의 정합:</b> "별도 예산확보·기획절차 없이 아이디어를 바로 시제품화·검증"이 실험실의 핵심 취지 — 당직플랫폼이 정확히 그 모델을 화성시에서 먼저 실행한 것. 산출물을 공공 GitLab에 등록하면 타 지자체 확산 경로도 열린다.</p>
+<p><b>한 문장:</b> 당직플랫폼이 길을 뚫었고, 나머지 20개 과제는 그 길을 따라간다.</p>`,
+    links: [["#issues","현안과제 21건 보기"],["#strategy","전략으로 돌아가기"]]
+  }
+};
+
+function openStrat(key) {
+  const d = stratData[key];
+  if (!d) return;
+  document.getElementById('modal-title').textContent = d.title;
+  let html = d.body;
+  if (d.links && d.links.length) {
+    html += '<div class="modal-links">';
+    d.links.forEach(([anchor, label]) => {
+      html += `<a href="${anchor}" onclick="closeModal()">${label}</a>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal').classList.add('open');
+}
+
+// ── 카드 클릭 상세 모달 ──────────────
+function openModal(title, detail) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent = detail;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', e => {
+    if (justDragged) return;
+    const titleEl = card.querySelector('.card-title');
+    if (!titleEl) return;
+    const detail = titleEl.dataset.detail;
+    if (detail) openModal(titleEl.textContent, detail);
   });
 });
 
