@@ -63,6 +63,18 @@
       .markdown-cell > ul > li > p {
         display: inline-block;
       }
+      /* 핵심 이미지 헤더 위 메뉴/버튼 가독성 (배경 이미지 위 흰색) */
+      #hero-header #menu a {
+        color: #ffffff !important;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+      }
+      #hero-header #menu a:hover {
+        color: #7bb8ff !important;
+      }
+      #hero-header #menu-button,
+      #hero-header #search-button {
+        filter: brightness(0) invert(1);
+      }
     </style>
   </head>
   <body class="font-sans w-full text-surface">
@@ -77,24 +89,19 @@
     </div>
     <!-- // 접속통계 -->
 
-    <!-- 핵심 이미지 배너 (낮) -->
-    <div class="w-full overflow-hidden bg-[#0A1628]">
-      <img
-        src="/img/코리요_온톨로지_낮.jpg"
-        alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
-        class="w-full object-cover object-center max-h-[360px]"
-      />
-    </div>
-    <!-- // 핵심 이미지 배너 -->
-
-    <header class="relative bg-white mx-auto border-b border-gray-300">
+    <!-- 핵심 이미지 헤더 (낮) — 배경 위에 메뉴 라인 -->
+    <header
+      id="hero-header"
+      class="relative w-full bg-[#0A1628] bg-cover bg-center border-b border-gray-300"
+      style="background-image: linear-gradient(180deg, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.35) 20%, rgba(10,22,40,0) 42%), url('/img/코리요_온톨로지_낮.jpg'); min-height: 360px;"
+    >
       <nav
         class="container max-w-[1190px] mx-auto md:p-[19px] p-4 flex items-center relative"
       >
         <!-- 블로그 제목 영역 -->
         <h1
           id="blog-title"
-          class="md:text-2xl text-lg leading-6 mr-auto font-semibold text-gray-900 cursor-pointer"
+          class="md:text-2xl text-lg leading-6 mr-auto font-semibold text-white cursor-pointer drop-shadow"
         >
           화성형 팔란티어 개발일지
         </h1>
