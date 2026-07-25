@@ -91,74 +91,181 @@
         font-family: "Paperlogy", var(--font-fallback);
       }
 
-      /* ============ 헤더: 상단바 + 이미지 하단 오버레이 메뉴 ============ */
+      /* ============ 블로그 히어로 (대시보드 스타일 HUD) ============ */
       :root {
-        --hdr-bg: #ffffff;
-        --hdr-ink: #121314;
-        --hdr-muted: #8d9299;
-        --hdr-line: rgba(18, 19, 20, 0.12);
-        --hdr-hover: #f3f5fa;
-        --hdr-primary: #2e6ff2;
         --hdr-maxw: 1190px;
-        --ov-ink: #ffffff;
-        --ov-muted: rgba(255, 255, 255, 0.78);
-        --ov-line: rgba(255, 255, 255, 0.32);
-        --ov-hover: rgba(255, 255, 255, 0.16);
+        --hdr-primary: #2e6ff2;
+        --hud-cyan: #38bdf8;
+        --hud-bright: #f0f9ff;
       }
-
-      /* 1) 상단 유틸리티 바 (방문자 통계 + 햄버거), sticky */
-      .top-bar {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: var(--hdr-bg);
-        border-bottom: 0.5px solid var(--hdr-line);
+      .blog-hero {
+        position: relative;
+        background-color: #0a1628;
+        background-image: radial-gradient(
+            ellipse 80% 60% at 72% -10%,
+            rgba(43, 125, 224, 0.3) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 50% 45% at 12% 115%,
+            rgba(56, 189, 248, 0.16) 0%,
+            transparent 55%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(10, 22, 40, 0.5) 0%,
+            rgba(10, 22, 40, 0.85) 100%
+          ),
+          url("/img/코리요_온톨로지_낮.png");
+        background-size: auto, auto, cover, cover;
+        background-position: center, center, center, center;
+        background-repeat: no-repeat;
+        overflow: hidden;
       }
-      .top-bar-inner {
+      .blog-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 48px 48px;
+        -webkit-mask-image: radial-gradient(
+          ellipse 70% 70% at 50% 30%,
+          #000 20%,
+          transparent 75%
+        );
+        mask-image: radial-gradient(
+          ellipse 70% 70% at 50% 30%,
+          #000 20%,
+          transparent 75%
+        );
+        pointer-events: none;
+      }
+      .blog-hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(56, 189, 248, 0.5),
+          transparent
+        );
+      }
+      .blog-hero-inner {
+        position: relative;
+        z-index: 2;
         max-width: var(--hdr-maxw);
         margin: 0 auto;
-        padding: 8px 28px;
+        padding: 18px 28px 60px;
+      }
+      /* 상단 네비 */
+      .bh-nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-      }
-      .wordmark-top {
-        font-size: 40px;
-        font-weight: 500;
-        line-height: 1.1;
-        color: var(--hdr-ink);
-        white-space: nowrap;
-        cursor: pointer;
-        letter-spacing: -0.5px;
-        background: rgba(18, 19, 20, 0.06);
-        border: 0.5px solid rgba(18, 19, 20, 0.08);
-        border-radius: 14px;
-        padding: 6px 18px;
-      }
-      .wordmark-top:hover {
-        background: rgba(18, 19, 20, 0.1);
-      }
-      .top-bar-right {
-        display: flex;
-        align-items: center;
         gap: 16px;
+        min-height: 48px;
+      }
+      .bh-nav-left {
         min-width: 0;
       }
       .visitor-stats {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
         font-size: 12px;
-        color: var(--hdr-muted);
+        color: rgba(255, 255, 255, 0.6);
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
         min-width: 0;
       }
       .visitor-stats strong {
-        color: var(--hdr-ink);
+        color: #fff;
         font-weight: 700;
+      }
+      .bh-nav-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .hdr-link {
+        position: relative;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.2s ease;
+      }
+      .hdr-link:hover {
+        color: var(--hud-bright);
+      }
+      .hdr-link.is-current {
+        color: var(--hud-bright);
+        font-weight: 600;
+      }
+      .hdr-link.is-current::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        height: 2px;
+        background: var(--hud-cyan);
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+      }
+      .hdr-iconbtn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--hud-cyan);
+        transition: background 0.2s ease;
+      }
+      .hdr-iconbtn:hover {
+        background: rgba(56, 189, 248, 0.16);
+      }
+      .hdr-iconbtn svg {
+        width: 20px;
+        height: 20px;
+      }
+      .hdr-divider {
+        width: 1px;
+        height: 20px;
+        background: rgba(56, 189, 248, 0.35);
+      }
+      .hdr-dashboard-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 15px;
+        color: var(--hud-cyan);
+        text-decoration: none;
+        border: 1px solid rgba(56, 189, 248, 0.5);
+        border-radius: 8px;
+        padding: 6px 14px;
+        box-shadow: inset 0 0 8px rgba(56, 189, 248, 0.1);
+        transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .hdr-dashboard-btn:hover {
+        color: var(--hud-bright);
+        border-color: rgba(56, 189, 248, 0.9);
+        box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+      }
+      .hdr-dashboard-btn svg {
+        width: 15px;
+        height: 15px;
       }
       .hamburger-btn {
         width: 40px;
@@ -174,7 +281,7 @@
         transition: background 0.2s ease;
       }
       .hamburger-btn:hover {
-        background: var(--hdr-hover);
+        background: rgba(255, 255, 255, 0.1);
       }
       .hamburger-lines {
         display: inline-flex;
@@ -186,7 +293,7 @@
         display: block;
         height: 2px;
         width: 100%;
-        background: var(--hdr-ink);
+        background: #fff;
         border-radius: 2px;
         transition: transform 0.2s ease, opacity 0.2s ease;
       }
@@ -199,28 +306,69 @@
       .hamburger-btn[aria-expanded="true"] .hamburger-lines span:nth-child(3) {
         transform: translateY(-6px) rotate(-45deg);
       }
-
-      /* 읽기 진행선 (상단바 하단) */
+      /* 히어로 카피 */
+      .blog-hero-copy {
+        margin-top: 44px;
+      }
+      .hero-eyebrow {
+        display: inline-block;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        color: var(--hud-cyan);
+        background: rgba(56, 189, 248, 0.12);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 999px;
+        padding: 7px 18px;
+        margin-bottom: 22px;
+      }
+      .hero-h1 {
+        font-family: "Paperlogy", var(--font-fallback);
+        font-size: 52px;
+        font-weight: 900;
+        line-height: 1.12;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
+        cursor: pointer;
+        width: fit-content;
+        background: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #c9e2ff 45%,
+          #7bb8ff 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+      .hero-sub {
+        font-size: 17px;
+        font-weight: 500;
+        color: rgba(200, 220, 240, 0.85);
+      }
+      /* 읽기 진행선 */
       .hdr-progress {
         position: absolute;
         left: 0;
         bottom: 0;
         height: 2px;
         width: 0%;
-        background: var(--hdr-primary);
+        background: var(--hud-cyan);
+        box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+        z-index: 3;
         transition: width 0.1s linear;
       }
-
       /* 햄버거 드롭다운 메뉴 */
       .menu-drawer {
         position: fixed;
-        top: calc(var(--topbar-h, 56px) + 6px);
-        right: 16px;
+        top: 68px;
+        right: 20px;
         z-index: 60;
-        background: var(--hdr-bg);
-        border: 0.5px solid var(--hdr-line);
+        background: #ffffff;
+        border: 0.5px solid rgba(18, 19, 20, 0.12);
         border-radius: 12px;
-        box-shadow: 0 12px 32px rgba(10, 22, 40, 0.16);
+        box-shadow: 0 12px 32px rgba(10, 22, 40, 0.2);
         padding: 8px;
         display: flex;
         flex-direction: column;
@@ -232,7 +380,7 @@
       .drawer-link {
         font-size: 17px;
         font-weight: 600;
-        color: var(--hdr-ink);
+        color: #121314;
         text-decoration: none;
         text-align: left;
         font-family: inherit;
@@ -243,177 +391,20 @@
         cursor: pointer;
       }
       .drawer-link:hover {
-        background: var(--hdr-hover);
+        background: #f3f5fa;
       }
-
-      /* 2) 히어로 이미지 + 하단 오버레이 메뉴바 */
-      .hero-banner {
-        position: relative;
-        width: 100%;
-        background: #0a1628;
-        line-height: 0;
-      }
-      .hero-banner img {
-        display: block;
-        width: 100%;
-        height: auto;
-        max-height: 420px;
-        object-fit: cover;
-        object-position: center;
-      }
-      .hero-banner::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 100px;
-        background: linear-gradient(
-          180deg,
-          rgba(10, 22, 40, 0) 0%,
-          rgba(10, 22, 40, 0.35) 100%
-        );
-        pointer-events: none;
-        z-index: 1;
-      }
-      .hero-menubar {
-        position: sticky;
-        top: var(--topbar-h, 60px);
-        z-index: 44;
-        line-height: normal;
-        margin-top: -76px; /* 이미지 하단에 겹치기 */
-        background: rgba(10, 22, 40, 0.55);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        transition: background 0.2s ease;
-      }
-      .hero-menubar-inner {
-        max-width: var(--hdr-maxw);
-        margin: 0 auto;
-        padding: 16px 28px;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 20px;
-      }
-      .hero-menubar .hdr-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-width: 0;
-      }
-      .hero-menubar .hdr-mark {
-        width: 26px;
-        height: 26px;
-        border-radius: 7px;
-        background: var(--ov-ink);
-        color: #0a1628;
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .hero-menubar .hdr-mark svg {
-        width: 15px;
-        height: 15px;
-      }
-      .hero-menubar .wordmark {
-        font-size: 21px;
-        font-weight: 500;
-        color: var(--ov-ink);
-        white-space: nowrap;
-        cursor: pointer;
-        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
-      }
-      .hero-menubar .hdr-right {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-      .hero-menubar .hdr-link {
-        position: relative;
-        font-size: 22px;
-        color: var(--ov-muted);
-        text-decoration: none;
-        white-space: nowrap;
-        transition: color 0.2s ease;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
-      }
-      .hero-menubar .hdr-link:hover {
-        color: var(--ov-ink);
-      }
-      .hero-menubar .hdr-link.is-current {
-        color: var(--ov-ink);
-        font-weight: 500;
-      }
-      .hero-menubar .hdr-link.is-current::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -6px;
-        height: 2px;
-        background: var(--ov-ink);
-      }
-      .hero-menubar .hdr-iconbtn {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        color: var(--ov-ink);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        transition: background 0.2s ease;
-      }
-      .hero-menubar .hdr-iconbtn:hover {
-        background: var(--ov-hover);
-      }
-      .hero-menubar .hdr-iconbtn svg {
-        width: 24px;
-        height: 24px;
-      }
-      .hero-menubar .hdr-divider {
-        width: 0.5px;
-        height: 26px;
-        background: var(--ov-line);
-        flex-shrink: 0;
-      }
-      .hero-menubar .hdr-dashboard-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 20px;
-        color: var(--ov-ink);
-        text-decoration: none;
-        border: 0.5px solid var(--ov-line);
-        border-radius: 8px;
-        padding: 6px 12px;
-        transition: background 0.2s ease;
-      }
-      .hero-menubar .hdr-dashboard-btn:hover {
-        background: var(--ov-hover);
-      }
-      .hero-menubar .hdr-dashboard-btn svg {
-        width: 18px;
-        height: 18px;
-      }
-
-      /* 검색 패널 (우상단 드롭다운) */
+      /* 검색 패널 */
       .hdr-search-panel {
         position: fixed;
-        top: calc(var(--topbar-h, 56px) + 6px);
-        right: 16px;
+        top: 68px;
+        right: 20px;
         z-index: 60;
-        background: var(--hdr-bg);
-        border: 0.5px solid var(--hdr-line);
+        background: #ffffff;
+        border: 0.5px solid rgba(18, 19, 20, 0.12);
         border-radius: 12px;
-        box-shadow: 0 12px 32px rgba(10, 22, 40, 0.16);
+        box-shadow: 0 12px 32px rgba(10, 22, 40, 0.2);
         padding: 10px;
-        width: min(320px, calc(100vw - 32px));
+        width: min(320px, calc(100vw - 40px));
       }
       .hdr-search-panel[hidden] {
         display: none;
@@ -426,54 +417,43 @@
       .hdr-search-panel input {
         flex: 1;
         height: 40px;
-        border: 0.5px solid var(--hdr-line);
+        border: 0.5px solid rgba(18, 19, 20, 0.12);
         border-radius: 8px;
         padding: 0 14px;
         font-size: 15px;
-        color: var(--hdr-ink);
-        background: var(--hdr-bg);
+        color: #121314;
         outline: none;
       }
       .hdr-search-panel input:focus {
         border-color: var(--hdr-primary);
       }
       .hdr-search-panel .hdr-iconbtn {
+        color: #121314;
         width: 40px;
         height: 40px;
-        border-radius: 8px;
-        color: var(--hdr-ink);
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        border: none;
-        cursor: pointer;
       }
       .hdr-search-panel .hdr-iconbtn:hover {
-        background: var(--hdr-hover);
+        background: #f3f5fa;
       }
-
-      /* 맨 위로 이동 버튼 (FAB) */
+      /* 맨 위로 FAB */
       .scroll-top-fab {
         position: fixed;
         right: 24px;
         bottom: 24px;
         z-index: 55;
-        width: 54px;
-        height: 54px;
+        width: 52px;
+        height: 52px;
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: #ffffff;
         background: #0a1628;
-        border: 2px solid #ffffff;
+        border: 1px solid rgba(56, 189, 248, 0.6);
         cursor: pointer;
-        box-shadow: 0 8px 24px rgba(10, 22, 40, 0.45);
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         opacity: 0;
         transform: translateY(8px);
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
       }
       .scroll-top-fab[hidden] {
         display: none;
@@ -483,64 +463,65 @@
         transform: translateY(0);
       }
       .scroll-top-fab:hover {
-        background: #1a2f52;
+        box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
       }
       .scroll-top-fab svg {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
+        color: var(--hud-cyan);
       }
-
-      /* 접근성: 포커스 링 유지 */
+      /* 포커스 링 유지 */
       .hdr-link:focus-visible,
       .hdr-iconbtn:focus-visible,
       .hdr-dashboard-btn:focus-visible,
-      .wordmark:focus-visible,
-      .wordmark-top:focus-visible,
-      .scroll-top-fab:focus-visible,
+      .hero-h1:focus-visible,
       .hamburger-btn:focus-visible,
       .drawer-link:focus-visible,
+      .scroll-top-fab:focus-visible,
       .hdr-search-panel input:focus-visible {
-        outline: 2px solid var(--hdr-primary);
+        outline: 2px solid var(--hud-cyan);
         outline-offset: 2px;
       }
-
-      /* 모바일 (<768px): 오버레이 링크 숨기고 햄버거로 접근 */
+      /* 모바일 */
       @media (max-width: 767px) {
-        .top-bar-inner {
-          padding: 6px 16px;
-        }
-        .wordmark-top {
-          font-size: 24px;
+        .blog-hero-inner {
+          padding: 14px 18px 44px;
         }
         .visitor-stats {
           display: none;
         }
-        .visitor-stats {
+        .bh-nav-right {
+          gap: 10px;
+        }
+        .hdr-link {
+          font-size: 14px;
+        }
+        .hero-h1 {
+          font-size: 34px;
+        }
+        .hero-eyebrow {
           font-size: 11px;
-          gap: 8px;
+          letter-spacing: 1.5px;
+          padding: 6px 14px;
         }
-        .hero-menubar {
-          padding: 12px 16px;
+        .hero-sub {
+          font-size: 14px;
         }
-        .hero-menubar .wordmark {
-          font-size: 18px;
-        }
-        .hero-menubar .hdr-link,
-        .hero-menubar .hdr-divider,
-        .hero-menubar .hdr-dashboard-btn {
+        .hdr-dashboard-btn span {
           display: none;
+        }
+        .hdr-dashboard-btn {
+          padding: 6px 10px;
         }
       }
-
       /* 모션 최소화 */
       @media (prefers-reduced-motion: reduce) {
-        .top-bar,
-        .hero-menubar,
         .hdr-link,
         .hdr-iconbtn,
         .hdr-dashboard-btn,
-        .hdr-progress,
+        .hamburger-btn,
         .hamburger-lines span,
+        .hdr-progress,
         .scroll-top-fab {
           transition: none;
         }
@@ -549,82 +530,80 @@
   </head>
   <body class="w-full text-surface">
     <!-- ① 상단 유틸리티 바: 제목(좌) + 방문자 통계 + 햄버거(우), sticky -->
-    <div id="top-bar" class="top-bar">
-      <div class="top-bar-inner">
-        <span id="blog-title" class="wordmark-top" role="link" tabindex="0"
-          >화성형 팔란티어 개발일지</span
-        >
-        <div class="top-bar-right">
-          <div id="visitor-stats" class="visitor-stats">
-            <span>일간 방문자수 <strong id="stat-daily">-</strong>명</span>
-            <span>월간 방문자수 <strong id="stat-monthly">-</strong>명</span>
-            <span>누적 방문자수 <strong id="stat-total">-</strong>명</span>
+    <!-- ===== 블로그 히어로 (대시보드 스타일) ===== -->
+    <header class="blog-hero">
+      <div class="blog-hero-inner">
+        <!-- 상단 네비 -->
+        <nav class="bh-nav" aria-label="주요 메뉴">
+          <div class="bh-nav-left">
+            <div id="visitor-stats" class="visitor-stats">
+              <span>일간 <strong id="stat-daily">-</strong></span>
+              <span>월간 <strong id="stat-monthly">-</strong></span>
+              <span>누적 <strong id="stat-total">-</strong></span>
+            </div>
           </div>
-          <button
-            id="hamburger-btn"
-            class="hamburger-btn"
-            type="button"
-            aria-label="메뉴 열기"
-            aria-expanded="false"
-            aria-controls="menu-drawer"
-          >
-            <span class="hamburger-lines" aria-hidden="true"
-              ><span></span><span></span><span></span
-            ></span>
-          </button>
+          <div class="bh-nav-right">
+            <a href="#" id="nav-about" class="hdr-link" data-nav="about">소개</a>
+            <a href="#" id="nav-blog" class="hdr-link" data-nav="blog">개발일지</a>
+            <button
+              id="hdr-search-btn"
+              class="hdr-iconbtn"
+              type="button"
+              aria-label="검색 열기"
+              aria-expanded="false"
+              data-nav="search"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </button>
+            <span class="hdr-divider" aria-hidden="true"></span>
+            <a href="dashboard.html" id="nav-dashboard" class="hdr-dashboard-btn" target="_blank" rel="noopener noreferrer">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
+              <span>대시보드</span>
+            </a>
+            <button
+              id="hamburger-btn"
+              class="hamburger-btn"
+              type="button"
+              aria-label="메뉴 열기"
+              aria-expanded="false"
+              aria-controls="menu-drawer"
+            >
+              <span class="hamburger-lines" aria-hidden="true"
+                ><span></span><span></span><span></span
+              ></span>
+            </button>
+          </div>
+        </nav>
+
+        <!-- 히어로 카피 -->
+        <div class="blog-hero-copy">
+          <span class="hero-eyebrow">HWASEONG PALANTIR SYSTEM</span>
+          <h1 id="blog-title" class="hero-h1" role="link" tabindex="0">
+            화성형 팔란티어 개발일지
+          </h1>
+          <p class="hero-sub">
+            화성시 문제해결형 도시데이터플랫폼 구축 기록 · 인프라 전환 ·
+            아키텍처 분석
+          </p>
         </div>
       </div>
-      <!-- 읽기 진행선 -->
       <div id="hdr-progress" class="hdr-progress" aria-hidden="true"></div>
-    </div>
+    </header>
 
-    <!-- 햄버거 드롭다운 메뉴 (항상 사용 가능한 메뉴 토글) -->
+    <!-- 햄버거 드롭다운 메뉴 -->
     <nav id="menu-drawer" class="menu-drawer" aria-label="메뉴" hidden>
       <a href="#" class="drawer-link" data-nav="about">소개</a>
       <a href="#" class="drawer-link" data-nav="blog">개발일지</a>
       <a href="dashboard.html" class="drawer-link" target="_blank" rel="noopener noreferrer">개발관리 대시보드</a>
       <button type="button" class="drawer-link" data-nav="search">검색</button>
-    </nav>
-
-    <!-- ② 핵심 이미지(낮) -->
-    <div class="hero-banner">
-      <img
-        src="/img/코리요_온톨로지_낮.png"
-        alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
-      />
-    </div>
-
-    <!-- 메뉴바: 이미지 하단에 겹쳤다가 스크롤 시 상단 고정(sticky) -->
-    <nav class="hero-menubar" aria-label="주요 메뉴">
-      <div class="hero-menubar-inner">
-        <div class="hdr-right">
-          <a href="#" id="nav-about" class="hdr-link" data-nav="about">소개</a>
-          <a href="#" id="nav-blog" class="hdr-link" data-nav="blog">개발일지</a>
-          <button
-            id="hdr-search-btn"
-            class="hdr-iconbtn"
-            type="button"
-            aria-label="검색 열기"
-            aria-expanded="false"
-            data-nav="search"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </button>
-          <span class="hdr-divider" aria-hidden="true"></span>
-          <a href="dashboard.html" id="nav-dashboard" class="hdr-dashboard-btn" target="_blank" rel="noopener noreferrer">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="7" rx="1" />
-              <rect x="14" y="3" width="7" height="7" rx="1" />
-              <rect x="3" y="14" width="7" height="7" rx="1" />
-              <rect x="14" y="14" width="7" height="7" rx="1" />
-            </svg>
-            <span>대시보드</span>
-          </a>
-        </div>
-      </div>
     </nav>
 
     <!-- 맨 위로 이동 버튼 (스크롤 시 노출, 모든 페이지 공통) -->
