@@ -13,6 +13,7 @@
   const searchInput = document.getElementById("search-input");
   const searchGo = document.getElementById("hdr-search-go");
   const wordmark = document.getElementById("blog-title");
+  const scrollTopFab = document.getElementById("scroll-top-fab");
 
   const prefersReduced = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -49,6 +50,14 @@
     const docH = document.documentElement.scrollHeight - window.innerHeight;
     const ratio = docH > 0 ? Math.min(1, Math.max(0, y / docH)) : 0;
     if (progressEl) progressEl.style.width = (ratio * 100).toFixed(2) + "%";
+
+    // 맨 위로 버튼: 300px 넘게 스크롤하면 노출
+    if (scrollTopFab) {
+      const on = y > 300;
+      if (on && scrollTopFab.hidden) scrollTopFab.hidden = false;
+      scrollTopFab.classList.toggle("show", on);
+      scrollTopFab.style.pointerEvents = on ? "auto" : "none";
+    }
     ticking = false;
   }
   function onScroll() {
@@ -186,6 +195,13 @@
         e.preventDefault();
         wordmark.click();
       }
+    });
+  }
+
+  // ---------- 맨 위로 버튼 클릭 ----------
+  if (scrollTopFab) {
+    scrollTopFab.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
     });
   }
 

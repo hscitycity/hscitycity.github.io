@@ -86,6 +86,7 @@
         font-family: "Pretendard Variable", Pretendard, var(--font-fallback);
       }
       .wordmark,
+      .wordmark-top,
       .paperlogy-title {
         font-family: "Paperlogy", var(--font-fallback);
       }
@@ -121,6 +122,21 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+      }
+      .wordmark-top {
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1.1;
+        color: var(--hdr-ink);
+        white-space: nowrap;
+        cursor: pointer;
+        letter-spacing: -0.5px;
+      }
+      .top-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-width: 0;
       }
       .visitor-stats {
         display: flex;
@@ -265,7 +281,7 @@
         padding: 16px 28px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         gap: 16px;
       }
       .hero-menubar .hdr-left {
@@ -304,7 +320,7 @@
       }
       .hero-menubar .hdr-link {
         position: relative;
-        font-size: 16px;
+        font-size: 18px;
         color: var(--ov-muted);
         text-decoration: none;
         white-space: nowrap;
@@ -357,7 +373,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 15px;
+        font-size: 18px;
         color: var(--ov-ink);
         text-decoration: none;
         border: 0.5px solid var(--ov-line);
@@ -425,11 +441,49 @@
         background: var(--hdr-hover);
       }
 
+      /* 맨 위로 이동 버튼 (FAB) */
+      .scroll-top-fab {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 55;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        background: var(--hdr-primary);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(46, 111, 242, 0.4);
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .scroll-top-fab[hidden] {
+        display: none;
+      }
+      .scroll-top-fab.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .scroll-top-fab:hover {
+        background: #245fd0;
+      }
+      .scroll-top-fab svg {
+        width: 20px;
+        height: 20px;
+      }
+
       /* 접근성: 포커스 링 유지 */
       .hdr-link:focus-visible,
       .hdr-iconbtn:focus-visible,
       .hdr-dashboard-btn:focus-visible,
       .wordmark:focus-visible,
+      .wordmark-top:focus-visible,
+      .scroll-top-fab:focus-visible,
       .hamburger-btn:focus-visible,
       .drawer-link:focus-visible,
       .hdr-search-panel input:focus-visible {
@@ -441,6 +495,12 @@
       @media (max-width: 767px) {
         .top-bar-inner {
           padding: 6px 16px;
+        }
+        .wordmark-top {
+          font-size: 24px;
+        }
+        .visitor-stats {
+          display: none;
         }
         .visitor-stats {
           font-size: 11px;
@@ -467,33 +527,39 @@
         .hdr-iconbtn,
         .hdr-dashboard-btn,
         .hdr-progress,
-        .hamburger-lines span {
+        .hamburger-lines span,
+        .scroll-top-fab {
           transition: none;
         }
       }
     </style>
   </head>
   <body class="w-full text-surface">
-    <!-- ① 상단 유틸리티 바: 방문자 통계(좌) + 햄버거(우), sticky -->
+    <!-- ① 상단 유틸리티 바: 제목(좌) + 방문자 통계 + 햄버거(우), sticky -->
     <div id="top-bar" class="top-bar">
       <div class="top-bar-inner">
-        <div id="visitor-stats" class="visitor-stats">
-          <span>일간 방문자수 <strong id="stat-daily">-</strong>명</span>
-          <span>월간 방문자수 <strong id="stat-monthly">-</strong>명</span>
-          <span>누적 방문자수 <strong id="stat-total">-</strong>명</span>
-        </div>
-        <button
-          id="hamburger-btn"
-          class="hamburger-btn"
-          type="button"
-          aria-label="메뉴 열기"
-          aria-expanded="false"
-          aria-controls="menu-drawer"
+        <span id="blog-title" class="wordmark-top" role="link" tabindex="0"
+          >화성형 팔란티어 개발일지</span
         >
-          <span class="hamburger-lines" aria-hidden="true"
-            ><span></span><span></span><span></span
-          ></span>
-        </button>
+        <div class="top-bar-right">
+          <div id="visitor-stats" class="visitor-stats">
+            <span>일간 방문자수 <strong id="stat-daily">-</strong>명</span>
+            <span>월간 방문자수 <strong id="stat-monthly">-</strong>명</span>
+            <span>누적 방문자수 <strong id="stat-total">-</strong>명</span>
+          </div>
+          <button
+            id="hamburger-btn"
+            class="hamburger-btn"
+            type="button"
+            aria-label="메뉴 열기"
+            aria-expanded="false"
+            aria-controls="menu-drawer"
+          >
+            <span class="hamburger-lines" aria-hidden="true"
+              ><span></span><span></span><span></span
+            ></span>
+          </button>
+        </div>
       </div>
       <!-- 읽기 진행선 -->
       <div id="hdr-progress" class="hdr-progress" aria-hidden="true"></div>
@@ -503,7 +569,7 @@
     <nav id="menu-drawer" class="menu-drawer" aria-label="메뉴" hidden>
       <a href="#" class="drawer-link" data-nav="about">소개</a>
       <a href="#" class="drawer-link" data-nav="blog">개발일지</a>
-      <a href="dashboard.html" class="drawer-link">개발관리 대시보드</a>
+      <a href="dashboard.html" class="drawer-link" target="_blank" rel="noopener noreferrer">개발관리 대시보드</a>
       <button type="button" class="drawer-link" data-nav="search">검색</button>
     </nav>
 
@@ -514,17 +580,6 @@
         alt="화성특례시 도시데이터 관제센터 — 화성형 팔란티어"
       />
       <nav class="hero-menubar" aria-label="주요 메뉴">
-        <div class="hdr-left">
-          <span class="hdr-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="4 17 10 11 4 5" />
-              <line x1="12" y1="19" x2="20" y2="19" />
-            </svg>
-          </span>
-          <span id="blog-title" class="wordmark" role="link" tabindex="0"
-            >화성형 팔란티어 개발일지</span
-          >
-        </div>
         <div class="hdr-right">
           <a href="#" id="nav-about" class="hdr-link" data-nav="about">소개</a>
           <a href="#" id="nav-blog" class="hdr-link" data-nav="blog">개발일지</a>
@@ -542,7 +597,7 @@
             </svg>
           </button>
           <span class="hdr-divider" aria-hidden="true"></span>
-          <a href="dashboard.html" id="nav-dashboard" class="hdr-dashboard-btn">
+          <a href="dashboard.html" id="nav-dashboard" class="hdr-dashboard-btn" target="_blank" rel="noopener noreferrer">
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7" rx="1" />
               <rect x="14" y="3" width="7" height="7" rx="1" />
@@ -554,6 +609,14 @@
         </div>
       </nav>
     </div>
+
+    <!-- 맨 위로 이동 버튼 (스크롤 시 노출, 모든 페이지 공통) -->
+    <button id="scroll-top-fab" class="scroll-top-fab" type="button" aria-label="맨 위로 이동" hidden>
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5" />
+        <polyline points="6 11 12 5 18 11" />
+      </svg>
+    </button>
 
     <!-- 검색 패널 (기존 search() 재사용) -->
     <div id="hdr-search-panel" class="hdr-search-panel" hidden>
@@ -594,9 +657,6 @@
     >
       <header class="flex items-center">
         <h2 class="aside-tit sr-only text-sm font-semibold ml-5">content</h2>
-        <button id="aside-button">
-          <span class="sr-only">카테고리 열기</span>
-        </button>
       </header>
       <aside></aside>
     </section>
